@@ -71,6 +71,6 @@ int serial_poll(device dev, char *buffer, size_t len)
 	// losing points for inattention to detail
 	(void)dev; (void)buffer;
 
-	// THIS MUST BE CHANGED TO RETURN THE CORRECT VALUE
+	// THIS MUST BE CHANGED TO RETURN THE CORRECT VALUE.
 	return (int)len;
 }
