@@ -1,7 +1,7 @@
 #include <mpx/io.h>
 #include <mpx/serial.h>
 #include <sys_req.h>
-#include <string.h>
+
 
 enum uart_registers {
 	RBR = 0,	// Receive Buffer
@@ -66,18 +66,27 @@ int serial_poll(device dev, char *buffer, size_t len)
 	// insert your code to gather keyboard input via the technique of polling.
 	// You must validate each key and handle special keys such as delete, back space, and
 	// arrow keys
-	int buffer_index = 0;
+	
+	//initialize counter
+	int char_count = 0; 
 
-	while ( buffer_index < (int)len){
-		//check if data is available, not sure how to do this
-		if((LSR) == 1){
-			char c = inb(dev);
-			//update user buffer or handle the data
-			strncat(buffer, &c, 1);
-		}
+	//initialize buffer counter
+	int buffer_count = 0;
+	//while buffer is not full
+	while(buffer_count < len){
+
+	//inb the status register 
+	inb(LSR);
+
+	//check if teh line register contents and 1 are true
+	//then this means we have a character in com1
+	//increment char counter
+
+	//inb com1 to read the character 
+
+	//if regular character then outb it so the user can see and add to the buffer
+	//if it is a new line then you are done
 	}
-	(void)buffer;
-
 	// THIS MUST BE CHANGED TO RETURN THE CORRECT VALUE.
 	return (int)len;
 }

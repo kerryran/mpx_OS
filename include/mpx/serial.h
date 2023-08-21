@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 #include <mpx/device.h>
-#include <string.h>
+
 
 /**
  @file mpx/serial.h
