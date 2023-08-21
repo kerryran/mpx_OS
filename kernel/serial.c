@@ -74,7 +74,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 	int buffer_count = 0;
 
 	//while buffer is not full
-	while(buffer_count < len){
+	while(buffer_count < (int)len){
 
 	//inb the status register 
 	inb(LSR);
@@ -90,12 +90,12 @@ int serial_poll(device dev, char *buffer, size_t len)
 
 	
 	//if it is a new line then you are done
-	if(c == '/n'){
-		exit(); //could change this to something else later..
+	if(c == '\n'){
+		//needs to exit,could change this to something else later..
 	}
 	else{
 		//if regular character then outb it so the user can see and add to the buffer
-		outb(COM1, c);
+		outb(dev, c);
 		outb(buffer,c);
 		//increment buffer count
 		buffer_count ++;
@@ -103,6 +103,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 	}
 	
 	}
+	
 	// returns number of characters added to the buffer
 	return buffer_count;
 }
