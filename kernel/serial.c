@@ -1,6 +1,7 @@
 #include <mpx/io.h>
 #include <mpx/serial.h>
 #include <sys_req.h>
+#include <string.h>
 
 enum uart_registers {
 	RBR = 0,	// Receive Buffer
@@ -67,13 +68,15 @@ int serial_poll(device dev, char *buffer, size_t len)
 	// arrow keys
 	int buffer_index = 0;
 
-	while ( buffer_index < len){
+	while ( buffer_index < (int)len){
 		//check if data is available, not sure how to do this
 		if((LSR) == 1){
 			char c = inb(dev);
 			//update user buffer or handle the data
+			strncat(buffer, &c, 1);
 		}
 	}
+	(void)buffer;
 
 	// THIS MUST BE CHANGED TO RETURN THE CORRECT VALUE.
 	return (int)len;
