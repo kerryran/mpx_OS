@@ -93,6 +93,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 	if(c == '\n'){
 		//needs to exit,could change this to something else later..
 	}
+
 	else{
 		//if regular character then outb it so the user can see and add to the buffer
 		outb(dev, c);
