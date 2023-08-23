@@ -47,4 +47,7 @@ size_t strlen(const char *s);
 */
 char* strtok(char * restrict s1, const char * restrict s2);
 
+//puts method
+void puts(char* string);
+
 #endif

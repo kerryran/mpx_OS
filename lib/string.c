@@ -1,4 +1,5 @@
 #include <string.h>
+#include <../include/sys_req.h>
 
 /* memcpy() and memset() are in core.c */
 
@@ -75,3 +76,11 @@ char *strtok(char * restrict s1, const char * restrict s2)
 	tok_tmp = NULL;
 	return s1;
 }
+
+//Method for printing to console
+
+void puts(char* string) {
+	sys_req(WRITE, COM1, string, strlen(string));
+}
+
+//Method for read

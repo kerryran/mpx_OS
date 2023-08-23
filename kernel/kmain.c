@@ -5,7 +5,7 @@
 #include <sys_req.h>
 #include <string.h>
 #include <memory.h>
-#include <comhand.h>
+#include <../include/comhand.h>
 
 static void klogv(device dev, const char *msg)
 {
@@ -24,28 +24,33 @@ void kmain(void)
 	// Note that here, you should call the function *before* the output
 	// via klogv(), or the message won't print. In all other cases, the
 	// output should come first as it describes what is about to happen.
+	serial_init(COM1);
 	klogv(COM1, "Initialized serial I/O on COM1 device...");
 
 	// 1) Global Descriptor Table (GDT) -- <mpx/gdt.h>
 	// Keeps track of the various memory segments (Code, Data, Stack, etc.)
 	// required by the x86 architecture. This needs to be initialized before
 	// interrupts can be configured.
+	gdt_init();
 	klogv(COM1, "Initializing Global Descriptor Table...");
 
 	// 2) Interrupt Descriptor Table (IDT) -- <mpx/interrupts.h>
 	// Keeps track of where the various Interrupt Vectors are stored. It
 	// needs to be initialized before Interrupt Service Routines (ISRs) can
 	// be installed.
+	idt_init();
 	klogv(COM1, "Initializing Interrupt Descriptor Table...");
 
 	// 3) Disable Interrupts -- <mpx/interrupts.h>
 	// You'll be modifying how interrupts work, so disable them to avoid
 	// crashing.
+	cli();
 	klogv(COM1, "Disabling interrupts...");
 
 	// 4) Interrupt Request (IRQ) -- <mpx/interrupts.h>
 	// The x86 architecture requires ISRs for at least the first 32
 	// Interrupt Request (IRQ) lines.
+	irq_init();
 	klogv(COM1, "Initializing Interrupt Request routines...");
 
 	// 5) Programmable Interrupt Controller (PIC) -- <mpx/interrupts.h>
@@ -57,6 +62,7 @@ void kmain(void)
 	// 6) Reenable interrupts -- <mpx/interrupts.h>
 	// Now that interrupt routines are set up, allow interrupts to happen
 	// again.
+	sti();
 	klogv(COM1, "Enabling Interrupts...");
 
 	// 7) Virtual Memory (VM) -- <mpx/vm.h>
@@ -68,6 +74,7 @@ void kmain(void)
 	// Read, Write, or Execute for pages of memory. VM is managed through
 	// Page Tables, data structures that describe the logical-to-physical
 	// mapping as well as manage permissions and other metadata.
+	vm_init();
 	klogv(COM1, "Initializing Virtual Memory...");
 
 	// 8) MPX Modules -- *headers vary*
@@ -81,7 +88,7 @@ void kmain(void)
 	// the system.
 	klogv(COM1, "Transferring control to commhand...");
 	// R4: __asm__ volatile ("int $0x60" :: "a"(IDLE));
-	comhand();
+	//comhand();
 
 	// 10) System Shutdown -- *headers to be determined by your design*
 	// After your command handler returns, take care of any clean up that
