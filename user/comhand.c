@@ -9,7 +9,6 @@ void comhand(void) {
        puts("FroggyOS\n");
 
        char[5] buf = {0};
-       sys_req(READ, COM1, buf, strlen(buf))
+       sys_req(READ, COM1, buf, strlen(buf));
 
-   
 }
