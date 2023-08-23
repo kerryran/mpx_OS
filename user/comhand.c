@@ -4,7 +4,12 @@
 #include <mpx/serial.h>
 
 void comhand(void) {
+
         //Menu Prompt
-       puts("I am a cool menu\n");
+       puts("FroggyOS\n");
+
+       char[5] buf = {0};
+       sys_req(READ, COM1, buf, strlen(buf))
+
    
 }
