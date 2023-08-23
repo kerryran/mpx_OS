@@ -88,7 +88,7 @@ void kmain(void)
 	// the system.
 	klogv(COM1, "Transferring control to commhand...");
 	// R4: __asm__ volatile ("int $0x60" :: "a"(IDLE));
-	//comhand();
+	comhand();
 
 	// 10) System Shutdown -- *headers to be determined by your design*
 	// After your command handler returns, take care of any clean up that
