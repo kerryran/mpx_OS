@@ -5,8 +5,6 @@
 
 void comhand(void) {
         //Menu Prompt
-       // puts("Hello I am a Menu");
-       char* string = "I am a menu";
-       sys_req(WRITE, COM1, &string, strlen(string));
+       puts("I am a cool menu\n");
    
 }
