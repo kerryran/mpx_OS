@@ -1,7 +1,7 @@
 #include <mpx/io.h>
 #include <mpx/serial.h>
 #include <sys_req.h>
-
+#include <string.h>
 
 enum uart_registers {
 	RBR = 0,	// Receive Buffer
@@ -93,8 +93,12 @@ int serial_poll(device dev, char *buffer, size_t len)
 	if(c == '\r'){
 		//needs to exit,could change this to something else later..
 		//moves to next line
-		outb(dev, '\r');
-		outb(dev, '\n'); 
+		//outb(dev, '\r');
+		//outb(dev, '\n'); 
+		puts("you hit enter");
+		//outb(dev,c);
+		outb(buffer,c);
+
 		break;
 	}
 	else if (c == '\x7F') {
