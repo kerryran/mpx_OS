@@ -7,8 +7,13 @@ void comhand(void) {
 
         //Menu Prompt
        puts("FroggyOS\n");
-
-       char[5] buf = {0};
-       sys_req(READ, COM1, buf, strlen(buf));
+       puts("1) Help\n2) Version\n");
+       puts("Enter a number to select\n");
+       puts(">");
+       
+       while(true){
+        char* buf[5] = {0};
+        sys_req(READ, COM1, buf, 5);
+        }
 
 }
