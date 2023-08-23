@@ -74,7 +74,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 	int buffer_count = 0;
 
 	//while buffer is not full
-	while(buffer_count < (int)len){
+	while(buffer_count < (int)len -1){
 
 	//inb the status register 
 	inb(LSR);
