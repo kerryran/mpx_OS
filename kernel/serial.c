@@ -102,9 +102,10 @@ int serial_poll(device dev, char *buffer, size_t len)
         // Remove last character from the buffer
         buffer_count--;
         // Output backspace and a space to clear the previous character
-        outb(dev, '\x7F');
+        outb(dev, '\b');
         outb(dev, ' ');
-        outb(dev, '\x7F');
+		outb(dev, '\b');
+
     }
 	}
 
