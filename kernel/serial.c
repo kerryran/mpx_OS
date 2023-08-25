@@ -92,6 +92,20 @@ int serial_poll(device dev, char *buffer, size_t len)
 	//if it is a new line then you are done
 	if(c == '\n'){
 		//needs to exit,could change this to something else later..
+		//moves to next line
+		outb(dev, '\r'); 
+		outb(dev, '\n'); 
+		break;
+	}
+	else if (c == '\b') {
+    if (buffer_count > 0) {
+        // Remove last character from the buffer
+        buffer_count--;
+        // Output backspace and a space to clear the previous character
+        outb(dev, '\b');
+        outb(dev, ' ');
+        outb(dev, '\b');
+    }
 	}
 
 	else{
