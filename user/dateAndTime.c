@@ -1,12 +1,12 @@
-#include <stdint.h>
+#include "dateAndTime.h"
 
-//helper function to read a byte from RTC
+//helper function to READ a byte from RTC
 uint8_t rtc_read(uint8_t reg){
     outb(0x70, reg);
     return inb(0x71);
 }
 
-//helper function to write a byte to RTC
+//helper function to WRITE a byte to RTC
 void rtc_write(uint8_t reg, uint8_t value){
     cli(); //disable interrupts
 
