@@ -34,7 +34,7 @@ void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds){
     rtc_write(0x00, seconds);
 }
 
-void set_time(uint8_t day, uint8_t month, uint8_t year){
+void set_date(uint8_t day, uint8_t month, uint8_t year){
     rtc_write(0x07, day);
     rtc_write(0x08, month);
     rtc_write(0x09, year);
