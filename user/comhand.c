@@ -9,11 +9,11 @@ void comhand(void)
         puts("FroggyOS\n");
         puts("1) Help\n2) Version\n3) Quit\n");
         puts("Enter a number to select:\n");
-        puts(">");
+        
         
         while (true)
         {
-                
+                puts(">");
                 //int nread = sys_req(READ, COM1, buf, 5);
                 //sys_req(WRITE, COM1, buf, 5);
                 char buffer[5] = {0};
@@ -27,15 +27,15 @@ void comhand(void)
                 else{
                         if (strcmp(buffer,"1") == 0)
                         {
-                                puts("you pressed 1\n");
+                                puts("\nyou pressed 1\n");
                         }
                         else if (strcmp(buffer,"2") == 0)
                         {
-                                puts("Version: 1.0\n");
+                                puts("\nVersion: 1.0\n");
                         }
                         else if (strcmp(buffer,"3") == 0)
                         {
-                                puts("Are you sure you want to shutdown?");
+                                puts("\nAre you sure you want to shutdown?\n");
                                 sys_req(READ, COM1, buffer, 5);
                                 char* confirm;
                                 if (strcmp(confirm,"1") == 0)
