@@ -8,7 +8,7 @@ void comhand(void)
 {
         // Menu Prompt
         puts("FroggyOS\n");
-        puts("1) Help\n2) Version\n");
+        puts("1) Help\n2) Version\n3) Quit\n");
         puts("Enter a number to select:\n");
 
         while (true)

@@ -1,7 +1,7 @@
 #include <mpx/io.h>
 #include <mpx/serial.h>
 #include <sys_req.h>
-
+#include <string.h>
 
 enum uart_registers {
 	RBR = 0,	// Receive Buffer
@@ -77,26 +77,48 @@ int serial_poll(device dev, char *buffer, size_t len)
 	while(buffer_count < (int)len -1){
 
 	//inb the status register 
-	inb(LSR);
+	
 
 	//check if the line register contents and 1 are true
-	if(LSR & 1){
+	if((inb(COM1+LSR)) & 1){
 	//then this means we have a character in com1
 	//increment char counter
-	char_count ++;
+
 
 	//inb com1 to read the character 
 	char c = inb(COM1);
 
 	
 	//if it is a new line then you are done
-	if(c == '\n'){
+	if(c == '\r'){
 		//needs to exit,could change this to something else later..
+		//moves to next line
+		outb(dev,'\r');
+		outb(dev,'\n');
+		//outb(dev, '>');
+		buffer_count++;
+		puts(buffer);
+		break;
 	}
+	else if (c == '\x7F') {
+    if (buffer_count > 0) {
+        // Remove last character from the buffer
+        buffer_count--;
+        // Output backspace and a space to clear the previous character
+        outb(dev, '\b');
+        outb(dev, ' ');
+        outb(dev, '\b');
+    }
+	}
+
 	else{
 		//if regular character then outb it so the user can see and add to the buffer
-		outb(dev, c);
+		buffer[char_count] =c;
+		char_count++;
 		outb(buffer,c);
+		outb(dev, c);
+		
+		
 		//increment buffer count
 		buffer_count ++;
 	}
