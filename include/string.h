@@ -15,7 +15,7 @@
  @param n The number of bytes to copy
  @return A pointer to the destination memory region
 */
-void* memcpy(void * restrict dst, const void * restrict src, size_t n);
+void *memcpy(void *restrict dst, const void *restrict src, size_t n);
 
 /**
  Fill a region of memory.
@@ -24,7 +24,7 @@ void* memcpy(void * restrict dst, const void * restrict src, size_t n);
  @param n The number of bytes to fill
  @return A pointer to the filled memory region
 */
-void* memset(void *address, int c, size_t n);
+void *memset(void *address, int c, size_t n);
 
 /**
  Compares two strings
@@ -45,9 +45,28 @@ size_t strlen(const char *s);
  Split string into tokens
  TODO
 */
-char* strtok(char * restrict s1, const char * restrict s2);
+char *strtok(char *restrict s1, const char *restrict s2);
 
-//puts method
-void puts(char* string);
+/**
+ * Calls the sys_req() command for WRITE
+ * @param string The string to be printed
+ */
+void puts(char *string);
+
+/**
+ * Combines two strings together into a new string
+ * @param first A NUL-terminated string
+ * @param second A NUL-terminated string
+ * @return A pointer to the new string
+ */
+char *strcat(char *first, char *second);
+
+/**
+ * Returns a portion of the string
+ * @param string A NUL-terminated string
+ * @return A pointer to the new substring
+
+*/
+char *substring(char string[], int index, int length);
 
 #endif

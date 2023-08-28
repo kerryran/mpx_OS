@@ -8,8 +8,9 @@
 // helper function to READ a byte from RTC
 uint8_t rtc_read(uint8_t reg)
 {
+
     outb(0x74, reg);
-    puts("wrote to register");
+
     return inb(0x74);
 }
 

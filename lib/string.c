@@ -12,7 +12,8 @@ int strcmp(const char *s1, const char *s2)
 	// 2) If we didn't make it to the end of both strings, the function will
 	//    return the difference of the characters at the first index of
 	//    indifference.
-	while ((*s1) && (*s1 == *s2)) {
+	while ((*s1) && (*s1 == *s2))
+	{
 		++s1;
 		++s2;
 	}
@@ -22,32 +23,38 @@ int strcmp(const char *s1, const char *s2)
 size_t strlen(const char *s)
 {
 	size_t len = 0;
-	while (*s++) {
+	while (*s++)
+	{
 		len++;
 	}
 	return len;
 }
 
-char *strtok(char * restrict s1, const char * restrict s2)
+char *strtok(char *restrict s1, const char *restrict s2)
 {
 	static char *tok_tmp = NULL;
 	const char *p = s2;
 
-	//new string
-	if (s1 != NULL) {
+	// new string
+	if (s1 != NULL)
+	{
 		tok_tmp = s1;
 	}
-	//old string cont'd
-	else {
-		if (tok_tmp == NULL) {
+	// old string cont'd
+	else
+	{
+		if (tok_tmp == NULL)
+		{
 			return NULL;
 		}
 		s1 = tok_tmp;
 	}
 
-	//skip leading s2 characters
-	while (*p && *s1) {
-		if (*s1 == *p) {
+	// skip leading s2 characters
+	while (*p && *s1)
+	{
+		if (*s1 == *p)
+		{
 			++s1;
 			p = s2;
 			continue;
@@ -55,16 +62,20 @@ char *strtok(char * restrict s1, const char * restrict s2)
 		++p;
 	}
 
-	//no more to parse
-	if (!*s1) {
+	// no more to parse
+	if (!*s1)
+	{
 		return (tok_tmp = NULL);
 	}
-	//skip non-s2 characters
+	// skip non-s2 characters
 	tok_tmp = s1;
-	while (*tok_tmp) {
+	while (*tok_tmp)
+	{
 		p = s2;
-		while (*p) {
-			if (*tok_tmp == *p++) {
+		while (*p)
+		{
+			if (*tok_tmp == *p++)
+			{
 				*tok_tmp++ = '\0';
 				return s1;
 			}
@@ -72,15 +83,55 @@ char *strtok(char * restrict s1, const char * restrict s2)
 		++tok_tmp;
 	}
 
-	//end of string
+	// end of string
 	tok_tmp = NULL;
 	return s1;
 }
 
-//Method for printing to console
+// Method for printing to console
 
-void puts(char* string) {
+void puts(char *string)
+{
 	sys_req(WRITE, COM1, string, strlen(string));
 }
 
-//Method for read
+// Method for concatenating two strings UNTESTED
+char *strcat(char *first, char *second)
+{
+	char result[50];
+	int i = 0, k = 0;
+	// insert the first string into the result
+	while (strcmp(&first[i], "\0") != 0)
+	{
+		result[k] = first[i];
+		i++;
+		k++;
+	}
+	// Insert the second string into the result
+	while (strcmp(&second[i], "\0") != 0)
+	{
+		result[k] = second[i];
+		i++;
+		k++;
+	}
+	// result[k] = "\0"; IDK how to char arr to null terminate if even necessary
+
+	char *resultptr = result;
+	return resultptr;
+}
+
+// Method to get a substring from a char array
+char *substring(char string[], int index, int length)
+{
+	char result[50];
+	int count = 0;
+
+	while (count < length)
+	{
+		result[count] = string[index + count];
+		count++;
+	}
+	// result[count] = "\0"; IDK how to char arr to null terminate if even necessary
+	char *resultptr = result;
+	return resultptr;
+}
