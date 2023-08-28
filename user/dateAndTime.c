@@ -6,12 +6,12 @@
 #include <mpx/interrupts.h>
 
 // helper function to READ a byte from RTC
-uint8_t rtc_read(uint8_t reg)
+void rtc_read(uint8_t reg)
 {
 
     outb(0x74, reg);
 
-    return inb(0x74);
+    inb(0x74);
 }
 
 // helper function to WRITE a byte to RTC
@@ -25,18 +25,18 @@ void rtc_write(uint8_t reg, uint8_t value)
     sti(); // enable interrupts
 }
 
-void get_time(uint8_t *hours, uint8_t *minutes, uint8_t *seconds)
+void get_time()
 {
-    *seconds = rtc_read(0x00);
-    *minutes = rtc_read(0x02);
-    *hours = rtc_read(0x04);
+    rtc_read(0x00);
+    rtc_read(0x02);
+    rtc_read(0x04);
 }
 
-void get_date(uint8_t *day, uint8_t *month, uint8_t *year)
+void get_date()
 {
-    *day = rtc_read(0x07);
-    *month = rtc_read(0x08);
-    *year = rtc_read(0x09);
+    rtc_read(0x07);
+    rtc_read(0x08);
+    rtc_read(0x09);
 }
 
 void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)

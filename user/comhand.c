@@ -47,7 +47,7 @@ void comhand(void)
                         if (strcmp(choice, "1") == 0)
                         {
                                 // Doesn't work, crashes
-                                get_date(0, 0, 0);
+                                get_date();
                         }
                         else if (strcmp(choice, "2") == 0)
                         {
@@ -68,7 +68,7 @@ void comhand(void)
                         else if (strcmp(choice, "3") == 0)
                         {
                                 // Doesn't work, crashes
-                                get_time(0, 0, 0);
+                                get_time();
                         }
                         else if (strcmp(choice, "4") == 0)
                         {
