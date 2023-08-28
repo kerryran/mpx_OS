@@ -45,6 +45,7 @@ void comhand(void)
                         sys_req(READ, COM1, choice, 5);
                         if (strcmp(choice, "1") == 0)
                         {
+                                // Doesn't work, crashes
                                 get_date(0, 0, 0);
                         }
                         else if (strcmp(choice, "2") == 0)
@@ -65,6 +66,7 @@ void comhand(void)
                         }
                         else if (strcmp(choice, "3") == 0)
                         {
+                                // Doesn't work, crashes
                                 get_time(0, 0, 0);
                         }
                         else if (strcmp(choice, "4") == 0)
@@ -95,7 +97,7 @@ void comhand(void)
                 else if (strcmp(buffer, "4") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
-                        puts("1) Confirm\nAny Key) Cancel\n");
+                        puts("1) Confirm\nAny-Key) Cancel\n");
                         puts(">");
                         char confirm[5] = {0};
 
@@ -110,6 +112,10 @@ void comhand(void)
                                 puts("\nCanceled Shutdown...\n");
                                 continue;
                         }
+                }
+                else
+                {
+                        puts("\nUnrecognized command.\n");
                 }
         }
 }
