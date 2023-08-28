@@ -39,6 +39,7 @@ void comhand(void)
                 }
                 else if (strcmp(buffer, "3") == 0)
                 {
+                        puts("\nDate & Time Menu:");
                         puts("\n1) Get Date\n2) Set Date\n3) Get Time\n4) Set Time\n5) Back\n");
                         puts(">");
                         char choice[5] = {0};
