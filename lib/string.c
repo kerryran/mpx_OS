@@ -114,7 +114,7 @@ char *strcat(char *first, char *second)
 		i++;
 		k++;
 	}
-	// result[k] = "\0"; IDK how to char arr to null terminate if even necessary
+	result[k] = '\0';
 
 	char *resultptr = result;
 	return resultptr;
@@ -131,7 +131,12 @@ char *substring(char string[], int index, int length)
 		result[count] = string[index + count];
 		count++;
 	}
-	// result[count] = "\0"; IDK how to char arr to null terminate if even necessary
+	result[count] = '\0';
 	char *resultptr = result;
+	// Debugging
+	puts("substring result: ");
+	puts(resultptr);
+	puts("\n");
+
 	return resultptr;
 }

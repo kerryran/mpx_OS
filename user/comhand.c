@@ -13,7 +13,7 @@ void comhand(void)
         while (true)
         {
                 char string[4] = "abc";
-                char *strong = substring(string, 0, 1);
+                char *strong = substring(string, 0, 2);
                 puts(strong);
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
