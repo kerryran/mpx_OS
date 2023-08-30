@@ -12,9 +12,6 @@ void comhand(void)
 
         while (true)
         {
-                char string[4] = "abc";
-                char *strong = substring(string, 0, 2);
-                puts(strong);
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
                 puts("1) Help\n2) Version\n3) Date & Time\n4) Quit\n");
@@ -56,12 +53,12 @@ void comhand(void)
                                 puts(">");
                                 char year[5] = {0};
                                 sys_req(READ, COM1, year, 5);
-                                //puts(year);
+                                // puts(year);
                                 puts("\nEnter The Month:\n");
                                 puts(">");
                                 char month[3] = {0};
                                 sys_req(READ, COM1, month, 3);
-                                //puts(day);
+                                // puts(day);
                                 puts("\nEnter The Day:\n");
                                 puts(">");
                                 char day[3] = {0};
@@ -77,7 +74,8 @@ void comhand(void)
                         else if (strcmp(choice, "4") == 0)
                         {
                                 // Needs error checking
-                                puts("\nEnter The Hour:\n");
+                                puts("\nUse 24 hr formating for the following entries:\n");
+                                puts("\nEnter The Hours:\n");
                                 puts(">");
                                 char hour[3] = {0};
                                 sys_req(READ, COM1, hour, 3);
@@ -89,9 +87,8 @@ void comhand(void)
                                 puts(">");
                                 char second[3] = {0};
                                 sys_req(READ, COM1, second, 3);
-                                
 
-                               set_time(atoi(hour), atoi(minute), atoi(second));
+                                set_time(atoi(hour), atoi(minute), atoi(second));
                         }
                         else if (strcmp(choice, "5") == 0)
                         {
