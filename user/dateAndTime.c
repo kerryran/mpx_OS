@@ -3,6 +3,7 @@
 #include <mpx/serial.h>
 #include <sys_req.h>
 #include <string.h>
+
 #include <mpx/interrupts.h>
 
 // helper function to WRITE a byte to RTC
@@ -18,22 +19,41 @@ void rtc_write(uint8_t reg, uint8_t value)
 
 char* get_time()
 {
-   
-
     outb(0x70, 0x00);
     unsigned char seconds = inb(0x00);
-    //convert the shift??
+    //ones place
     int ones_sec = (seconds & 00001111);
+    //tens place
+    int tens_sec = seconds >> 4;
+    tens_sec = (tens_sec & 00001111);
+    //actual seconds
+    int seconds_fr = (tens_sec * 10) + ones_sec;
+    //delete later
+    puts((char*)seconds_fr);
 
     outb(0x70, 0x02);
     unsigned char minutes = inb(0x02);
-    //convert the shift??
+    //ones place
     int ones_min = (minutes & 00001111);
+    //tens place
+    int tens_min = minutes >> 4;
+    tens_min = (tens_min & 00001111);
+    //actual minutes
+    int minutes_fr = (tens_min * 10) + ones_min;
+    //delete later
+    puts((char*)minutes_fr);
 
     outb(0x70,0x04);
     unsigned char hours = inb(0x04);
-    //convert the shift??
+    //ones place
     int ones_hr = (hours & 00001111);
+    //tens place
+    int tens_hr = hours >> 4;
+    tens_hr = (tens_hr & 00001111);
+    //actual hours
+    int hours_fr = (tens_hr * 10) + ones_hr;
+    //delete later
+    puts((char*)hours_fr);
 
     //delete the following later
     puts((char*)ones_sec);
