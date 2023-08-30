@@ -56,9 +56,6 @@ char* get_time()
     puts((char*)hours_fr);
 
     //delete the following later
-    puts((char*)ones_sec);
-    puts((char*)ones_min);
-    puts((char*)ones_hr);
     char* time = "time";
     return time;
     
