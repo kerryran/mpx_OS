@@ -122,6 +122,9 @@ char *get_date()
     puts((char *)ones_day);
     puts((char *)ones_month);
     puts((char *)ones_year);
+
+    char *date = "date";
+    return date;
 }
 
 void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)
