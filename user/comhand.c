@@ -12,15 +12,6 @@ void comhand(void)
 
         while (true)
         {
-                int test = 24;
-                char teststring[3];
-                itoa(test, teststring, 10);
-                // puts("this should say 24:");
-                // puts(teststring);
-                // puts("\n");
-                char *pointer = strcat("bananas ", "apples");
-                puts(pointer);
-
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
                 puts("1) Help\n2) Version\n3) Date & Time\n4) Quit\n");

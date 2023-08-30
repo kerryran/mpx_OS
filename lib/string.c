@@ -95,16 +95,26 @@ void puts(char *string)
 	sys_req(WRITE, COM1, string, strlen(string));
 }
 
-// Method for concatenating two strings UNTESTED
+// Method for concatenating two strings
 char *strcat(char *first, char *second)
 {
+	//int to iterate through indexes of strings
 	int i;
+
+	//int with the value of the length of the first string
 	int j =strlen(first);
+
+	//iterate through the second string until the null terminator
 	for (i=0; second[i] != '\0'; i++){
+		
+		//add the chars, from the second string, one at a time to the first string
 		first[i+j] = second[i];
 	}
+
+	//add the null terminator
 	first[i+j] = '\0';
 
+	//return the combined strings
 	return first;
 }
 
