@@ -97,9 +97,9 @@ int serial_poll(device dev, char *buffer, size_t len)
 		outb(dev,'\n');
 		//outb(dev, '>');
 		buffer_count++;
-		puts(buffer);
 		break;
 	}
+	
 	else if (c == '\x7F') {
     if (buffer_count > 0) {
         // Remove last character from the buffer
@@ -109,6 +109,27 @@ int serial_poll(device dev, char *buffer, size_t len)
         outb(dev, ' ');
         outb(dev, '\b');
     }
+	}
+	//handle arrow keys
+	else if (c == '\x5B') {
+		char c = inb(COM1);
+		//up arrow 
+		if(c == 'A'){
+		outb(dev,'\f');
+	}
+		else if(c == 'B'){
+		//down arrow
+			outb(dev,'\f');
+			
+		}
+		//right arrow
+		else if(c == 'C'){
+			outb(dev,'\t');
+		}
+		//left arrow
+		else if(c == 'D'){
+			outb(dev, '\b');
+		}
 	}
 
 	else{
