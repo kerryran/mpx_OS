@@ -65,23 +65,40 @@ void get_date()
 {
     outb(0x70, 0x07);
     unsigned char day = inb(0x07);
-    //convert the shift
+    //ones place
     int ones_day = (day & 00001111);
+    //tens place
+    int tens_day = day >> 4;
+    tens_day = (tens_day & 00001111);
+    //actual day
+    int day_fr = (tens_day * 10) + ones_day;
+    //delete later
+    puts((char*)day_fr);
 
     outb(0x70,0x08);
     unsigned char month = inb(0x08);
-    //convert the shift
+    //ones place
     int ones_month = (month & 00001111);
+    //tens place
+    int tens_month = month >> 4;
+    tens_month = (tens_month & 00001111);
+    //actual month
+    int month_fr=(tens_month * 10) + ones_month;
+    //delete later
+    puts((char*)month_fr);
 
     outb(0x70,0x09);
     unsigned char year = inb(0x09);
-    //convert the shift
+    //ones place
     int ones_year = (year & 00001111);
+    //tens place
+    int tens_year = year >> 4;
+    tens_year = (tens_year & 00001111);
+    //actual year
+    int year_fr = (tens_year * 10) + ones_year;
+    //delete later
+    puts((char*)year_fr);
 
-    //delete the following later
-    puts((char*)ones_day);
-    puts((char*)ones_month);
-    puts((char*)ones_year);
     
 }
 
