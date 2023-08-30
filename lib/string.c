@@ -134,9 +134,9 @@ char *substring(char string[], int index, int length)
 	result[count] = '\0';
 	char *resultptr = result;
 	// Debugging
-	puts("substring result: ");
-	puts(resultptr);
-	puts("\n");
+	//puts("substring result: ");
+	//puts(resultptr);
+	//puts("\n");
 
 	return resultptr;
 }

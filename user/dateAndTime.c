@@ -61,7 +61,7 @@ char* get_time()
     
 }
 
-void get_date()
+char* get_date()
 {
     outb(0x70, 0x07);
     unsigned char day = inb(0x07);
@@ -99,7 +99,9 @@ void get_date()
     //delete later
     puts((char*)year_fr);
 
-    
+    //delete later
+    char* date = "date";
+    return date;
 }
 
 void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)
