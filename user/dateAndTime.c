@@ -47,9 +47,18 @@ void get_time()
 
 void get_date()
 {
-    rtc_read(0x07);
-    rtc_read(0x08);
-    rtc_read(0x09);
+    outb(0x70, 0x07);
+    unsigned char day = inb(0x07);
+    //convert the shift
+
+    outb(0x70,0x08);
+    unsigned char month = inb(0x08);
+    //convert the shift
+    
+    outb(0x70,0x09);
+    unsigned char year = inb(0x09);
+    //convert the shift
+    
 }
 
 void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)
