@@ -44,16 +44,40 @@ char *get_time()
     unsigned char seconds = inb(0x00);
     // convert the shift??
     int ones_sec = (seconds & 00001111);
+    // tens place
+    int tens_sec = seconds >> 4;
+    tens_sec = (tens_sec & 00001111);
+    // actual seconds
+    int seconds_fr = (tens_sec * 10) + ones_sec;
+    // convert to string
+    char secs[3];
+    itoa(seconds_fr, secs, 10);
 
     outb(0x70, 0x02);
     unsigned char minutes = inb(0x02);
     // convert the shift??
     int ones_min = (minutes & 00001111);
+    // tens place
+    int tens_min = minutes >> 4;
+    tens_min = (tens_min & 00001111);
+    // actual minutes
+    int minutes_fr = (tens_min * 10) + ones_min;
+    // convert to string
+    char mins[3];
+    itoa(minutes_fr, mins, 10);
 
     outb(0x70, 0x04);
     unsigned char hours = inb(0x04);
     // convert the shift??
     int ones_hr = (hours & 00001111);
+    // tens place
+    int tens_hr = hours >> 4;
+    tens_hr = (tens_hr & 00001111);
+    // actual hours
+    int hours_fr = (tens_hr * 10) + ones_hr;
+    // convert to string
+    char hrs[3];
+    itoa(hours_fr, hrs, 10);
 
     // delete the following later
     puts((char *)ones_sec);
@@ -63,17 +87,31 @@ char *get_time()
     return time;
 }
 
-void get_date()
+char *get_date()
 {
     outb(0x70, 0x07);
     unsigned char day = inb(0x07);
     // convert the shift
     int ones_day = (day & 00001111);
+    // tens place
+    int tens_day = day >> 4;
+    tens_day = (tens_day & 00001111);
+    // actual day
+    int day_fr = (tens_day * 10) + ones_day;
+    // delete later
+    puts((char *)day_fr);
 
     outb(0x70, 0x08);
     unsigned char month = inb(0x08);
     // convert the shift
     int ones_month = (month & 00001111);
+    // tens place
+    int tens_month = month >> 4;
+    tens_month = (tens_month & 00001111);
+    // actual month
+    int month_fr = (tens_month * 10) + ones_month;
+    // delete later
+    puts((char *)month_fr);
 
     outb(0x70, 0x09);
     unsigned char year = inb(0x09);
