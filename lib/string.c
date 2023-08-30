@@ -98,7 +98,7 @@ void puts(char *string)
 // Method for concatenating two strings UNTESTED
 char *strcat(char *first, char *second)
 {
-	char result[50];
+	char result[100];
 	int i = 0, k = 0;
 	// insert the first string into the result
 	while (strcmp(&first[i], "\0") != 0)
@@ -117,6 +117,8 @@ char *strcat(char *first, char *second)
 	result[k] = '\0';
 
 	char *resultptr = result;
+	puts(resultptr);
+
 	return resultptr;
 }
 
