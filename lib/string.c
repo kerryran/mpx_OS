@@ -98,28 +98,14 @@ void puts(char *string)
 // Method for concatenating two strings UNTESTED
 char *strcat(char *first, char *second)
 {
-	char result[100];
-	int i = 0, k = 0;
-	// insert the first string into the result
-	while (strcmp(&first[i], "\0") != 0)
-	{
-		result[k] = first[i];
-		i++;
-		k++;
+	int i;
+	int j =strlen(first);
+	for (i=0; second[i] != '\0'; i++){
+		first[i+j] = second[i];
 	}
-	// Insert the second string into the result
-	while (strcmp(&second[i], "\0") != 0)
-	{
-		result[k] = second[i];
-		i++;
-		k++;
-	}
-	result[k] = '\0';
+	first[i+j] = '\0';
 
-	char *resultptr = result;
-	puts(resultptr);
-
-	return resultptr;
+	return first;
 }
 
 // Method to get a substring from a char array
