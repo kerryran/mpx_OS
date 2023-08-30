@@ -9,9 +9,9 @@
 void rtc_read(uint8_t reg)
 {
 
-    outb(0x74, reg);
+    outb(0x70, reg);
 
-    inb(0x74);
+    inb(reg);
 }
 
 // helper function to WRITE a byte to RTC
@@ -27,9 +27,22 @@ void rtc_write(uint8_t reg, uint8_t value)
 
 void get_time()
 {
-    rtc_read(0x00);
-    rtc_read(0x02);
-    rtc_read(0x04);
+   
+
+    outb(0x70, 0x00);
+    unsigned char seconds = inb(0x00);
+    //convert the shift??
+
+    outb(0x70, 0x02);
+    unsigned char minutes = inb(0x02);
+    //convert the shift??
+
+    outb(0x70,0x04);
+    unsigned char hours = inb(0x04);
+    //convert the shift??
+
+    
+    
 }
 
 void get_date()
