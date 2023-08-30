@@ -5,15 +5,6 @@
 #include <string.h>
 #include <mpx/interrupts.h>
 
-// helper function to READ a byte from RTC
-void rtc_read(uint8_t reg)
-{
-
-    outb(0x70, reg);
-
-    inb(reg);
-}
-
 // helper function to WRITE a byte to RTC
 void rtc_write(uint8_t reg, uint8_t value)
 {

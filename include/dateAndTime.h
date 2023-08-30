@@ -1,5 +1,4 @@
 #include <stdint.h>
-void rtc_read(uint8_t reg);
 void rtc_write(uint8_t reg, uint8_t value);
 void get_time();
 void get_date();
