@@ -52,16 +52,20 @@ void comhand(void)
                         else if (strcmp(choice, "2") == 0)
                         {
                                 // Needs error checking
-                                puts("\nEnter Date:\n");
+                                puts("\nEnter The Year:\n");
                                 puts(">");
-                                char date[12] = {0};
-                                sys_req(READ, COM1, date, 12);
-                                char *year = substring(date, 0, 4);
-                                char *month = substring(date, 5, 2);
-                                char *day = substring(date, 8, 2);
-                                puts(year);
-                                puts(month);
-                                puts(day);
+                                char year[5] = {0};
+                                sys_req(READ, COM1, year, 5);
+                                //puts(year);
+                                puts("\nEnter The Month:\n");
+                                puts(">");
+                                char month[3] = {0};
+                                sys_req(READ, COM1, month, 3);
+                                //puts(day);
+                                puts("\nEnter The Day:\n");
+                                puts(">");
+                                char day[3] = {0};
+                                sys_req(READ, COM1, day, 3);
 
                                 set_date(atoi(day), atoi(month), atoi(year));
                         }
@@ -73,17 +77,21 @@ void comhand(void)
                         else if (strcmp(choice, "4") == 0)
                         {
                                 // Needs error checking
-                                puts("\nEnter Time:\n");
+                                puts("\nEnter The Hour:\n");
                                 puts(">");
-                                char time[12] = {0};
-                                sys_req(READ, COM1, time, 12);
-                                char *hours = substring(time, 0, 2);
-                                char *minutes = substring(time, 3, 2);
-                                char *seconds = substring(time, 6, 2); // This makes no sense for a user to enter.
-                                puts(hours);
-                                puts(minutes);
-                                puts(seconds);
-                                set_time(atoi(hours), atoi(minutes), atoi(seconds));
+                                char hour[3] = {0};
+                                sys_req(READ, COM1, hour, 3);
+                                puts("\nEnter The Minutes:\n");
+                                puts(">");
+                                char minute[3] = {0};
+                                sys_req(READ, COM1, minute, 3);
+                                puts("\nEnter The Seconds:\n");
+                                puts(">");
+                                char second[3] = {0};
+                                sys_req(READ, COM1, second, 3);
+                                
+
+                               set_time(atoi(hour), atoi(minute), atoi(second));
                         }
                         else if (strcmp(choice, "5") == 0)
                         {
