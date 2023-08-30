@@ -3,7 +3,7 @@
 #include <mpx/serial.h>
 #include <sys_req.h>
 #include <string.h>
-
+#include <stdlib.h>
 #include <mpx/interrupts.h>
 
 // helper function to WRITE a byte to RTC
@@ -28,8 +28,9 @@ char* get_time()
     tens_sec = (tens_sec & 00001111);
     //actual seconds
     int seconds_fr = (tens_sec * 10) + ones_sec;
-    //delete later
-    puts((char*)seconds_fr);
+    //convert to string
+    char secs[3];
+    itoa(seconds_fr,secs, 10);
 
     outb(0x70, 0x02);
     unsigned char minutes = inb(0x02);
@@ -40,8 +41,9 @@ char* get_time()
     tens_min = (tens_min & 00001111);
     //actual minutes
     int minutes_fr = (tens_min * 10) + ones_min;
-    //delete later
-    puts((char*)minutes_fr);
+    //convert to string
+    char mins[3]; 
+    itoa(minutes_fr, mins, 10);
 
     outb(0x70,0x04);
     unsigned char hours = inb(0x04);
@@ -52,12 +54,15 @@ char* get_time()
     tens_hr = (tens_hr & 00001111);
     //actual hours
     int hours_fr = (tens_hr * 10) + ones_hr;
-    //delete later
-    puts((char*)hours_fr);
+    //convert to string
+    char hrs[3];
+    itoa(hours_fr, hrs, 10);
 
-    //delete the following later
-    char* time = "time";
-    return time;
+    char* final_time = strcat(hrs, ":");
+    final_time = strcat(final_time, mins);
+    final_time = strcat(final_time, ":");
+    final_time = strcat(final_time, secs);
+    return final_time;
     
 }
 
