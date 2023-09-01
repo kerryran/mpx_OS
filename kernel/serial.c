@@ -100,13 +100,10 @@ int serial_poll(device dev, char *buffer, size_t len)
 			// if it is a new line then you are done
 			if (c == '\r')
 			{
-				// needs to exit,could change this to something else later..
 				// moves to next line
 				outb(dev, '\r');
 				outb(dev, '\n');
-				// outb(dev, '>');
 				buffer_count++;
-				puts(buffer);
 				break;
 			}
 			else if (c == '\x7F')
