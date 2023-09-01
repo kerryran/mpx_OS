@@ -132,7 +132,7 @@ char *substring(char string[], int index, int length)
 	result[count] = '\0';
 	char *resultptr = result;
 	// Debugging
-	puts("substring result: ");
+	puts("\nsubstring result: ");
 	puts(resultptr);
 	puts("\n");
 
