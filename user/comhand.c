@@ -69,7 +69,8 @@ void comhand(void)
                         else if (strcmp(choice, "3") == 0)
                         {
                                 // Doesn't work, crashes
-                                get_time();
+                                puts("\n");
+                               get_time();
                         }
                         else if (strcmp(choice, "4") == 0)
                         {
