@@ -26,7 +26,7 @@ void comhand(void)
                 if (strcmp(buffer, "1") == 0)
                 {
                         puts("\nCommands:\n1) Help - describes all the available commands.\n2) Version - describes the operating system version.\n3) Get Date -returns the system date.\n");
-                        puts("4) Set Date - allows user to update the system date, format as YYYY/MM/DD.\n5) Get Time - returns the system time.\n6) Set Time - allows user to update the system time, format as HH:MM:SS\n");
+                        puts("4) Set Date - allows user to update the system date, format as MM/DD/YY.\n5) Get Time - returns the system time.\n6) Set Time - allows user to update the system time, format as HH:MM:SS\n");
                         puts("7) Quit - Logs user out of the machine.\n");
                 }
                 // Working as intended
@@ -43,7 +43,7 @@ void comhand(void)
                         sys_req(READ, COM1, choice, 5);
                         if (strcmp(choice, "1") == 0)
                         {
-                                // Doesn't work, crashes
+                                puts("The date is: ");
                                 get_date();
                         }
                         else if (strcmp(choice, "2") == 0)
@@ -68,7 +68,7 @@ void comhand(void)
                         }
                         else if (strcmp(choice, "3") == 0)
                         {
-                                puts("\n");
+                                puts("The time in UTC is: ");
                                 get_time();
                         }
                         else if (strcmp(choice, "4") == 0)
@@ -79,15 +79,33 @@ void comhand(void)
                                 puts(">");
                                 char hour[3] = {0};
                                 sys_req(READ, COM1, hour, 3);
+
+                                int hr = atoi(hour);
+                                        if(hr > 24){
+                                                puts("\nInvalid time, Please select a new option");
+                                                continue;
+                                        }
+
                                 puts("\nEnter The Minutes:\n");
                                 puts(">");
                                 char minute[3] = {0};
                                 sys_req(READ, COM1, minute, 3);
+
+                                int min = atoi(minute);
+                                        if(min > 59){
+                                               puts("\nInvalid time, Please select a new option");
+                                                continue; 
+                                        }
                                 puts("\nEnter The Seconds:\n");
                                 puts(">");
                                 char second[3] = {0};
                                 sys_req(READ, COM1, second, 3);
 
+                                int sec = atoi(second);
+                                        if(sec > 59){
+                                                puts("\n Invalid time, Please select a new option");
+                                                continue;
+                                        }
                                 set_time(atoi(hour), atoi(minute), atoi(second));
                         }
                         else if (strcmp(choice, "5") == 0)

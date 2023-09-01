@@ -14,7 +14,6 @@ char *get_time()
     int ones_sec = (seconds & 0x0F);
     // tens place
     int tens_sec = seconds / 16;
-    // tens_sec = (tens_sec & 0x0F);
     //  actual seconds
     int seconds_fr = (tens_sec * 10) + ones_sec;
     // convert to string
@@ -30,7 +29,6 @@ char *get_time()
     int ones_min = (minutes & 0x0F);
     // tens place
     int tens_min = minutes / 16;
-    // tens_min = (tens_min & 0x0F);
     //  actual minutes
     int minutes_fr = (tens_min * 10) + ones_min;
     // convert to string
@@ -43,7 +41,6 @@ char *get_time()
     int ones_hr = (hours & 0x0F);
     // tens place
     int tens_hr = hours / 16;
-    // tens_hr = (tens_hr & 00001111);
     //  actual hours
     int hours_fr = (tens_hr * 10) + ones_hr;
     // convert to string
@@ -51,9 +48,6 @@ char *get_time()
     itoa(hours_fr, hrs, 10);
 
     char *final_time = strcat(hrs, ":");
-    // puts("\n");
-    // puts(final_time);
-    // puts("\n");
     final_time = strcat(final_time, mins);
     final_time = strcat(final_time, ":");
     final_time = strcat(final_time, secs);
@@ -135,7 +129,7 @@ char *get_date()
 {
     outb(0x70, 0x07);
     unsigned char day = inb(0x71);
-    // convert the shift
+    // ones place
     int ones_day = day & 0x0F;
     // tens place
     int tens_day = day / 16;
@@ -147,32 +141,31 @@ char *get_date()
 
     outb(0x70, 0x08);
     unsigned char month = inb(0x71);
-    // convert the shift
+    // ones place
     int ones_month = month & 0x0F;
     // tens place
     int tens_month = month / 16;
-    // tens_month = (tens_month & 00001111);
     //  actual month
     int month_fr = (tens_month * 10) + ones_month;
-    // delete later
+    // convert to string
     char months[3];
     itoa(month_fr, months, 10);
 
     outb(0x70, 0x09);
     unsigned char year = inb(0x71);
-    // convert the shift
+    // ones place
     int ones_year = year & 0x0F;
-
+    // tens place
     int tens_year = year / 16;
-
+    // actual year
     int year_fr = (tens_year * 10) + ones_year;
-
+    // convert to string
     char years[3];
     itoa(year_fr, years, 10);
 
-    char *final_date = strcat(months, ":");
+    char *final_date = strcat(months, "/");
     final_date = strcat(final_date, days);
-    final_date = strcat(final_date, ":");
+    final_date = strcat(final_date, "/");
     final_date = strcat(final_date, years);
     puts(final_date);
     return "done";

@@ -100,13 +100,10 @@ int serial_poll(device dev, char *buffer, size_t len)
 			// if it is a new line then you are done
 			if (c == '\r')
 			{
-				// needs to exit,could change this to something else later..
 				// moves to next line
 				outb(dev, '\r');
 				outb(dev, '\n');
-				// outb(dev, '>');
 				buffer_count++;
-				puts(buffer);
 				break;
 			}
 			else if (c == '\x7F')
@@ -121,7 +118,21 @@ int serial_poll(device dev, char *buffer, size_t len)
 					outb(dev, '\b');
 				}
 			}
-
+				else if (c == '\x5B') {
+				char c = inb(COM1);
+				//up arrow 
+				if(c == 'A'){
+				}
+				else if(c == 'B'){
+				//down arrow
+				}
+				//right arrow
+				else if(c == 'C'){
+				}
+				//left arrow
+				else if(c == 'D'){
+				}
+			}
 			else
 			{
 				// if regular character then outb it so the user can see and add to the buffer
