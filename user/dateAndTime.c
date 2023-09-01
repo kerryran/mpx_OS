@@ -20,7 +20,7 @@ void rtc_write(uint8_t reg, uint8_t value)
 char* get_time()
 {
     outb(0x70, 0x00);
-    unsigned char seconds = inb(0x00);
+    unsigned char seconds = inb(0x71);
     //ones place
     int ones_sec = (seconds & 00001111);
     //tens place
@@ -33,7 +33,7 @@ char* get_time()
     itoa(seconds_fr,secs, 10);
 
     outb(0x70, 0x02);
-    unsigned char minutes = inb(0x02);
+    unsigned char minutes = inb(0x71);
     //ones place
     int ones_min = (minutes & 00001111);
     //tens place
@@ -46,7 +46,7 @@ char* get_time()
     itoa(minutes_fr, mins, 10);
 
     outb(0x70,0x04);
-    unsigned char hours = inb(0x04);
+    unsigned char hours = inb(0x71);
     //ones place
     int ones_hr = (hours & 00001111);
     //tens place
