@@ -6,36 +6,6 @@
 #include <stdlib.h>
 #include <mpx/interrupts.h>
 
-// helper function to WRITE a byte to RTC
-void rtc_write(uint8_t reg, uint8_t value)
-{
-    puts("\nI am before disabling interrupts\n");
-    // cli(); // disable interrupts
-
-    // Convert integer to binary
-    int binary[8];
-    int i = 0;
-
-    puts("\nI am before the while loop\n");
-    while (value > 0)
-    {
-        // Problem... what if user types in number like 05? How does atoi handle that? Does it even matter?
-        // 24 HR TIME
-        binary[i] = value % 2;
-        // Trying to print value fails
-        puts("\nI am before printing the value\n");
-        value /= 2;
-        i++;
-    }
-
-    puts("\n I am before outb to reg");
-    outb(0x71, reg);
-    puts("\nI am before outb to valuee");
-    outb(0x70, value);
-
-    // sti(); // enable interrupts
-}
-
 char *get_time()
 {
     outb(0x70, 0x00);
@@ -53,6 +23,7 @@ char *get_time()
 
     // mod 16 to get low
     // deivde by 16 to get high
+    // multiply by 16 to reverse for set
     outb(0x70, 0x02);
     unsigned char minutes = inb(0x71);
     // ones place
@@ -90,6 +61,76 @@ char *get_time()
     return "done";
 }
 
+void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)
+{
+    // we have int of the user input
+
+    // get tens place of day
+    int tens_seconds = seconds * 16;
+    // get ones place of day
+    int ones_seconds = seconds & 0x0F;
+    // make char of day
+    unsigned char day_pc = (unsigned char)(tens_seconds * 10) + ones_seconds;
+    // write to register
+    outb(0x71, day_pc);
+
+    // get tens place of day
+    int tens_month = minutes * 16;
+    // get ones place of day
+    int ones_month = minutes & 0x0F;
+    // make char of day
+    unsigned char month_pc = (unsigned char)(tens_month * 10) + ones_month;
+    // write to register
+    outb(0x71, month_pc);
+
+    // get tens place of day
+    int tens_year = hours * 16;
+    // get ones place of day
+    int ones_year = hours & 0x0F;
+    // make char of day
+    unsigned char year_pc = (unsigned char)(tens_year * 10) + ones_year;
+    // write to register
+    outb(0x71, year_pc);
+}
+
+void set_date(uint8_t day, uint8_t month, uint8_t year)
+{
+    cli(); // Disable Interupts
+    // we have int of the user input
+
+    // get tens place of day
+    int tens_day = ((day / 10) & 15) << 4;
+    // get ones place of day
+    int ones_day = (day % 10) & 15;
+    // make char of day
+    int day_pc = (tens_day + ones_day);
+    // write to register
+    outb(0x70, 0x07);
+    outb(0x71, day_pc);
+
+    // // get tens place of day
+    int tens_month = ((month / 10) & 15) << 4;
+    // // get ones place of day
+    int ones_month = (month % 10) & 15;
+    // // make char of day
+    int month_pc = tens_month + ones_month;
+    // // write to register
+    outb(0x70, 0x08);
+    outb(0x71, month_pc);
+
+    // // get tens place of day
+    int tens_year = ((year / 10) & 15) << 4;
+    // // get ones place of day
+    int ones_year = (year % 10) & 15;
+    // // make char of day
+    int year_pc = tens_year + ones_year;
+    // // write to register
+    outb(0x70, 0x09);
+    outb(0x71, year_pc);
+
+    sti(); // Enable Interrupts
+}
+
 char *get_date()
 {
     outb(0x70, 0x07);
@@ -98,10 +139,9 @@ char *get_date()
     int ones_day = day & 0x0F;
     // tens place
     int tens_day = day / 16;
-    // tens_day = (tens_day & 00001111);
     //  actual day
     int day_fr = (tens_day * 10) + ones_day;
-    // delete later
+    // Convert to string
     char days[3];
     itoa(day_fr, days, 10);
 
@@ -136,18 +176,4 @@ char *get_date()
     final_date = strcat(final_date, years);
     puts(final_date);
     return "done";
-}
-
-void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)
-{
-    rtc_write(0x04, hours);
-    rtc_write(0x02, minutes);
-    rtc_write(0x00, seconds);
-}
-
-void set_date(uint8_t day, uint8_t month, uint8_t year)
-{
-    rtc_write(0x07, day);
-    rtc_write(0x08, month);
-    rtc_write(0x09, year);
 }
