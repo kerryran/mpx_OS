@@ -97,9 +97,9 @@ char *get_date()
     char years[3];
     itoa(year_fr, years, 10);
 
-    char *final_date = strcat(months, ":");
+    char *final_date = strcat(months, "/");
     final_date = strcat(final_date, days);
-    final_date = strcat(final_date, ":");
+    final_date = strcat(final_date, "/");
     final_date = strcat(final_date, years);
     puts(final_date);
     return "done";
