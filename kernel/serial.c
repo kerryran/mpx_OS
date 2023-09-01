@@ -106,7 +106,6 @@ int serial_poll(device dev, char *buffer, size_t len)
 				outb(dev, '\n');
 				// outb(dev, '>');
 				buffer_count++;
-				puts(buffer);
 				break;
 			}
 			else if (c == '\x7F')
