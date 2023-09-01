@@ -59,10 +59,14 @@ char* get_time()
     itoa(hours_fr, hrs, 10);
 
     char* final_time = strcat(hrs, ":");
+    //puts("\n");
+   // puts(final_time);
+   // puts("\n");
     final_time = strcat(final_time, mins);
     final_time = strcat(final_time, ":");
     final_time = strcat(final_time, secs);
-    return final_time;
+    puts(final_time);
+    return "done";
     
 }
 
