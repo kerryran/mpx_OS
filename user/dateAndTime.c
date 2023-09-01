@@ -23,6 +23,7 @@ char* get_time()
     unsigned char seconds = inb(0x71);
     //ones place
     int ones_sec = (seconds & 00001111);
+    char test_seconds[3];
     //tens place
     int tens_sec = seconds >> 4;
     tens_sec = (tens_sec & 00001111);
