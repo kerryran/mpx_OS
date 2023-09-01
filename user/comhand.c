@@ -44,6 +44,7 @@ void comhand(void)
                         if (strcmp(choice, "1") == 0)
                         {
                                 // Doesn't work, crashes
+                                puts("\nThe date is: ");
                                 get_date();
                         }
                         else if (strcmp(choice, "2") == 0)
@@ -68,7 +69,7 @@ void comhand(void)
                         }
                         else if (strcmp(choice, "3") == 0)
                         {
-                                puts("\n");
+                                puts("\nThe time in UTC is: ");
                                 get_time();
                         }
                         else if (strcmp(choice, "4") == 0)
