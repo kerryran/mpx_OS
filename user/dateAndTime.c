@@ -39,10 +39,9 @@ void rtc_write(uint8_t reg, uint8_t value)
 
 char *get_time()
 {
-
     outb(0x70, 0x00);
-    unsigned char seconds = inb(0x00);
-    // convert the shift??
+    unsigned char seconds = inb(0x71);
+    // ones place
     int ones_sec = (seconds & 00001111);
     // tens place
     int tens_sec = seconds >> 4;
@@ -54,8 +53,8 @@ char *get_time()
     itoa(seconds_fr, secs, 10);
 
     outb(0x70, 0x02);
-    unsigned char minutes = inb(0x02);
-    // convert the shift??
+    unsigned char minutes = inb(0x71);
+    // ones place
     int ones_min = (minutes & 00001111);
     // tens place
     int tens_min = minutes >> 4;
@@ -67,8 +66,8 @@ char *get_time()
     itoa(minutes_fr, mins, 10);
 
     outb(0x70, 0x04);
-    unsigned char hours = inb(0x04);
-    // convert the shift??
+    unsigned char hours = inb(0x71);
+    // ones place
     int ones_hr = (hours & 00001111);
     // tens place
     int tens_hr = hours >> 4;
@@ -79,12 +78,15 @@ char *get_time()
     char hrs[3];
     itoa(hours_fr, hrs, 10);
 
-    // delete the following later
-    puts((char *)ones_sec);
-    puts((char *)ones_min);
-    puts((char *)ones_hr);
-    char *time = "time";
-    return time;
+    char *final_time = strcat(hrs, ":");
+    // puts("\n");
+    // puts(final_time);
+    // puts("\n");
+    final_time = strcat(final_time, mins);
+    final_time = strcat(final_time, ":");
+    final_time = strcat(final_time, secs);
+    puts(final_time);
+    return "done";
 }
 
 char *get_date()
