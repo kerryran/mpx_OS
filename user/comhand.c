@@ -43,7 +43,6 @@ void comhand(void)
                         sys_req(READ, COM1, choice, 5);
                         if (strcmp(choice, "1") == 0)
                         {
-                                // Doesn't work, crashes
                                 puts("\nThe date is: ");
                                 get_date();
                         }
