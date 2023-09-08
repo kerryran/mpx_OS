@@ -18,9 +18,9 @@ void comhand(void)
                 puts("Enter a number to select:\n");
                 puts(">");
 
-                char buffer[5] = {0};
+                char buffer[4] = {0};
 
-                sys_req(READ, COM1, buffer, 5);
+                sys_req(READ, COM1, buffer, 4);
 
                 // Working as intended
                 if (strcmp(buffer, "1") == 0)
@@ -48,23 +48,135 @@ void comhand(void)
                         }
                         else if (strcmp(choice, "2") == 0)
                         {
-                                // Needs error checking
+                                
                                 puts("\nEnter The Year:\n");
                                 puts(">");
-                                char year[5] = {0};
-                                sys_req(READ, COM1, year, 5);
-                                // puts(year);
+                                char year[3] = {0};
+                                sys_req(READ, COM1, year, 3);
+
+                                int y = atoi(year);
+
+                                if((y%4)==0 && (y%100)!=0){
+                                //this is a leap year, check february
                                 puts("\nEnter The Month:\n");
                                 puts(">");
                                 char month[3] = {0};
                                 sys_req(READ, COM1, month, 3);
-                                // puts(day);
+
+                                int m = atoi(month);
+                                if(m == 2){
+                                //february     
                                 puts("\nEnter The Day:\n");
                                 puts(">");
                                 char day[3] = {0};
-                                sys_req(READ, COM1, day, 3);
+                                sys_req(READ, COM1, day, 3); 
 
-                                set_date(atoi(day), atoi(month), atoi(year));
+                                int d = atoi(day);
+
+                                if(d > 29){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                } 
+                                 set_date(d, m, y);
+                                }
+                                else if(m > 12){
+                                       puts("\nInvalid date, Please select a new option");
+                                        continue; 
+                                }
+                                else if ((m == 1) || (m == 3) || (m == 5) || (m == 7) || (m == 8) || (m == 10) ||(m == 12) ){
+                                      //months have 31 days
+                                         puts("\nEnter The Day:\n");
+                                         puts(">");
+                                         char day[3] = {0};
+                                         sys_req(READ, COM1, day, 3); 
+
+                                        int d = atoi(day);
+
+                                        if(d > 31){
+                                               puts("\nInvalid date, Please select a new option");
+                                                continue;  
+                                        }
+
+                                        set_date(d, m, y);
+                                }
+                                else{
+                                        //month must have 30 days
+                                        puts("\nEnter The Day:\n");
+                                         puts(">");
+                                         char day[3] = {0};
+                                         sys_req(READ, COM1, day, 3); 
+
+                                        int d = atoi(day);
+
+                                        if(d > 30){
+                                               puts("\nInvalid date, Please select a new option");
+                                                continue;  
+                                        }
+                                        
+                                        set_date(d, m, y);
+                                }
+                                
+                                }
+                                else{
+                                //not a leap year!
+                                puts("\nEnter The Month:\n");
+                                puts(">");
+                                char month[3] = {0};
+                                sys_req(READ, COM1, month, 3);
+
+                                int m = atoi(month);
+                                if(m == 2){
+                                //february     
+                                puts("\nEnter The Day:\n");
+                                puts(">");
+                                char day[3] = {0};
+                                sys_req(READ, COM1, day, 3); 
+
+                                int d = atoi(day);
+
+                                if(d > 28){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                } 
+                                 set_date(d, m, y);
+                                }
+                                else if(m > 12){
+                                       puts("\nInvalid date, Please select a new option");
+                                        continue; 
+                                }
+                                else if ((m == 1) || (m == 3) || (m == 5) || (m == 7) || (m == 8) || (m == 10) ||(m == 12) ){
+                                      //months have 31 days
+                                         puts("\nEnter The Day:\n");
+                                         puts(">");
+                                         char day[3] = {0};
+                                         sys_req(READ, COM1, day, 3); 
+
+                                        int d = atoi(day);
+
+                                        if(d > 31){
+                                               puts("\nInvalid date, Please select a new option");
+                                                continue;  
+                                        }
+
+                                        set_date(d, m, y);
+                                }
+                                else{
+                                        //month must have 30 days
+                                        puts("\nEnter The Day:\n");
+                                         puts(">");
+                                         char day[3] = {0};
+                                         sys_req(READ, COM1, day, 3); 
+
+                                        int d = atoi(day);
+
+                                        if(d > 30){
+                                               puts("\nInvalid date, Please select a new option");
+                                                continue;  
+                                        }
+                                        
+                                        set_date(d, m, y);
+                                }   
+                                }
                         }
                         else if (strcmp(choice, "3") == 0)
                         {
@@ -106,7 +218,7 @@ void comhand(void)
                                                 puts("\n Invalid time, Please select a new option");
                                                 continue;
                                         }
-                                set_time(atoi(hour), atoi(minute), atoi(second));
+                                set_time(hr, min, sec);
                         }
                         else if (strcmp(choice, "5") == 0)
                         {
@@ -143,3 +255,4 @@ void comhand(void)
                 }
         }
 }
+

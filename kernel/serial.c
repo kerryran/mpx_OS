@@ -106,16 +106,18 @@ int serial_poll(device dev, char *buffer, size_t len)
 				buffer_count++;
 				break;
 			}
+			//backspace
 			else if (c == '\x7F')
 			{
 				if (buffer_count > 0)
 				{
 					// Remove last character from the buffer
-					buffer_count--;
 					// Output backspace and a space to clear the previous character
+					buffer_count--;
 					outb(dev, '\b');
 					outb(dev, ' ');
 					outb(dev, '\b');
+					buffer[buffer_count] = 0;
 				}
 			}
 				else if (c == '\x5B') {
