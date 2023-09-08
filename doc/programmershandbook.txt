@@ -1,34 +1,37 @@
 2. Data Types
    2.1 Primitive Data Types
       2.1.1 Integer
-        signed char
-		 The 8-bit signed char data type can hold integer values in the range of -128 to 127.
+      signed char
+		   //The 8-bit signed char data type can hold integer values in the range of -128 to 127.
     	unsigned char
-    		The 8-bit unsigned char data type can hold integer values in the range of 0 to 255.
+    		//The 8-bit unsigned char data type can hold integer values in the range of 0 to 255.
     	char
-    		The 16-bit short int data type can hold integer values in the range of -32,768 to 32,767. You may also refer to this data type as short, signed short int, or signed short.
-    	unsigned short int
-    		The 16-bit unsigned short int data type can hold integer values in the range of 0 to 65,535. You may also refer to this data type as unsigned short.
+    		//The 16-bit short int data type can hold integer values in the range of -32,768 to 32,767.
+    		//The 16-bit unsigned short int data type can hold integer values in the range of 0 to 65,535.
     	int
-    		The 32-bit int data type can hold integer values in the range of -2,147,483,648 to 2,147,483,647. You may also refer to this data type as signed int or signed.
+    		//The 32-bit int data type can hold integer values in the range of -2,147,483,648 to 2,147,483,647.
     	unsigned int
-    		The 32-bit unsigned int data type can hold integer values in the range of 0 to 4,294,967,295. You may also refer to this data type simply as unsigned.
+    		//The 32-bit unsigned int data type can hold integer values in the range of 0 to 4,294,967,295.
     	long int
-    		The 32-bit long int data type can hold integer values in the range of at least -2,147,483,648 to 2,147,483,647. (Depending on your system, this data type might be 64-bit, in which case its range is identical to that of the long long int data type.) You may also refer to this data type as long, signed long int, or signed long.
+    		The 32-bit long int data type can hold integer values in the range of at least -2,147,483,648 to 2,147,483,647.
     	unsigned long int
-    		The 32-bit unsigned long int data type can hold integer values in the range of at least 0 to 4,294,967,295. (Depending on your system, this data type might be 64-bit, in which case its range is identical to that of the unsigned long long int data type.) You may also refer to this data type as unsigned long.
+    		//The 32-bit unsigned long int data type can hold integer values in the range of at least 0 to 4,294,967,295.
     	long long int
-    		The 64-bit long long int data type can hold integer values in the range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. You may also refer to this data type as long long, signed long long int or signed long long. This type is not part of C89, but is both part of C99 and a GNU C extension.
+    		//The 64-bit long long int data type can hold integer values in the range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.
     	unsigned long long int
-    		The 64-bit unsigned long long int data type can hold integer values in the range of at least 0 to 18,446,744,073,709,551,615. You may also refer to this data type as unsigned long long. This type is not part of C89, but is both part of C99 and a GNU C extension. 
+    		//The 64-bit unsigned long long int data type can hold integer values in the range of at least 0 to 18,446,744,073,709,551,615.
 
       2.1.2 Float
-         Example: float
-         Usage: Typically used for real numbers with decimal points.
+         Example: 
+         float
+         Usage: 
+         //Typically used for real numbers with decimal points.
 
       2.1.3 Double
-         Example: double
-         Usage: Offers higher precision for floating-point calculations.
+         Example: 
+         double
+         Usage: 
+         //Offers higher precision for floating-point calculations.
 
    2.2 Enumeration
       2.2.1 Declaring Enumeration
@@ -47,7 +50,7 @@
 
    2.5 Pointers
       2.5.1 Declaring Pointers
-         Pointers are used to store memory addresses. They can point to data of various types, including integers, floats, structures, and more.
+         //Pointers are used to store memory addresses. They can point to data of various types, including integers, floats, structures, and more.
 
          Example:
          int *intPtr;         // Pointer to an integer
@@ -55,26 +58,28 @@
          struct Person *personPtr;  // Pointer to a structure of type Person
 
       2.5.2 Initializing Pointers
-         Pointers should be initialized with the address of a valid variable or memory location.
+         //Pointers should be initialized with the address of a valid variable or memory location.
 
          Example:
          int x = 42;
          int *ptr = &x;  // Initializes ptr with the address of integer variable x
 
       2.5.3 Dereferencing Pointers
-         To access the value pointed to by a pointer, you can use the dereference operator (*).
+         //To access the value pointed to by a pointer, you can use the dereference operator (*).
 
          Example:
          int y = *ptr;  // Assigns the value at the address pointed to by ptr to y
 
       2.5.4 Pointer Arithmetic
-         Pointers can be manipulated using arithmetic operations. These operations allow you to navigate through arrays and memory blocks.
+         //Pointers can be manipulated using arithmetic operations. These operations allow you to navigate through arrays and memory blocks.
 
          Example:
+         //Initialize ptr with the address of the first element
          int numbers[5] = {1, 2, 3, 4, 5};
-         int *ptr = numbers;  // Initialize ptr with the address of the first element
+         int *ptr = numbers;  
+         
 
-         // Access elements using pointer arithmetic
+         //Access elements using pointer arithmetic
          int thirdElement = *(ptr + 2);  // thirdElement will be 3
 
    2.6 Incomplete Types
@@ -90,10 +95,10 @@
          Parameters:
          - `device dev`: The device identifier (e.g., COM1, COM2).
          Return Value:
-         Returns 0 on success, -1 on failure.
+         //Returns 0 on success, -1 on failure.
          Usage:
-         Call this function to initialize serial communication for a specific device.
-         It configures various settings, such as baud rate, data format, and interrupts.
+         //Call this function to initialize serial communication for a specific device.
+         //It configures various settings, such as baud rate, data format, and interrupts.
 
       3.1.2 `serial_out(device dev, const char *buffer, size_t len)`
          // Sends data over the specified serial device.
@@ -102,10 +107,12 @@
          - `const char *buffer`: Pointer to the data to be sent.
          - `size_t len`: The length of the data to be sent.
          Return Value:
-         Returns the number of bytes sent or -1 on failure.
+         //Returns the number of bytes sent or -1 on failure.
+         Return Type:
+         //int
          Usage:
-         Use this function to send data over the serial device. It sends the provided data buffer of
-         a specified length.
+         //Use this function to send data over the serial device. It sends the provided data buffer of
+         //a specified length.
 
       3.1.3 `serial_poll(device dev, char *buffer, size_t len)`
          // Polls the serial device for input and collects characters into a buffer.
@@ -113,36 +120,79 @@
          - `device dev`: The device identifier (e.g., COM1, COM2).
          - `char *buffer`: Pointer to the buffer where received characters are stored.
          - `size_t len`: The maximum number of characters to read.
-         Return Value:
-         Returns the number of characters read and stored in the buffer.
+         Return Value: 
+         //Returns the number of characters read and stored in the buffer.
+         Return Type:
+         //int
          Usage:
-         This function continuously polls the serial device for incoming characters.
-         It collects characters into the provided buffer until the buffer is full or a special
-         condition (e.g., Enter key) is met.
+         //This function continuously polls the serial device for incoming characters.
+         //It collects characters into the provided buffer until the buffer is full or a special
+         //condition (e.g., Enter key) is met.
+   3.2 Date and Time
+      3.2.1 `*get_time()`
+       //Reads the time from the system register
+
+         Return Value: 
+         //Returns the success statement "get time complete"
+         Return Type:
+         //char
+         Usage:
+         //This function reads the system register for the current hours, minutes, and seconds.
+         
+      3.2.2 `void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)`
+      //Sets the system time
+         Return Type:
+         //void
+         Usage:
+         //This function writes to the system register for the current hours, minutes, and seconds.
+      3.2.3 `char *get_date()`
+      //Reads the date from the system register
+         Return Value: 
+         //Returns the success statement "get date complete"
+         Return Type:
+         //char
+         Usage:
+         //This function reads the system register for the current month, day, and year.
+
+      3.2.4 `void set_date(uint8_t day, uint8_t month, uint8_t year)`
+      //Reads the time from the system register
+         Return Type:
+         //void
+         Usage:
+         //This function writes to the system register for the current month, day, and year.
+
 
 4. Source Files
    4.1 `serial.c`
-      // This source file contains functions and configurations related to serial communication.
+      //This source file contains functions and configurations related to serial communication.
 
    4.2 `comhand.c`
-      // This source file defines the `comhand` function, which serves as a command-line interface for the
-      // operating system. Users can interact with the system through this interface.
+      //This source file defines the `comhand` function, which serves as a command-line interface for the
+      //operating system. Users can interact with the system through this interface.
 
    4.3 `dateandtime.c`
-      // This source file provides functions for reading and setting the system date and time. It communicates
-      // with the real-time clock (RTC) hardware to retrieve and update date and time information.
+      //This source file provides functions for reading and setting the system date and time. It communicates
+      //with the real-time clock (RTC) hardware to retrieve and update date and time information.
 
 5. Enumeration
    5.1 `uart_registers`
-      // This enumeration defines constants representing UART (Universal Asynchronous Receiver/Transmitter)
-      // registers used for serial communication configuration.
+      //This enumeration defines constants representing UART (Universal Asynchronous Receiver/Transmitter)
+      //registers used for serial communication configuration.
 
 6. Dependencies
-   - `mpx/io.h`: This header file provides I/O operations for communication with hardware devices.
-   - `mpx/serial.h`: This header file includes declarations related to serial communication.
-   - `sys_req.h`: This header file contains system request related definitions.
-   - `string.h`: This header file provides string manipulation functions.
-   - `stdbool.h`: This header file defines the boolean data type.
-   - `dateAndTime.h`: This header file includes declarations related to date and time functions.
-   - `stdlib.h`: This header file provides standard library functions.
-   - `mpx/interrupts.h`: This header file contains interrupt-related definitions.
+   - `mpx/io.h`: 
+   //This header file provides I/O operations for communication with hardware devices.
+   - `mpx/serial.h`: 
+   //This header file includes declarations related to serial communication.
+   - `sys_req.h`: 
+   //This header file contains system request related definitions.
+   - `string.h`: 
+   //This header file provides string manipulation functions.
+   - `stdbool.h`: 
+   //This header file defines the boolean data type.
+   - `dateAndTime.h`: 
+   //This header file includes declarations related to date and time functions.
+   - `stdlib.h`: 
+   //This header file provides standard library functions.
+   - `mpx/interrupts.h`: 
+   //This header file contains interrupt-related definitions.
