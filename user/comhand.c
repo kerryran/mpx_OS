@@ -54,13 +54,11 @@ void comhand(void)
                                 char year[3] = {0};
                                 sys_req(READ, COM1, year, 3);
 
-                                //isNum testing
-                                int numtest = isNum(year);
-                                if(numtest == 1){
-                                        puts("good year");
-                                }
-                                else if (numtest ==0){
-                                        puts("bad year");
+                                //validate year
+                                int year_valid = isNum(year);
+                                if(year_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
                                 }
 
                                 int y = atoi(year);
@@ -71,6 +69,13 @@ void comhand(void)
                                 puts(">");
                                 char month[3] = {0};
                                 sys_req(READ, COM1, month, 3);
+                                
+                                //validate month
+                                int month_valid = isNum(month);
+                                if(month_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                }
 
                                 int m = atoi(month);
                                 if(m == 2){
@@ -79,6 +84,13 @@ void comhand(void)
                                 puts(">");
                                 char day[3] = {0};
                                 sys_req(READ, COM1, day, 3); 
+                                
+                                //validate day
+                                int day_valid = isNum(day);
+                                if(day_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                }
 
                                 int d = atoi(day);
 
@@ -98,7 +110,13 @@ void comhand(void)
                                          puts(">");
                                          char day[3] = {0};
                                          sys_req(READ, COM1, day, 3); 
-
+                                        
+                                        //validate day
+                                        int day_valid = isNum(day);
+                                        if(day_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                         }
                                         int d = atoi(day);
 
                                         if(d > 31){
@@ -114,6 +132,13 @@ void comhand(void)
                                          puts(">");
                                          char day[3] = {0};
                                          sys_req(READ, COM1, day, 3); 
+                                       
+                                        //validate day
+                                        int day_valid = isNum(day);
+                                        if(day_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                        }
 
                                         int d = atoi(day);
 
@@ -133,6 +158,13 @@ void comhand(void)
                                 char month[3] = {0};
                                 sys_req(READ, COM1, month, 3);
 
+                                //validate month
+                                int month_valid = isNum(month);
+                                if(month_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                }
+
                                 int m = atoi(month);
                                 if(m == 2){
                                 //february     
@@ -140,6 +172,13 @@ void comhand(void)
                                 puts(">");
                                 char day[3] = {0};
                                 sys_req(READ, COM1, day, 3); 
+                                
+                                //validate day
+                                int day_valid = isNum(day);
+                                if(day_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                }
 
                                 int d = atoi(day);
 
@@ -160,6 +199,13 @@ void comhand(void)
                                          char day[3] = {0};
                                          sys_req(READ, COM1, day, 3); 
 
+                                        //validate day
+                                         int day_valid = isNum(day);
+                                         if(day_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                         }
+
                                         int d = atoi(day);
 
                                         if(d > 31){
@@ -175,6 +221,13 @@ void comhand(void)
                                          puts(">");
                                          char day[3] = {0};
                                          sys_req(READ, COM1, day, 3); 
+
+                                        //validate day
+                                        int day_valid = isNum(day);
+                                        if(day_valid == 0){
+                                        puts("\nInvalid date, Please select a new option");
+                                        continue;
+                                         }
 
                                         int d = atoi(day);
 
@@ -200,6 +253,13 @@ void comhand(void)
                                 puts(">");
                                 char hour[3] = {0};
                                 sys_req(READ, COM1, hour, 3);
+                                
+                                //validate hour
+                                int hour_valid = isNum(hour);
+                                if(hour_valid == 0){
+                                        puts("\nInvalid time, Please select a new option");
+                                        continue;
+                                }
 
                                 int hr = atoi(hour);
                                         if(hr > 24){
@@ -211,6 +271,13 @@ void comhand(void)
                                 puts(">");
                                 char minute[3] = {0};
                                 sys_req(READ, COM1, minute, 3);
+                                
+                                //validate minute
+                                int minute_valid = isNum(minute);
+                                if(minute_valid == 0){
+                                        puts("\nInvalid time, Please select a new option");
+                                        continue;
+                                }
 
                                 int min = atoi(minute);
                                         if(min > 59){
@@ -222,6 +289,12 @@ void comhand(void)
                                 char second[3] = {0};
                                 sys_req(READ, COM1, second, 3);
 
+                                //validate second
+                                int second_valid = isNum(second);
+                                if(second_valid == 0){
+                                        puts("\nInvalid time, Please select a new option");
+                                        continue;
+                                }
                                 int sec = atoi(second);
                                         if(sec > 59){
                                                 puts("\n Invalid time, Please select a new option");
