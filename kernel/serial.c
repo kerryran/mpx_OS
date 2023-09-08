@@ -117,7 +117,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 					outb(dev, '\b');
 					outb(dev, ' ');
 					outb(dev, '\b');
-					buffer[char_count-1] = 0;
+					buffer[buffer_count] = 0;
 				}
 			}
 				else if (c == '\x5B') {
