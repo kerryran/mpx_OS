@@ -103,7 +103,6 @@ int serial_poll(device dev, char *buffer, size_t len)
 				// moves to next line
 				outb(dev, '\r');
 				outb(dev, '\n');
-				buffer_count++;
 				break;
 			}
 			//backspace
