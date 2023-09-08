@@ -18,9 +18,9 @@ void comhand(void)
                 puts("Enter a number to select:\n");
                 puts(">");
 
-                char buffer[3] = {0};
+                char buffer[4] = {0};
 
-                sys_req(READ, COM1, buffer, 3);
+                sys_req(READ, COM1, buffer, 4);
 
                 // Working as intended
                 if (strcmp(buffer, "1") == 0)
