@@ -54,6 +54,15 @@ void comhand(void)
                                 char year[3] = {0};
                                 sys_req(READ, COM1, year, 3);
 
+                                //isNum testing
+                                int numtest = isNum(year);
+                                if(numtest == 1){
+                                        puts("good year");
+                                }
+                                else if (numtest ==0){
+                                        puts("bad year");
+                                }
+
                                 int y = atoi(year);
 
                                 if((y%4)==0 && (y%100)!=0){
