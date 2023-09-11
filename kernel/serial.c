@@ -112,11 +112,17 @@ int serial_poll(device dev, char *buffer, size_t len)
 				{
 					// Remove last character from the buffer
 					// Output backspace and a space to clear the previous character
+					
 					buffer_count--;
 					outb(dev, '\b');
 					outb(dev, ' ');
 					outb(dev, '\b');
+					char_count--;
 					buffer[buffer_count] = 0;
+				}
+				else
+				{
+
 				}
 			}
 				else if (c == '\x5B') {

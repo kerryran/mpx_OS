@@ -21,7 +21,7 @@
     	unsigned long long int
     		//The 64-bit unsigned long long int data type can hold integer values in the range of at least 0 to 18,446,744,073,709,551,615.
 
-      2.1.2 Float
+      2.1.2 Float    
          Example: 
          float
          Usage: 
@@ -160,7 +160,12 @@
          //void
          Usage:
          //This function writes to the system register for the current month, day, and year.
-
+      3.2.5 `char* itoa (int num, char* string, int base)`
+       Return Type:
+         //char*
+         Usage:
+         //This function writes to the system register for the current month, day, and year.
+      3.2.6 isnum
 
 4. Source Files
    4.1 `serial.c`
