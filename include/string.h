@@ -69,4 +69,6 @@ char *strcat(char *first, char *second);
 */
 char *substring(char string[], int index, int length);
 
+int isNum(char buffer[]);
+
 #endif

@@ -1,0 +1,409 @@
+1 Reserved space for future documentation
+   //
+2. Data Types
+
+   2.1 Primitive Data Types
+
+      2.1.1 Integer
+
+      signed char
+		   //The 8-bit signed char data type can hold integer values in the range of -128 to 127.
+    	unsigned char
+    		//The 8-bit unsigned char data type can hold integer values in the range of 0 to 255.
+    	char
+    		//The 16-bit short int data type can hold integer values in the range of -32,768 to 32,767.
+    		//The 16-bit unsigned short int data type can hold integer values in the range of 0 to 65,535.
+    	int
+    		//The 32-bit int data type can hold integer values in the range of -2,147,483,648 to 2,147,483,647.
+    	unsigned int
+    		//The 32-bit unsigned int data type can hold integer values in the range of 0 to 4,294,967,295.
+    	long int
+    		The 32-bit long int data type can hold integer values in the range of at least -2,147,483,648 to 2,147,483,647.
+    	unsigned long int
+    		//The 32-bit unsigned long int data type can hold integer values in the range of at least 0 to 4,294,967,295.
+    	long long int
+    		//The 64-bit long long int data type can hold integer values in the range of -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807.
+    	unsigned long long int
+    		//The 64-bit unsigned long long int data type can hold integer values in the range of at least 0 to 18,446,744,073,709,551,615.
+
+      2.1.2 Float   
+
+         Example: 
+         float var;
+         //defines an uninitialized float named var
+         float var = 10
+         //defines a float named var with a value of 10
+         Usage: 
+         //Typically used for real numbers with decimal points.
+
+      2.1.3 Double
+
+         Example: 
+         double var
+         //defines an uninitialized double named var
+         double var = 10.1234
+         //defines an uninitialized double named var with a vlaue of 10.1234
+         Usage: 
+         //Offers higher precision for floating-point calculations.
+
+   2.2 Enumeration
+
+      2.2.1 Declaring Enumeration
+
+         //enumerations are defined using the keyword enum followed by the name of the enum (optional)
+         //followed by a list of constant names seperated by commas and enclosed in braces ending with a semicolon
+         enum week{Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
+         // by default the first value is 0, the values are incremented by 1 after that 
+         // one or more values can be declared explicitly
+         enum week{Monday = 1, Tuesday, Wednesday, Thursday, Friday, Saturday};
+         //in this example Monday is declared as 1 and the values of following declarations will be incremented by 1. 
+         //(Tuesday = 2, Wednesday = 3...)
+
+   2.3 Structures
+      //A structure is a programmer-defined data type made up of variables of other data types     
+      Example:
+      struct point
+      {
+         int x, y;
+      };
+      // This structure represents a point in a 2D space with integer coordinates. The struct defined as point with two members, x and y.
+
+   2.4 Arrays
+   
+      // Arrays are collections of elements of the same data type, stored in contiguous memory locations.
+      Usage:
+      //Declare and initialize arrays to store and manipulate multiple elements of the same data type.
+      Example:
+      float array[5];
+      //creates an array of length 5 of floats initialized to 0
+      int array[5] = {9, 2, 5, 7, 3};
+      //creates an array of length 5 of ints initialized to 9, 2, 5, 7, 3
+
+   2.5 Pointers
+
+      2.5.1 Declaring Pointers
+
+         //Pointers are used to store memory addresses. They can point to data of various types, including integers, floats, structures, and more.
+
+         Example:
+         int *intPtr;         // Pointer to an integer
+         float *floatPtr;     // Pointer to a float
+         struct Person *personPtr;  // Pointer to a structure of type Person
+
+      2.5.2 Initializing Pointers
+
+         //Pointers should be initialized with the address of a valid variable or memory location.
+
+         Example:
+         int x = 42;
+         int *ptr = &x;  // Initializes ptr with the address of integer variable x
+
+      2.5.3 Dereferencing Pointers
+
+         //To access the value pointed to by a pointer, you can use the dereference operator (*).
+
+         Example:
+         int y = *ptr;  // Assigns the value at the address pointed to by ptr to y
+
+      2.5.4 Pointer Arithmetic
+
+         //Pointers can be manipulated using arithmetic operations. These operations allow you to navigate through arrays and memory blocks.
+
+         Example:
+         //Initialize ptr with the address of the first element
+         int numbers[5] = {1, 2, 3, 4, 5};
+         int *ptr = numbers;  
+         
+
+         //Access elements using pointer arithmetic
+         int thirdElement = *(ptr + 2);  // thirdElement will be 3
+
+   2.6 Type Qualifiers
+
+      2.6.1 const
+         //makes a variable read-only
+         Example:
+         const float noon = 12;
+         //defines a read-only float named noon with a value of 12
+
+
+   2.7 Type Specifiers
+
+      2.7.1 static
+         //makes a variable retain its value after a function completes rather than the default behavior of discarding after
+
+
+3. Functions
+
+   3.1 Serial Communication Functions
+
+      3.1.1 serial_init(device dev)
+
+         // Initializes the serial communication for a specified device.
+         Parameters:
+         - device dev: The device identifier (e.g., COM1, COM2).
+         Return Value:
+         // Returns 0 on success, -1 on failure.
+         Return Type:
+         // int
+         Usage:
+         // Call this function to initialize serial communication for a specific device.
+         // It configures various settings, such as baud rate, data format, and interrupts.
+
+      3.1.2 serial_out(device dev, const char *buffer, size_t len)
+
+         // Sends data over the specified serial device.
+         Parameters:
+         - device dev: The device identifier (e.g., COM1, COM2).
+         - const char *buffer: Pointer to the data to be sent.
+         - size_t len: The length of the data to be sent.
+         Return Value:
+         // Returns the number of bytes sent or -1 on failure.
+         Return Type:
+         // int
+         Usage:
+         // Use this function to send data over the serial device. It sends the provided data buffer of
+         // a specified length.
+
+      3.1.3 serial_poll(device dev, char *buffer, size_t len)
+
+         // Polls the serial device for input and collects characters into a buffer.
+         Parameters:
+         - device dev: The device identifier (e.g., COM1, COM2).
+         - char *buffer: Pointer to the buffer where received characters are stored.
+         - size_t len: The maximum number of characters to read.
+         Return Value:
+         // Returns the number of characters read and stored in the buffer.
+         Return Type:
+         // int
+         Usage:
+         // This function continuously polls the serial device for incoming characters.
+         // It collects characters into the provided buffer until the buffer is full or a special
+         // condition (e.g., Enter key) is met.
+         
+   3.2 Date and Time
+
+      3.2.1 char *get_time()
+
+         // Reads the time from the system register.
+         Return Value:
+         // Returns the success statement "get time complete."
+         Return Type:
+         // char *
+         Usage:
+         // This function reads the system register for the current hours, minutes, and seconds.
+
+      3.2.2 void set_time(uint8_t hours, uint8_t minutes, uint8_t seconds)
+
+         // Sets the system time.
+         Parameters:
+         - uint8_t hours: The new value for the hours.
+         - uint8_t minutes: The new value for the minutes.
+         - uint8_t seconds: The new value for the seconds.
+         Return Type:
+         // void
+         Usage:
+         // This function writes to the system register for the current hours, minutes, and seconds.
+
+      3.2.3 char *get_date()
+
+         // Reads the date from the system register.
+         Return Value:
+         // Returns the success statement "get date complete."
+         Return Type:
+         // char *
+         Usage:
+         // This function reads the system register for the current month, day, and year.
+
+      3.2.4 void set_date(uint8_t day, uint8_t month, uint8_t year)
+
+         // Sets the system date.
+         Parameters:
+         - uint8_t day: The new value for the day.
+         - uint8_t month: The new value for the month.
+         - uint8_t year: The new value for the year.
+         Return Type:
+         // void
+         Usage:
+         // This function writes to the system register for the current month, day, and year.
+
+   3.3 Helper Functions
+
+      3.3.1 `char* itoa (int num, char* string, int base)`
+
+         Return Type:
+         //char*
+         Usage:
+         //This function writes to the system register for the current month, day, and year.
+
+      3.3.2 `int isNum(char buffer[])`
+
+         // Checks if a value is a number or not
+         Parameters:
+         - `char buffer[]`: an array of values to be checked
+         Return Value: 
+         //Returns either a 1 or 0
+         Return Type:
+         //int
+         Usage:
+         //This function is called when the values type is important. Checks each value in the buffer against the 
+         //decimal values for the characters 0 1 2 3 4 5 6 7 8 9
+         //ex. character 0 = 48 decimal, character 9 = 57 decimal
+
+      3.3.3 `void comhand(void)`
+
+         //The `comhand` function is the central point of interaction between the user and the operating system, facilitating
+         //access to different features and providing a user-friendly interface through the serial communication port (COM1).
+         //It ensures input validation for date and time settings, including checks for leap years, valid months, and days. If invalid
+         //input is provided, the function prompts the user to select a new option.
+         //The user can confirm or cancel the shutdown operation, ensuring that important operations are not accidentally triggered.
+         Usage:
+         //Call this function to interact with the operating system through the COM1 serial port.
+         //Displays a welcome message with the OS name and developer credits.
+         //Presents a main menu with options for the user to choose from.
+         //Reads user input and performs actions based on the selected option.
+         //Provides the following menu options:
+         //Help: Describes available commands and functionalities.
+         //Version: Displays the operating system version (1.0).
+         //Date & Time: Navigates to the Date & Time submenu.
+         //Quit: Prompts the user to confirm shutdown and exits the program if confirmed.
+            //In the Date & Time submenu, the user can:
+               //Get Date: Displays the current system date.
+               //Set Date: Allows the user to input a new date in the format MM/DD/YY, with input validation.
+               //Get Time: Displays the current system time in UTC.
+               //Set Time: Allows the user to input a new time in 24-hour format (HH:MM:SS), with input validation.
+               //Go Back: Returns to the main menu.
+         //Handles user input errors by providing appropriate messages and retry options.        
+
+   3.4 String Functions
+
+      3.4.1 int strcmp(const char *s1, const char *s2)
+
+         // Compares two strings and returns 0 if they are equal. If not, it returns the difference between the characters that differ.
+         Parameters:
+         - const char *s1: Pointer to the first string.
+         - const char *s2: Pointer to the second string.
+         Return Value:
+         // Returns 0 if the strings are equal, otherwise the difference between the differing characters.
+         Return Type:
+         // int
+         Usage:
+         // Use this function to compare two strings and determine their relative order.
+
+      3.4.2 size_t strlen(const char *s)
+
+         // Calculates the length of a null-terminated string.
+         Parameters:
+         - const char *s: Pointer to the input string.
+         Return Value:
+         // Returns the length of the string.
+         Return Type:
+         // size_t
+         Usage:
+         // Use this function to find the length of a null-terminated string.
+
+      3.4.3 char *strtok(char *restrict s1, const char *restrict s2)
+      
+         // Tokenizes a string using a set of delimiter characters.
+         Parameters:
+         - char *restrict s1: The string to be tokenized (or NULL to continue from the last token).
+         - const char *restrict s2: The set of delimiter characters.
+         Return Value:
+         // Returns a pointer to the next token in the string or NULL if no more tokens are found.
+         Return Type:
+         // char *
+         Usage:
+         // Use this function to split a string into tokens based on the specified delimiters.
+
+      3.4.4 void puts(char *string)
+
+         // Writes a string to the console (or a serial device).
+         Parameters:
+         - char *string: Pointer to the null-terminated string to be written.
+         Return Type:
+         // void
+         Usage:
+         // Call this function to display a string on the console or a serial device.
+
+      3.4.5 char *strcat(char *first, char *second)
+
+         // Concatenates two strings.
+         Parameters:
+         - char *first: Pointer to the first null-terminated string.
+         - char *second: Pointer to the second null-terminated string.
+         Return Value:
+         // Returns a pointer to the concatenated string.
+         Return Type:
+         // char *
+         Usage:
+         // Use this function to concatenate two strings and obtain a new string.
+
+      3.4.6 char *substring(char string[], int index, int length)
+
+         // Extracts a substring from a character array.
+         Parameters:
+         - char string[]: The source character array.
+         - int index: The starting index of the substring.
+         - int length: The length of the substring to extract.
+         Return Value:
+         // Returns a pointer to the extracted substring.
+         Return Type:
+         // char *
+         Usage:
+         // Use this function to obtain a substring from a character array.
+
+      3.4.7 int isNum(char buffer[])
+
+         // Checks if a string consists of numeric characters.
+         Parameters:
+         - char buffer[]: Pointer to the input character array.
+         Return Value:
+         // Returns 1 if the input contains only numeric characters, otherwise returns 0.
+         Return Type:
+         // int
+         Usage:
+         // Use this function to determine if a string contains numeric values.
+
+      
+
+4. Source Files
+
+   4.1 `serial.c`
+
+      //This source file contains functions and configurations related to serial communication.
+
+   4.2 `comhand.c`
+
+      //This source file defines the `comhand` function, which serves as a command-line interface for the
+      //operating system. Users can interact with the system through this interface.
+
+   4.3 `dateandtime.c`
+
+      //This source file provides functions for reading and setting the system date and time. It communicates
+      //with the real-time clock (RTC) hardware to retrieve and update date and time information.
+
+5. Enumeration
+
+   5.1 `uart_registers`
+
+      //This enumeration defines constants representing UART (Universal Asynchronous Receiver/Transmitter)
+      //registers used for serial communication configuration.
+
+6. Dependencies
+
+   - `mpx/io.h`: 
+   //This header file provides I/O operations for communication with hardware devices.
+   - `mpx/serial.h`: 
+   //This header file includes declarations related to serial communication.
+   - `sys_req.h`: 
+   //This header file contains system request related definitions.
+   - `string.h`: 
+   //This header file provides string manipulation functions.
+   - `stdbool.h`: 
+   //This header file defines the boolean data type.
+   - `dateAndTime.h`: 
+   //This header file includes declarations related to date and time functions.
+   - `stdlib.h`: 
+   //This header file provides standard library functions.
+   - `mpx/interrupts.h`: 
+   //This header file contains interrupt-related definitions.

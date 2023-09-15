@@ -138,3 +138,13 @@ char *substring(char string[], int index, int length)
 
 	return resultptr;
 }
+
+int isNum(char buffer[]){
+
+	for(int index =0; buffer[index] != '\0'; index++){
+		if(buffer[index] <48 || buffer[index] > 57){
+			return 0;
+		}
+	}
+	return 1;
+}
