@@ -140,9 +140,9 @@ int serial_poll(device dev, char *buffer, size_t len)
 					//right arrow
 					else if(c == 'C'){
 						if(cursor_location<3){
-							cursor_location++;
 							outb(dev, ' ');
-
+							cursor_location++;
+							
 						}
 						else{
 
