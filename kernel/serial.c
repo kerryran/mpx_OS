@@ -77,10 +77,11 @@ int serial_poll(device dev, char *buffer, size_t len)
 	// arrow keys
 
 	// initialize counter
-	int char_count = 0;
+	//int char_count = 0;
 
 	// initialize buffer counter
 	int buffer_count = 0;
+	int cursor_location = 0;
 
 	// while buffer is not full
 	while (buffer_count < (int)len - 1)
@@ -108,7 +109,8 @@ int serial_poll(device dev, char *buffer, size_t len)
 			//backspace
 			else if (c == '\x7F')
 			{
-				if (buffer_count > 0)
+			
+				if (cursor_location > 0)
 				{
 					// Remove last character from the buffer
 					// Output backspace and a space to clear the previous character
@@ -117,43 +119,86 @@ int serial_poll(device dev, char *buffer, size_t len)
 					outb(dev, '\b');
 					outb(dev, ' ');
 					outb(dev, '\b');
-					char_count--;
+					cursor_location--;
 					buffer[buffer_count] = 0;
 				}
 				else
 				{
 
 				}
+			
 			}
 				else if (c == '\x5B') {
-				char c = inb(COM1);
-				//up arrow 
-				if(c == 'A'){
-				}
-				else if(c == 'B'){
-				//down arrow
-				}
-				//right arrow
-				else if(c == 'C'){
-				}
-				//left arrow
-				else if(c == 'D'){
-				}
+
+					char c = inb(COM1);
+					//up arrow 
+					if(c == 'A'){
+					}
+					else if(c == 'B'){
+					//down arrow
+					}
+					//right arrow
+					else if(c == 'C'){
+						if(cursor_location<3){
+							cursor_location++;
+							outb(dev, ' ');
+
+						}
+						else{
+
+						}
+
+					}
+					//left arrow
+					else if(c == 'D'){
+						if (cursor_location > 0)
+						{
+							cursor_location--;
+							
+							
+							outb(dev, '\b');
+
+							buffer[buffer_count] = 0;
+						}
+						else{
+							
+						}
+					}
+					else if(c == '3'){
+						char c = inb(COM1);
+						if(c=='~'){
+							outb(dev, ' ');
+							outb(dev, '\b');
+							
+							buffer_count--;
+							buffer[cursor_location] = 0;
+							
+						}
+					}
+					else{
+						
+					}
 			}
-			else
+			
+			else if((c <= 'Z' && c >= '0') || (c <= 'z' && c >= 'a'))
 			{
 				// if regular character then outb it so the user can see and add to the buffer
-				buffer[char_count] = c;
-				char_count++;
+				buffer[cursor_location] = c;
+				cursor_location++;
 				outb(buffer, c);
 				outb(dev, c);
 
 				// increment buffer count
 				buffer_count++;
 			}
+			else{
+				
+				 
+			}
 		}
 	}
 
 	// returns number of characters added to the buffer
+	cursor_location = 0;
 	return buffer_count;
 }
