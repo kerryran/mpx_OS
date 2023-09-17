@@ -179,13 +179,21 @@ int serial_poll(device dev, char *buffer, size_t len)
 						
 					}
 			}
+			else if(c == ' ')
+			{
+				// handles space bar
+				cursor_location++;
+				outb(dev, ' ');
+
+				// increment buffer count
+				buffer_count++;
+			}
 			
 			else if((c <= 'Z' && c >= '0') || (c <= 'z' && c >= 'a'))
 			{
 				// if regular character then outb it so the user can see and add to the buffer
 				buffer[cursor_location] = c;
 				cursor_location++;
-				outb(buffer, c);
 				outb(dev, c);
 
 				// increment buffer count
