@@ -77,7 +77,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 	// arrow keys
 
 	// initialize counter
-	//int char_count = 0;
+	////int char_count = 0;
 
 	// initialize buffer counter
 	int buffer_count = 0;
@@ -120,6 +120,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 					outb(dev, ' ');
 					outb(dev, '\b');
 					cursor_location--;
+					cursor_location--;
 					buffer[buffer_count] = 0;
 				}
 				else
@@ -140,9 +141,9 @@ int serial_poll(device dev, char *buffer, size_t len)
 					//right arrow
 					else if(c == 'C'){
 						if(cursor_location<3){
-							cursor_location++;
 							outb(dev, ' ');
-
+							cursor_location++;
+							
 						}
 						else{
 
@@ -179,13 +180,21 @@ int serial_poll(device dev, char *buffer, size_t len)
 						
 					}
 			}
+			else if(c == ' ')
+			{
+				// handles space bar
+				cursor_location++;
+				outb(dev, ' ');
+
+				// increment buffer count
+				buffer_count++;
+			}
 			
 			else if((c <= 'Z' && c >= '0') || (c <= 'z' && c >= 'a'))
 			{
 				// if regular character then outb it so the user can see and add to the buffer
 				buffer[cursor_location] = c;
 				cursor_location++;
-				outb(buffer, c);
 				outb(dev, c);
 
 				// increment buffer count
