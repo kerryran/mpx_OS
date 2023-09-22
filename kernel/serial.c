@@ -77,7 +77,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 	// arrow keys
 
 	// initialize counter
-	//int char_count = 0;
+	////int char_count = 0;
 
 	// initialize buffer counter
 	int buffer_count = 0;
@@ -119,6 +119,7 @@ int serial_poll(device dev, char *buffer, size_t len)
 					outb(dev, '\b');
 					outb(dev, ' ');
 					outb(dev, '\b');
+					cursor_location--;
 					cursor_location--;
 					buffer[buffer_count] = 0;
 				}

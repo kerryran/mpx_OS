@@ -1,3 +1,11 @@
+#include <../include/dateAndTime.h>
+#include <mpx/io.h>
+#include <mpx/serial.h>
+#include <sys_req.h>
+#include <string.h>
+#include <stdlib.h>
+#include <mpx/interrupts.h>
+
 //include whatever needed files.
 #include "pcb.h"
 #include <stdio.h>
@@ -123,9 +131,26 @@ void pcb_resume(char name[]){
 //set priority
 
 //show PCB
+void show_pcb(char* name){
+    //not workin
+    char temp = pcb_find(name){
+        if(temp == NULL){
+            //process not found
+            puts("process not found");
+        }
+        else{
+            char[] status[] = {pcb.name, pcb.class, pcb.priority};
+        }
+    }
+}
+void show_ready(char* name){
+    //show_ready
+}
 
-//show ready
+void show_blocked(char* name){
+   //show blocked
+}
 
-//show blocked
-
-//show all
+void show_all(char* name){
+   puts("this is show all");
+}
