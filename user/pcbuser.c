@@ -2,7 +2,7 @@
 #include "pcb.h"
 #include <stdio.h>
 
-struct pcb* pcb_create(char name[], int class, int priority){
+struct pcb* pcb_create(char name[], enum class class, int priority){
 
     //pcb_setup() to create a pcb
     struct pcb* new_pcb =pcb_setup(name, class, priority);
@@ -59,7 +59,7 @@ void pcb_delete(char name[]){
 void pcb_block(char name[]){
 
     //puts process in blocked state
-    
+    enum state state = 1;
 
     //move to appropriate queue
 
@@ -76,6 +76,7 @@ void pcb_block(char name[]){
 //unblock
 void pcb_unblock(char name[]){
     //put process in ready (unblocked) state
+    enum state state = 0;
     //move to appropriate queue
 
     //ERROR HANDLING:
@@ -90,7 +91,7 @@ void pcb_unblock(char name[]){
 //suspend
 void pcb_suspend(char name[]){
     //put process in suspended state
-
+    enum state state = 3;
     //move to appropriate queue
 
     //ERROR HANDLING:
@@ -108,7 +109,7 @@ void pcb_suspend(char name[]){
 //resume
 void pcb_resume(char name[]){
     //put a process not in the suspended state
-
+    enum state state = 2;
     //moves it to the appropriate queue
 
     //ERROR HANDLING:
