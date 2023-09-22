@@ -77,7 +77,7 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     new_pcb->priority = priority; 
 
     //somehow set the state
-
+    state = 0;
 }
 
 // Search all process queues for a process with the provided name
