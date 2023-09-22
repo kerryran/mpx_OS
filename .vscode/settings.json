@@ -1,14 +1,6 @@
 {
     "files.associations": {
         "interrupts.h": "c",
-        "typeinfo": "c",
-        "dateandtime.h": "c",
-        "serial.h": "c",
-        "stdlib.h": "c",
-        "sys_req.h": "c",
-        "string.h": "c",
-        "pcbuser.h": "c",
-        "stdint.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
