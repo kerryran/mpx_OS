@@ -17,6 +17,11 @@ struct pcb *queue_head;
 // and basic initialization
 struct pcb *pcb_allocate(void)
 {
+    //need to check if this acctually allocates, if not return NULL
+    struct pcb *some_pcb = sys_alloc_mem(sizeof(*some_pcb));
+
+    return *some_pcb;
+
 }
 
 // Free all memory associated with a PCB, including the stack
