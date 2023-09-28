@@ -100,12 +100,6 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 // Search all process queues for a process with the provided name (processes will not have the same name)
 struct pcb *pcb_find(const char *name)
 {
-    // ERROR CATCH
-    if (name == NULL)
-    {
-        return NULL;
-    }
-
     pcb *current = NULL;
 
     // NOTSUSPENDED READY
@@ -162,12 +156,6 @@ struct pcb *pcb_find(const char *name)
 // Blocked queues are sorted by FIFO only
 void pcb_insert(struct pcb *pcb)
 {
-    // ERROR CATCH
-    if (pcb == NULL)
-    {
-        return;
-    }
-
     // Check execute and dispatch states to determine list to choose
 
     // NOTSUSPENDED READY
@@ -268,16 +256,10 @@ void pcb_insert(struct pcb *pcb)
 
 // Remove a PCB from its current queue
 // SUCCESS = 0
-// FAILURE = 1
-// NULL VALUE = 2
+// NOT FOUND = 1
+// EMPTY LIST = 2
 int pcb_remove(struct pcb *pcb)
 {
-    // ERROR CATCH
-    if (pcb == NULL)
-    {
-        return 2;
-    }
-
     // Check execute and dispatch states to determine list to choose
 
     // NOTSUSPENDED READY
@@ -309,11 +291,13 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     ready_head = current->next;
+                    return 0;
                 }
             }
         }
@@ -347,11 +331,13 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     suspended_ready_head = current->next;
+                    return 0;
                 }
             }
         }
@@ -385,11 +371,13 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     blocked_head = current->next;
+                    return 0;
                 }
             }
         }
@@ -423,13 +411,17 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     suspended_blocked_head = current->next;
+                    return 0;
                 }
             }
         }
     }
+    // NOT FOUND
+    return 1;
 }
