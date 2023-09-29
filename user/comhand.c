@@ -429,11 +429,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                pcb_create("pcb1", "pcb1Class", "pcb1Priority");
+                                                pcb_create("pcb1", 1, 1);
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                pcb_create("pcb2", "pcb2Class", "pcb2Priority");
+                                                //pcb_create("pcb2", "pcb2Class", "pcb2Priority");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -460,11 +460,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                pcb_delete("pcb1");
+                                                //pcb_delete("pcb1");
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                pcb_delete("pcb2");
+                                                //pcb_delete("pcb2");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -491,11 +491,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                pcb_block("pcb1");
+                                                //pcb_block("pcb1");
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                pcb_block("pcb2");
+                                                //pcb_block("pcb2");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -522,11 +522,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                pcb_unblock("pcb1");
+                                                //pcb_unblock("pcb1");
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                pcb_unblock("pcb2");
+                                                //pcb_unblock("pcb2");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -553,11 +553,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                pcb_suspend("pcb1");
+                                                //pcb_suspend("pcb1");
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                pcb_suspend("pcb2");
+                                                //pcb_suspend("pcb2");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -584,11 +584,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                pcb_resume("pcb1");
+                                                //pcb_resume("pcb1");
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                pcb_resume("pcb2");
+                                                //pcb_resume("pcb2");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -628,11 +628,11 @@ void comhand(void)
                                                 //Priority 1
                                                 if (strcmp(choice, "1") == 0)
                                                 {
-                                                        pcb_setpriority("pcb1","1");
+                                                        //pcb_setpriority("pcb1","1");
                                                 }
                                                 else if (strcmp(choice, "2") == 0)
                                                 {
-                                                        pcb_block("pcb1", "2");
+                                                        //pcb_block("pcb1", "2");
                                                 }
                                                 //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                                 else if (strcmp(choice, "3") == 0)
@@ -659,11 +659,11 @@ void comhand(void)
                                                 //Priority 1
                                                 if (strcmp(choice, "1") == 0)
                                                 {
-                                                        pcb_setpriority("pcb2","1");
+                                                        //pcb_setpriority("pcb2","1");
                                                 }
                                                 else if (strcmp(choice, "2") == 0)
                                                 {
-                                                        pcb_block("pcb2", "2");
+                                                        //pcb_block("pcb2", "2");
                                                 }
                                                 //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                                 else if (strcmp(choice, "3") == 0)
@@ -717,11 +717,11 @@ void comhand(void)
                                         //PCB 1
                                         if (strcmp(choice, "1") == 0)
                                         {
-                                                show_pcb("pcb1");
+                                                //show_pcb("pcb1");
                                         }
                                         else if (strcmp(choice, "2") == 0)
                                         {
-                                                show_pcb("pcb2");
+                                                //show_pcb("pcb2");
                                         }
                                         //keep, this is the back option for the inital menu, make 3 higher if you add more menus
                                         else if (strcmp(choice, "3") == 0)
@@ -735,13 +735,13 @@ void comhand(void)
                                         
                                 }
                                 else if (strcmp(choice, "2") == 0){
-                                        show_ready();
+                                        //show_ready();
                                 }
                                 else if (strcmp(choice, "3") == 0){
-                                        show_blocked();
+                                        //show_blocked();
                                 }
                                 else if (strcmp(choice, "4") == 0){
-                                        show_all();
+                                        //show_all();
                                 }
                                 else if (strcmp(choice, "5") == 0){
                                         continue;
@@ -780,3 +780,5 @@ void comhand(void)
                 }
         }
 }
+}
+
