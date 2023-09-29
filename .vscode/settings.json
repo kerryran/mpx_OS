@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "interrupts.h": "c",
+        "pcb.h": "c",
+        "typeinfo": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

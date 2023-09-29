@@ -1,6 +1,5 @@
 #include <memory.h>
-#include <stdio.h>
-#include <string.c>
+
 
 // Number of characters a pcb name can be
 int MAX_NAME_LEN = 8;

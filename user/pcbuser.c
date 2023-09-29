@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <mpx/interrupts.h>
-
+#include <../include/mpx/pcb.h>
 //include whatever needed files.
 //#include "pcb.h"
 
@@ -134,8 +134,10 @@
 //show PCB
 
 
-void show_pcb(char* name){
-    puts(name);
+void show_pcb(const char* name){
+    struct pcb thisPcb = pcb_find(name);
+    puts(thisPcb->name);
+
 }
 void show_ready(char* name){
     //show_ready
