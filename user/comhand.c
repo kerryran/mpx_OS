@@ -429,6 +429,14 @@ void comhand(void)
                                         puts(">");
                                         //init choice buffer
                                         char class[5] = {0};
+                                        int class_valid = isNum(class);
+                                        if (class_valid == 0)
+                                        {
+                                                puts("\nInvalid");
+                                                continue;
+                                        }
+                                        // Convert year to an integer
+                                        int classInt = atoi(class);
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         puts("\nType PCB Priority:");
@@ -436,9 +444,17 @@ void comhand(void)
                                         puts(">");
                                         //init choice buffer
                                         char priority[5] = {0};
+                                        int priority_valid = isNum(priority);
+                                        if (priority_valid == 0)
+                                        {
+                                                puts("\nInvalid");
+                                                continue;
+                                        }
+                                        // Convert year to an integer
+                                        int priorityInt = atoi(priority);
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        pcb_create(choice, class, priority);
+                                        pcb_create(choice, classInt, priorityInt);
                                         
                                 }
                                 else if (strcmp(choice, "2") == 0)
@@ -520,6 +536,14 @@ void comhand(void)
                                         puts("\nType PCB Priority:");
                                         //init choice buffer
                                         char priority[5] = {0};
+                                        int priority_valid = isNum(priority);
+                                        if (priority_valid == 0)
+                                        {
+                                                puts("\nInvalid");
+                                                continue;
+                                        }
+                                        // Convert year to an integer
+                                        //int priorityInt = atoi(priority);
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         //uncomment when made
