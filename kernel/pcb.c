@@ -84,7 +84,7 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    new_pcb->name_ptr = name;
+    new_pcb->name_ptr = (char*)name;
 
     new_pcb->class = class;
 
@@ -175,7 +175,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-            struct pcb *current = ready_head;
+           struct pcb *current = ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -200,7 +200,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-            struct pcb *current = suspended_ready_head;
+           struct pcb *current = suspended_ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -224,7 +224,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse to the end of the list
-            struct pcb *current = blocked_head;
+           struct pcb *current = blocked_head;
             while (current->next != NULL)
             {
                 current = current->next;
@@ -278,8 +278,8 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-            struct pcb *current = ready_head;
-            struct pcb *prev = NULL;
+           struct pcb *current = ready_head;
+           struct pcb *prev = NULL;
 
             while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
             {
