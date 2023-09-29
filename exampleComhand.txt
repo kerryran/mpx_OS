@@ -1,0 +1,93 @@
+                        
+                        
+                        //Menu Title Goes here
+                        puts("\nMenu:");
+                        //Choices Go Here
+                        puts("\n1) Choice 1\n2) Choice 2\n3) Choice 3\n");
+                        //required for UI
+                        puts(">");
+                        //init choice buffer
+                        char choice[5] = {0};
+                        //Read from the buffer
+                        sys_req(READ, COM1, choice, 5);
+                        //check choices here
+                        if (strcmp(choice, "1") == 0)
+                        {
+                            //Choice1 Menu Goes here
+                                puts("\nSecond Menu:");
+                                //second menu choices
+                                puts("\n1) Choice1\n2) Choice2\n3) Choice3\n4) Back\n");
+                                
+                                puts(">");
+                                char choice[5] = {0};
+                                //Read from the buffer
+                                sys_req(READ, COM1, choice, 5);
+                                
+                                if (strcmp(choice, "1") == 0)
+                                {
+                                        puts("Create PCB");
+                                }
+                                else if (strcmp(choice, "2") == 0)
+                                {
+                                        puts("Delete PCB");
+                                }
+                                else if (strcmp(choice, "3") == 0)
+                                {
+                                        puts("Block PCB");
+                                }
+                                //keep this, this is the "back" option
+                                else if (strcmp(choice, "4") == 0)
+                                {
+                                        continue;
+                                }
+                                //keep this, error
+                                else
+                                {
+                                        puts("\nUnrecognized command.\n");
+                                }
+                        }
+                        else if (strcmp(choice, "2") == 0)
+                        {
+                            //Choice2 Menu Goes here
+                                puts("\nChoice2 Menu:");
+                                //Choice2 menu choices
+                                puts("\n1) Choice1\n2) Choice2\n3) Choice3\n4) Back\n");
+                                
+                                puts(">");
+                                char choice[5] = {0};
+                                //Read from the buffer
+                                sys_req(READ, COM1, choice, 5);
+                                
+                                if (strcmp(choice, "1") == 0)
+                                {
+                                        puts("Create PCB");
+                                }
+                                else if (strcmp(choice, "2") == 0)
+                                {
+                                        puts("Delete PCB");
+                                }
+                                else if (strcmp(choice, "3") == 0)
+                                {
+                                        puts("Block PCB");
+                                }
+                                //keep this, this is the "back" option
+                                else if (strcmp(choice, "4") == 0)
+                                {
+                                        continue;
+                                }
+                                //keep this, error
+                                else
+                                {
+                                        puts("\nUnrecognized command.\n");
+                                }
+                        }
+                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
+                        else if (strcmp(choice, "3") == 0)
+                        {
+                                continue;
+                        }
+                        else
+                        {
+                                puts("\nUnrecognized command.\n");
+                        }
+                        
