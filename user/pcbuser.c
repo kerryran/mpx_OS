@@ -12,10 +12,10 @@ struct pcb *pcb_create(char name[], int class, int priority)
 {
 
     // pcb_setup() to create a pcb
-    struct pcb *new_pcb = pcb_setup(name, class, priority);
+    pcb *new_pcb = pcb_setup(name, class, priority);
 
-        // insert into the appropriate queue with pcb_insert()
-        pcb_insert(new_pcb);
+    // insert into the appropriate queue with pcb_insert()
+    pcb_insert(new_pcb);
 
     // ERROR HANDLING:
     // name must be unique and valid
@@ -44,7 +44,7 @@ void pcb_delete(char name[])
 {
 
     // find process
-    struct pcb *pcb = pcb_find(name);
+    pcb *pcb = pcb_find(name);
 
     // remove from queue w/ pcb_remove()
     pcb_remove(pcb);
@@ -63,210 +63,78 @@ void pcb_delete(char name[])
     {
         puts("Cannot remove a system PCB.\n");
     }
-
 }
 
 // block
 void pcb_block(char name[])
 {
+    pcb* pcb = pcb_find(name);
 
-    struct pcb *pcb = pcb_find(name);
+   if (pcb == NULL)
+   {
+    puts("PCB does not exist");
+   }
 
-    // remove from queue w/ pcb_remove()
-    pcb_remove(pcb);
-
-    // free all associated mem with pcb_free()
-    pcb_free(pcb);
-
-    // ERROR HANDLING:
-    // valid name
-    if (pcb_find(name) == NULL)
-    {
-        puts("Cannot remove, PCB does not exist.\n");
-    }
-
-    // cannot be a system process
-    if (pcb->priority == 0)
-    {
-        puts("Cannot remove a system PCB.\n");
-    }
-
-}
-
-// block
-void pcb_block(char name[])
-{
-
-    // puts process in blocked state
-    enum state state = 1;
-
-    // move to appropriate queue
-
-    // ERROR HANDLING:
-    // must be valid name
-    if (pcb_find(name) == NULL)
-    {
-        puts("Cannot remove, PCB does not exist.\n");
-    }
-}
-
-// unblock
-void pcb_unblock(char name[])
-{
-    // put process in ready (unblocked) state
-    enum state state = 0;
-    // move to appropriate queue
-
-    // ERROR HANDLING:
-    // Name must be valid
-    if (pcb_find(name) == NULL)
-    {
-        puts("Cannot remove, PCB does not exist.\n");
-    }
-
+   pcb_remove(pcb);
+   pcb->execute = BLOCKED;
+   pcb_insert(pcb);
 }
 
 // suspend
 void pcb_suspend(char name[])
 {
-    // put process in suspended state
-    enum state state = 3;
-    // move to appropriate queue
+   pcb* pcb = pcb_find(name);
 
-    // ERROR HANDLING:
-    // name must be valid
-    if (pcb_find(name) == NULL)
-    {
-        puts("Cannot remove, PCB does not exist.\n");
-    }
-    // cannot be a system process
-    if (pcb->priority == 0)
-    {
-        puts("Cannot suspend a system PCB.\n");
-    }
+   if (pcb == NULL)
+   {
+    puts("PCB does not exist");
+   }
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist.\n");
-    
-    }
+   pcb_remove(pcb);
+   pcb->dispatch = SUSPENDED;
+   pcb_insert(pcb);
 
-    // move to appropriate queue
-    pcb_remove(pcb);
-    // puts process in blocked state
-    pcb->execute = 1;
-    pcb_insert(pcb);
-
-    // ERROR HANDLING:
-    // must be valid name
-
-    //     return 0;
 }
 
 // unblock
 void pcb_unblock(char name[])
 {
+    pcb* pcb = pcb_find(name);
 
-    struct pcb *pcb = pcb_find(name);
+   if (pcb == NULL)
+   {
+    puts("PCB does not exist");
+   }
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist.\n");
-        
-    }
-    /// move to appropriate queue
-    pcb_remove(pcb);
-    // puts process in unblocked (ready) state
-    pcb->execute = 0;
-    pcb_insert(pcb);
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist.\n");
-        
-    }
-    /// move to appropriate queue
-    pcb_remove(pcb);
-    // puts process in unblocked (ready) state
-    pcb->execute = 0;
-    pcb_insert(pcb);
-
-    //     return 0;
+   pcb_remove(pcb);
+   pcb->execute = READY;
+   pcb_insert(pcb);
 }
 
-// suspend
-void pcb_suspend(char name[])
-{
-    struct pcb *pcb = pcb_find(name);
-
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist.\n");
-        
-    }
-    // move to appropriate queue
-    pcb_remove(pcb);
-    // puts process in suspended state
-    pcb->dispatch = 4;
-    pcb_insert(pcb);
-
-    //     //ERROR HANDLING:
-    //     //name must be valid
-    //     if(pcb_find(name) == NULL){
-    //         puts("Cannot remove, PCB does not exist.\n");
-    //     }
-    //     //cannot be a system process
-    //     if(pcb->priority == 0){
-    //         puts("Cannot suspend a system PCB.\n");
-    //     }
-
-    //     return 0;
-    // }
-    // //resume
-    // void pcb_resume(char name[]){
-    //     //put a process not in the suspended state
-
-    //     //moves it to the appropriate queue
-
-    //     //ERROR HANDLING:
-    //     //name must be valid
-    //     if(pcb_find(name) == NULL){
-    //         puts("Cannot remove, PCB does not exist.\n");
-    //     }
-
-}
 // resume
 void pcb_resume(char name[])
 {
-    struct pcb *pcb = pcb_find(name);
+    pcb* pcb = pcb_find(name);
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist.\n");
-        
-    }
-    /// move to appropriate queue
-    pcb_remove(pcb);
-    // puts process in resumed (not suspended) state
-    pcb->dispatch = 3;
-    pcb_insert(pcb);
+   if (pcb == NULL)
+   {
+    puts("PCB does not exist");
+   }
 
-    // ERROR HANDLING:
-    // name must be valid
-    if (pcb_find(name) == NULL)
-    {
-        puts("Cannot remove, PCB does not exist.\n");
-    }
-
-    //     return 0;
+   pcb_remove(pcb);
+   pcb->dispatch = NOT_SUSPENDED;
+   pcb_insert(pcb);
 }
 
-// set priority
+//set priority
+void set_priority(char* name, int new_priority){
 
+}
 // show PCB
 void show_pcb(char *name)
 {
     // not workin
-    char temp = pcb_find(name)
+    char temp = pcb_find(name);
     {
         if (temp == NULL)
         {
