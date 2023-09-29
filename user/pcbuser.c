@@ -106,9 +106,17 @@ void pcb_unblock(char name[]){
 
 //suspend
 void pcb_suspend(char name[]){
-    //put process in suspended state
-    enum state state = 3;
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
     //move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in suspended state
+    pcb->dispatch= 4;
+    pcb_insert(pcb);
 
     //ERROR HANDLING:
     //name must be valid
@@ -124,15 +132,20 @@ void pcb_suspend(char name[]){
 }
 //resume
 void pcb_resume(char name[]){
-    //put a process not in the suspended state
-    enum state state = 2;
-    //moves it to the appropriate queue
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    ///move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in resumed (not suspended) state
+    pcb->dispatch= 3;
+    pcb_insert(pcb);
 
     //ERROR HANDLING:
     //name must be valid
-    if(pcb_find(name) == NULL){
-        puts("Cannot remove, PCB does not exist.\n");
-    }
 
     return 0;
 }
