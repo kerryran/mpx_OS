@@ -4,7 +4,7 @@
 #include <mpx/serial.h>
 #include <../include/dateAndTime.h>
 #include <stdlib.h>
-
+#include <../include/pcbuser.h>
 void comhand(void)
 {
         // Welcome/Start-Up Message
@@ -27,7 +27,7 @@ void comhand(void)
         {
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
-                puts("1) Help\n2) Version\n3) Date & Time\n4) Quit\n");
+                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Quit\n");
                 puts("Enter a number to select:\n");
                 puts(">");
 
@@ -363,8 +363,115 @@ void comhand(void)
                                 puts("\nUnrecognized command.\n");
                         }
                 }
-                //Shutdown Command
+                //PCB Menu
+                 
                 else if (strcmp(buffer, "4") == 0)
+                {
+                        puts("\nPCB Menu");
+                        puts("\n1) Manage\n2) View\n3) Back\n");
+                        puts(">");
+                        char choice[5] = {0};
+                        //Read from the buffer
+                        sys_req(READ, COM1, choice, 5);
+                       
+                        if (strcmp(choice, "1") == 0)
+                        {
+                                puts("\nManage PCB Menu:");
+                                puts("\n1) Create PCB\n2) Delete PCB\n3) Block PCB\n4) Unblock PCB\n5) Suspend PCB\n6) Resume PCB\n7) Set PCB Priority\n8) Back\n");
+                                
+                                puts(">");
+                                char choice[5] = {0};
+                                //Read from the buffer
+                                sys_req(READ, COM1, choice, 5);
+                                
+                                if (strcmp(choice, "1") == 0)
+                                {
+                                        puts("Create PCB");
+                                }
+                                else if (strcmp(choice, "2") == 0)
+                                {
+                                        puts("Delete PCB");
+                                }
+                                else if (strcmp(choice, "3") == 0)
+                                {
+                                        puts("Block PCB");
+                                }
+                                else if (strcmp(choice, "4") == 0)
+                                {
+                                        puts("Unblock PCB");
+                                }
+                                else if (strcmp(choice, "5") == 0)
+                                {
+                                        puts("Suspend PCB");
+                                }
+                                else if (strcmp(choice, "6") == 0)
+                                {
+                                        puts("Resume PCB");
+                                }
+                                else if (strcmp(choice, "7") == 0)
+                                {
+                                        puts("Set PCB Priority");
+                                }
+                                else if (strcmp(choice, "8") == 0)
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        puts("\nUnrecognized command.\n");
+                                }
+                        }
+                        else if(strcmp(choice, "2") == 0){
+                                puts("\nView PCB Menu:");
+                                puts("\n1) Show PCB\n2) Show Ready\n3) Show Blocked\n4) Show All\n5) Resume PCB\n6) Back\n");                                
+                                puts(">");
+                                char choice[5] = {0};
+                                //Read from the buffer
+                                sys_req(READ, COM1, choice, 5);
+                                
+                                if (strcmp(choice, "1") == 0)
+                                {
+                                        puts("Show PCB ");
+                                }
+                                else if (strcmp(choice, "2") == 0)
+                                {
+                                        puts("Show Ready ");
+                                }
+                                else if (strcmp(choice, "3") == 0)
+                                {
+                                        puts("Show Blocked");
+                                }
+                                else if (strcmp(choice, "4") == 0)
+                                {
+                                        puts("Show All");
+                                }
+                                else if (strcmp(choice, "5") == 0)
+                                {
+                                        puts("Resume PCB");
+                                }
+                                else if (strcmp(choice, "6") == 0)
+                                {
+                                        continue;
+                                }
+                                else
+                                {
+                                        puts("\nUnrecognized command.\n");
+                                }
+                        }
+                        else if (strcmp(choice, "3") == 0)
+                        {
+                                continue;
+                        }
+                        else
+                        {
+                                puts("\nUnrecognized command.\n");
+                        }
+                        
+
+
+                }
+                //Shutdown
+                else if (strcmp(buffer, "5") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
