@@ -1,8 +1,9 @@
 #include <memory.h>
-
+#include <string.h>
+#include <../include/mpx/pcb.h>
 
 // Number of characters a pcb name can be
-int MAX_NAME_LEN = 8;
+const int MAX_NAME_LEN = 8;
 
 typedef enum classes
 {
@@ -25,7 +26,7 @@ typedef enum state
 typedef struct pcb
 {
     char *name_ptr;
-    char name_arr[MAX_NAME_LEN];
+    char name_arr[8];
     enum classes class;
     state dispatch;
     state execute;
@@ -43,12 +44,12 @@ pcb *suspended_blocked_head = NULL;
 
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
-pcb *pcb_allocate(void)
+struct pcb *pcb_allocate(void)
 {
     // need to check if this acctually allocates, if not return NULL
     pcb *some_pcb = sys_alloc_mem(sizeof(*some_pcb));
 
-    some_pcb->name_ptr = sys_alloc_mem(some_pcb->name_ptr);
+    some_pcb->name_ptr = sys_alloc_mem(sizeof(some_pcb->name_ptr));
 
     if (some_pcb == NULL || some_pcb->name_ptr == NULL)
     {
@@ -56,7 +57,7 @@ pcb *pcb_allocate(void)
         return NULL;
     }
 
-    return *some_pcb;
+    return some_pcb;
 }
 
 // Free all memory associated with a PCB, including the stack
@@ -82,7 +83,7 @@ int pcb_free(struct pcb *pcb)
 struct pcb *pcb_setup(const char *name, int class, int priority)
 {
 
-    struct pcb *new_pcb = allocate_pcb();
+    pcb *new_pcb = pcb_allocate();
 
     new_pcb->name_ptr = name;
 

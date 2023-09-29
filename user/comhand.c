@@ -46,7 +46,7 @@ void comhand(void)
                 //Print out version number
                 else if (strcmp(buffer, "2") == 0)
                 {
-                        puts("\nVersion: 1.0\n");
+                        puts("\nVersion: 2.0\n");
                 }
                 //Print out Date and Time Menu
                 else if (strcmp(buffer, "3") == 0)
