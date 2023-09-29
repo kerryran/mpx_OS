@@ -550,13 +550,13 @@ void comhand(void)
                                         
                                 }
                                 else if (strcmp(choice, "2") == 0){
-                                        show_ready();
+                                        //show_ready();
                                 }
                                 else if (strcmp(choice, "3") == 0){
-                                        show_blocked();
+                                        //show_blocked();
                                 }
                                 else if (strcmp(choice, "4") == 0){
-                                        show_all();
+                                        //show_all();
                                 }
                                 else if (strcmp(choice, "5") == 0){
                                         continue;
