@@ -1,3 +1,37 @@
+#ifndef PCB_H
+#define PCB_H
+
+typedef enum classes
+{
+    SYSTEM = 0,
+    USER = 1
+} classes;
+
+typedef enum state
+{
+    // Execute
+    READY = 0,
+    BLOCKED = 1,
+    RUNNING = 2,
+    // Dispatch
+    NOT_SUSPENDED = 3,
+    SUSPENDED = 4
+} state;
+
+// The struct we need
+typedef struct pcb
+{
+    const char *name_ptr;
+    char name_arr[8];
+    enum classes class;
+    state dispatch;
+    state execute;
+    int priority; // 0 = highest, 9 = lowest
+    char stack[1024];
+    struct pcb *next;
+
+} pcb;
+
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
 struct pcb *pcb_allocate(void);
@@ -16,3 +50,5 @@ void pcb_insert(struct pcb *pcb);
 
 // Remove a PCB from its current queue but do not free any assocaited memoery or data structures
 int pcb_remove(struct pcb *pcb);
+
+#endif
