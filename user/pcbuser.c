@@ -7,13 +7,12 @@
 #include <mpx/interrupts.h>
 #include <../include/mpx/pcb.h>
 // include whatever needed files.
-// #include "pcb.h"
 
 struct pcb *pcb_create(char name[], int class, int priority)
 {
 
     // pcb_setup() to create a pcb
-    struct pcb *new_pcb = pcb_setup(name, class, priority)
+    struct pcb *new_pcb = pcb_setup(name, class, priority);
 
         // insert into the appropriate queue with pcb_insert()
         pcb_insert(new_pcb);
@@ -26,7 +25,7 @@ struct pcb *pcb_create(char name[], int class, int priority)
     }
 
     // class must be valid
-    if ((class != 1) || (class != 0))
+    if ((class != 1) && (class != 0))
     {
         puts("Class not valid.\n");
     }
@@ -34,7 +33,7 @@ struct pcb *pcb_create(char name[], int class, int priority)
     // priority must be valid
     if ((priority < 0) || (priority > 9))
     {
-        puts("Prority is invalid.\n");
+        puts("Priority is invalid.\n");
     }
 
     return new_pcb;
@@ -60,12 +59,11 @@ void pcb_delete(char name[])
         puts("Cannot remove, PCB does not exist.\n");
     }
     // cannot be a system process
-    if (pcb->prority == 0)
+    if (pcb->priority == 0)
     {
         puts("Cannot remove a system PCB.\n");
     }
 
-    return 0;
 }
 
 // block
@@ -88,12 +86,11 @@ void pcb_block(char name[])
     }
 
     // cannot be a system process
-    if (pcb->prority == 0)
+    if (pcb->priority == 0)
     {
         puts("Cannot remove a system PCB.\n");
     }
 
-    return 0;
 }
 
 // block
@@ -111,8 +108,6 @@ void pcb_block(char name[])
     {
         puts("Cannot remove, PCB does not exist.\n");
     }
-
-    return 0;
 }
 
 // unblock
@@ -129,7 +124,6 @@ void pcb_unblock(char name[])
         puts("Cannot remove, PCB does not exist.\n");
     }
 
-    return 0;
 }
 
 // suspend
@@ -146,7 +140,7 @@ void pcb_suspend(char name[])
         puts("Cannot remove, PCB does not exist.\n");
     }
     // cannot be a system process
-    if (pcb->prority == 0)
+    if (pcb->priority == 0)
     {
         puts("Cannot suspend a system PCB.\n");
     }
@@ -154,7 +148,7 @@ void pcb_suspend(char name[])
     if (pcb == NULL)
     {
         puts("PCB does not exist.\n");
-        return 0;
+    
     }
 
     // move to appropriate queue
@@ -178,7 +172,7 @@ void pcb_unblock(char name[])
     if (pcb == NULL)
     {
         puts("PCB does not exist.\n");
-        return 0;
+        
     }
     /// move to appropriate queue
     pcb_remove(pcb);
@@ -188,7 +182,7 @@ void pcb_unblock(char name[])
     if (pcb == NULL)
     {
         puts("PCB does not exist.\n");
-        return 0;
+        
     }
     /// move to appropriate queue
     pcb_remove(pcb);
@@ -207,7 +201,7 @@ void pcb_suspend(char name[])
     if (pcb == NULL)
     {
         puts("PCB does not exist.\n");
-        return 0;
+        
     }
     // move to appropriate queue
     pcb_remove(pcb);
@@ -221,7 +215,7 @@ void pcb_suspend(char name[])
     //         puts("Cannot remove, PCB does not exist.\n");
     //     }
     //     //cannot be a system process
-    //     if(pcb->prority == 0){
+    //     if(pcb->priority == 0){
     //         puts("Cannot suspend a system PCB.\n");
     //     }
 
@@ -239,7 +233,6 @@ void pcb_suspend(char name[])
     //         puts("Cannot remove, PCB does not exist.\n");
     //     }
 
-    return 0;
 }
 // resume
 void pcb_resume(char name[])
@@ -249,7 +242,7 @@ void pcb_resume(char name[])
     if (pcb == NULL)
     {
         puts("PCB does not exist.\n");
-        return 0;
+        
     }
     /// move to appropriate queue
     pcb_remove(pcb);
