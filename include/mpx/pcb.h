@@ -1,6 +1,3 @@
-// idk what this is but we need it
-extern struct pcb *queue_head;
-
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
 struct pcb *pcb_allocate(void);
