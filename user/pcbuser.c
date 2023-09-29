@@ -9,6 +9,10 @@
 //include whatever needed files.
 //#include "pcb.h"
 
+<<<<<<< HEAD
+=======
+struct pcb* pcb_create(char name[], enum class class, int priority){
+>>>>>>> cbcf227855549a4bdd317d2abde7983b76bef602
 
 
 // struct pcb* pcb_create(char name[], int class, int priority){
@@ -67,6 +71,7 @@
 // //block
 // void pcb_block(char name[]){
 
+<<<<<<< HEAD
 //     //puts process in blocked state
     
 
@@ -78,10 +83,29 @@
 //     if(pcb_find(name) == NULL){
 //         puts("Cannot remove, PCB does not exist.\n");
 //     }
+=======
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    
+    //move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in blocked state
+    pcb->execute= 1;
+    pcb_insert(pcb);
+
+    //ERROR HANDLING:
+    //must be valid name
+    
+>>>>>>> cbcf227855549a4bdd317d2abde7983b76bef602
     
 //     return 0;
 // }
 
+<<<<<<< HEAD
 // //unblock
 // void pcb_unblock(char name[]){
 //     //put process in ready (unblocked) state
@@ -92,15 +116,47 @@
 //     if(pcb_find(name) == NULL){
 //         puts("Cannot remove, PCB does not exist.\n");
 //     }
+=======
+//unblock
+void pcb_unblock(char name[]){
+
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    ///move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in unblocked (ready) state
+    pcb->execute= 0;
+    pcb_insert(pcb);
+>>>>>>> cbcf227855549a4bdd317d2abde7983b76bef602
 
 //     return 0;
 // }
 
+<<<<<<< HEAD
 // //suspend
 // void pcb_suspend(char name[]){
 //     //put process in suspended state
 
 //     //move to appropriate queue
+=======
+//suspend
+void pcb_suspend(char name[]){
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    //move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in suspended state
+    pcb->dispatch= 4;
+    pcb_insert(pcb);
+>>>>>>> cbcf227855549a4bdd317d2abde7983b76bef602
 
 //     //ERROR HANDLING:
 //     //name must be valid
@@ -112,6 +168,7 @@
 //         puts("Cannot suspend a system PCB.\n");
 //     }
     
+<<<<<<< HEAD
 //     return 0;
 // }
 // //resume
@@ -125,6 +182,26 @@
 //     if(pcb_find(name) == NULL){
 //         puts("Cannot remove, PCB does not exist.\n");
 //     }
+=======
+    return 0;
+}
+//resume
+void pcb_resume(char name[]){
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    ///move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in resumed (not suspended) state
+    pcb->dispatch= 3;
+    pcb_insert(pcb);
+
+    //ERROR HANDLING:
+    //name must be valid
+>>>>>>> cbcf227855549a4bdd317d2abde7983b76bef602
 
 //     return 0;
 // }

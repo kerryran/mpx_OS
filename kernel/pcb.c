@@ -46,7 +46,7 @@ pcb *suspended_blocked_head = NULL;
 pcb *pcb_allocate(void)
 {
     // need to check if this acctually allocates, if not return NULL
-    struct pcb *some_pcb = sys_alloc_mem(sizeof(*some_pcb));
+    pcb *some_pcb = sys_alloc_mem(sizeof(*some_pcb));
 
     some_pcb->name_ptr = sys_alloc_mem(some_pcb->name_ptr);
 
@@ -91,9 +91,13 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     new_pcb->priority = priority;
 
     // Set states to READY and NOTSUSPENDED
+    new_pcb->execute = READY;
+    new_pcb->dispatch = NOT_SUSPENDED;
     // Comhand (user) handles blocking and suspending processes by updating the pcb
     // We just set up tools to make pcbs and manipulate queues
     // Probably help with Comhand after we get kernal to work
+
+    return new_pcb;
 }
 
 // Search all process queues for a process with the provided name (processes will not have the same name)
