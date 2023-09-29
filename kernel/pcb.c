@@ -252,8 +252,8 @@ void pcb_insert(struct pcb *pcb)
 
 // Remove a PCB from its current queue
 // SUCCESS = 0
-// FAILURE = 1
-// NULL VALUE = 2
+// NOT FOUND = 1
+// EMPTY LIST = 2
 int pcb_remove(struct pcb *pcb)
 {
     // Check execute and dispatch states to determine list to choose
@@ -287,11 +287,13 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     ready_head = current->next;
+                    return 0;
                 }
             }
         }
@@ -325,11 +327,13 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     suspended_ready_head = current->next;
+                    return 0;
                 }
             }
         }
@@ -363,11 +367,13 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     blocked_head = current->next;
+                    return 0;
                 }
             }
         }
@@ -401,13 +407,17 @@ int pcb_remove(struct pcb *pcb)
                 {
                     // The PCB is not the head
                     prev->next = current->next;
+                    return 0;
                 }
                 else
                 {
                     // The PCB is the head
                     suspended_blocked_head = current->next;
+                    return 0;
                 }
             }
         }
     }
+    // NOT FOUND
+    return 1;
 }
