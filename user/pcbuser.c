@@ -66,32 +66,40 @@ void pcb_delete(char name[]){
 //block
 void pcb_block(char name[]){
 
-    //puts process in blocked state
-    enum state state = 1;
+    struct pcb* pcb = pcb_find(name);
 
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    
     //move to appropriate queue
-
+    pcb_remove(pcb);
+    //puts process in blocked state
+    pcb->execute= 1;
+    pcb_insert(pcb);
 
     //ERROR HANDLING:
     //must be valid name
-    if(pcb_find(name) == NULL){
-        puts("Cannot remove, PCB does not exist.\n");
-    }
+    
     
     return 0;
 }
 
 //unblock
 void pcb_unblock(char name[]){
-    //put process in ready (unblocked) state
-    enum state state = 0;
-    //move to appropriate queue
 
-    //ERROR HANDLING:
-    //Name must be valid
-    if(pcb_find(name) == NULL){
-        puts("Cannot remove, PCB does not exist.\n");
+    struct pcb* pcb = pcb_find(name);
+
+    if(pcb == NULL){
+        puts("PCB does not exist.\n");
+        return 0;
     }
+    ///move to appropriate queue
+    pcb_remove(pcb);
+    //puts process in unblocked (ready) state
+    pcb->execute= 0;
+    pcb_insert(pcb);
 
     return 0;
 }
