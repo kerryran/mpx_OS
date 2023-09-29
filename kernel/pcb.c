@@ -62,7 +62,7 @@ struct pcb *pcb_allocate(void)
 // Free all memory associated with a PCB, including the stack
 int pcb_free(struct pcb *pcb)
 {
-    int free = sys_free_mem(pcb->name_ptr);
+    int free = sys_free_mem((char*)(pcb->name_ptr));
 
     int free_pcb = sys_free_mem(pcb);
 
