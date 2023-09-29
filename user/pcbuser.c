@@ -167,129 +167,139 @@ void pcb_suspend(char name[])
     // must be valid name
 
     //     return 0;
-    // }
+}
 
-    // unblock
-    void pcb_unblock(char name[])
+// unblock
+void pcb_unblock(char name[])
+{
+
+    struct pcb *pcb = pcb_find(name);
+
+    if (pcb == NULL)
     {
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    /// move to appropriate queue
+    pcb_remove(pcb);
+    // puts process in unblocked (ready) state
+    pcb->execute = 0;
+    pcb_insert(pcb);
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    /// move to appropriate queue
+    pcb_remove(pcb);
+    // puts process in unblocked (ready) state
+    pcb->execute = 0;
+    pcb_insert(pcb);
 
-        struct pcb *pcb = pcb_find(name);
+    //     return 0;
+}
 
-        if (pcb == NULL)
+// suspend
+void pcb_suspend(char name[])
+{
+    struct pcb *pcb = pcb_find(name);
+
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    // move to appropriate queue
+    pcb_remove(pcb);
+    // puts process in suspended state
+    pcb->dispatch = 4;
+    pcb_insert(pcb);
+
+    //     //ERROR HANDLING:
+    //     //name must be valid
+    //     if(pcb_find(name) == NULL){
+    //         puts("Cannot remove, PCB does not exist.\n");
+    //     }
+    //     //cannot be a system process
+    //     if(pcb->prority == 0){
+    //         puts("Cannot suspend a system PCB.\n");
+    //     }
+
+    //     return 0;
+    // }
+    // //resume
+    // void pcb_resume(char name[]){
+    //     //put a process not in the suspended state
+
+    //     //moves it to the appropriate queue
+
+    //     //ERROR HANDLING:
+    //     //name must be valid
+    //     if(pcb_find(name) == NULL){
+    //         puts("Cannot remove, PCB does not exist.\n");
+    //     }
+
+    return 0;
+}
+// resume
+void pcb_resume(char name[])
+{
+    struct pcb *pcb = pcb_find(name);
+
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist.\n");
+        return 0;
+    }
+    /// move to appropriate queue
+    pcb_remove(pcb);
+    // puts process in resumed (not suspended) state
+    pcb->dispatch = 3;
+    pcb_insert(pcb);
+
+    // ERROR HANDLING:
+    // name must be valid
+    if (pcb_find(name) == NULL)
+    {
+        puts("Cannot remove, PCB does not exist.\n");
+    }
+
+    //     return 0;
+}
+
+// set priority
+
+// show PCB
+void show_pcb(char *name)
+{
+    // not workin
+    char temp = pcb_find(name)
+    {
+        if (temp == NULL)
         {
-            puts("PCB does not exist.\n");
-            return 0;
+            // process not found
+            puts("process not found");
         }
-        /// move to appropriate queue
-        pcb_remove(pcb);
-        // puts process in unblocked (ready) state
-        pcb->execute = 0;
-        pcb_insert(pcb);
-
-        //     return 0;
-        // }
-
-        // suspend
-        void pcb_suspend(char name[])
+        else
         {
-            struct pcb *pcb = pcb_find(name);
-
-            if (pcb == NULL)
-            {
-                puts("PCB does not exist.\n");
-                return 0;
-            }
-            // move to appropriate queue
-            pcb_remove(pcb);
-            // puts process in suspended state
-            pcb->dispatch = 4;
-            pcb_insert(pcb);
-
-            //     //ERROR HANDLING:
-            //     //name must be valid
-            //     if(pcb_find(name) == NULL){
-            //         puts("Cannot remove, PCB does not exist.\n");
-            //     }
-            //     //cannot be a system process
-            //     if(pcb->prority == 0){
-            //         puts("Cannot suspend a system PCB.\n");
-            //     }
-
-            //     return 0;
-            // }
-            // //resume
-            // void pcb_resume(char name[]){
-            //     //put a process not in the suspended state
-
-            //     //moves it to the appropriate queue
-
-            //     //ERROR HANDLING:
-            //     //name must be valid
-            //     if(pcb_find(name) == NULL){
-            //         puts("Cannot remove, PCB does not exist.\n");
-            //     }
-
-            return 0;
+            char[] status[] = {pcb.name, pcb.class, pcb.priority};
         }
-        // resume
-        void pcb_resume(char name[])
-        {
-            struct pcb *pcb = pcb_find(name);
+    }
+}
+void show_ready(char *name)
+{
+    // show_ready
+    puts(name);
+}
 
-            if (pcb == NULL)
-            {
-                puts("PCB does not exist.\n");
-                return 0;
-            }
-            /// move to appropriate queue
-            pcb_remove(pcb);
-            // puts process in resumed (not suspended) state
-            pcb->dispatch = 3;
-            pcb_insert(pcb);
+void show_blocked(char *name)
+{
+    // show blocked
+    puts(name);
+}
 
-            // ERROR HANDLING:
-            // name must be valid
-            if (pcb_find(name) == NULL)
-            {
-                puts("Cannot remove, PCB does not exist.\n");
-            }
-
-            //     return 0;
-            // }
-
-            // set priority
-
-            // show PCB
-            void show_pcb(char *name)
-            {
-                // not workin
-                char temp = pcb_find(name)
-                {
-                    if (temp == NULL)
-                    {
-                        // process not found
-                        puts("process not found");
-                    }
-                    else
-                    {
-                        char[] status[] = {pcb.name, pcb.class, pcb.priority};
-                    }
-                }
-            }
-            void show_ready(char *name)
-            {
-                // show_ready
-                puts(name);
-            }
-
-            void show_blocked(char *name)
-            {
-                // show blocked
-                puts(name);
-            }
-
-            void show_all(char *name)
-            {
-                puts("this is show all");
-                puts(name);
-            }
+void show_all(char *name)
+{
+    puts("this is show all");
+    puts(name);
+}
