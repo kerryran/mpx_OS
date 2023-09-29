@@ -13,10 +13,10 @@ struct pcb *pcb_create(char name[], int class, int priority)
 {
 
     // pcb_setup() to create a pcb
-    struct pcb *new_pcb = pcb_setup(name, class, priority)
+    struct pcb *new_pcb = pcb_setup(name, class, priority);
 
-        // insert into the appropriate queue with pcb_insert()
-        pcb_insert(new_pcb);
+    // insert into the appropriate queue with pcb_insert()
+    pcb_insert(new_pcb);
 
     // ERROR HANDLING:
     // name must be unique and valid
@@ -111,8 +111,6 @@ void pcb_block(char name[])
     {
         puts("Cannot remove, PCB does not exist.\n");
     }
-
-    return 0;
 }
 
 // unblock
