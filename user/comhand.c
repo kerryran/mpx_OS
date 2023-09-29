@@ -463,7 +463,7 @@ void comhand(void)
 
                                 if (strcmp(choice, "1") == 0)
                                 {
-                                        puts("Show PCB ");
+                                        puts("show pcb");
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {
