@@ -417,40 +417,34 @@ void comhand(void)
                                 if (strcmp(choice, "1") == 0)
                                 {
                                         //Show Pcb Menu
-                                        puts("\nChoose PCB to Create:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nType PCB Name:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
                                         char choice[5] = {0};
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                pcb_create("pcb1", "pcb1Class", "pcb1Priority");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                pcb_create("pcb2", "pcb2Class", "pcb2Priority");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        puts("\nType PCB Class:");
+                                        //required for UI
+                                        puts(">");
+                                        //init choice buffer
+                                        char class[5] = {0};
+                                        //Read from the buffer
+                                        sys_req(READ, COM1, choice, 5);
+                                        puts("\nType PCB Priority:");
+                                        //required for UI
+                                        puts(">");
+                                        //init choice buffer
+                                        char priority[5] = {0};
+                                        //Read from the buffer
+                                        sys_req(READ, COM1, choice, 5);
+                                        pcb_create(choice, class, priority);
+                                        
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {
                                         //Delete Pcb Menu
-                                        puts("\nChoose PCB to Delete:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nEnter PCB Name:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
@@ -458,61 +452,24 @@ void comhand(void)
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                pcb_delete("pcb1");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                pcb_delete("pcb2");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        pcb_delete(choice);
                                 }
                                 else if (strcmp(choice, "3") == 0)
                                 {
                                         //Block Pcb Menu
-                                        puts("\nChoose PCB to Block:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nEnter PCB to Block:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
                                         char choice[5] = {0};
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                pcb_block("pcb1");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                pcb_block("pcb2");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        pcb_block(choice);
                                 }
                                 else if (strcmp(choice, "4") == 0)
                                 {
                                         //Block Pcb Menu
-                                        puts("\nChoose PCB to UnBlock:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nEnter PCB to UnBlock:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
@@ -520,30 +477,12 @@ void comhand(void)
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                pcb_unblock("pcb1");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                pcb_unblock("pcb2");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        pcb_unblock(choice);
                                 }
                                 else if (strcmp(choice, "5") == 0)
                                 {
                                         //Suspend Pcb Menu
-                                        puts("\nChoose PCB to Suspend:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nType PCB to Suspend:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
@@ -551,30 +490,12 @@ void comhand(void)
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                pcb_suspend("pcb1");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                pcb_suspend("pcb2");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        pcb_suspend(choice);
                                 }
                                 else if (strcmp(choice, "6") == 0)
                                 {
                                         //Resume Pcb Menu
-                                        puts("\nChoose PCB to Resume:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nType PCB to Resume:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
@@ -582,116 +503,28 @@ void comhand(void)
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                pcb_resume("pcb1");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                pcb_resume("pcb2");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        pcb_resume(choice);
                                 }
                                 else if (strcmp(choice, "7") == 0)
                                 {
                                         //Change Pcb Priority Menu
                                         puts("\nChoose PCB to Change Priority:");
                                         //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\nType PCB Name:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
                                         char choice[5] = {0};
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                //Change Pcb Priority Menu
-                                                puts("\nChoose Priority:");
-                                                //Choices Go Here
-                                                puts("\n1) Priority 1\n2) Priority 2\n3) Back\n");
-                                                //required for UI
-                                                puts(">");
-                                                //init choice buffer
-                                                char choice[5] = {0};
-                                                //Read from the buffer
-                                                sys_req(READ, COM1, choice, 5);
-                                                //Priority 1
-                                                if (strcmp(choice, "1") == 0)
-                                                {
-                                                        pcb_setpriority("pcb1","1");
-                                                }
-                                                else if (strcmp(choice, "2") == 0)
-                                                {
-                                                        pcb_block("pcb1", "2");
-                                                }
-                                                //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                                else if (strcmp(choice, "3") == 0)
-                                                {
-                                                        continue;
-                                                }
-                                                else
-                                                {
-                                                puts("\nUnrecognized command.\n");
-                                                }
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                               //Change Pcb Priority Menu
-                                                puts("\nChoose Priority:");
-                                                //Choices Go Here
-                                                puts("\n1) Priority 1\n2) Priority 2\n3) Back\n");
-                                                //required for UI
-                                                puts(">");
-                                                //init choice buffer
-                                                char choice[5] = {0};
-                                                //Read from the buffer
-                                                sys_req(READ, COM1, choice, 5);
-                                                //Priority 1
-                                                if (strcmp(choice, "1") == 0)
-                                                {
-                                                        pcb_setpriority("pcb2","1");
-                                                }
-                                                else if (strcmp(choice, "2") == 0)
-                                                {
-                                                        pcb_block("pcb2", "2");
-                                                }
-                                                //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                                else if (strcmp(choice, "3") == 0)
-                                                {
-                                                        continue;
-                                                }
-                                                else
-                                                {
-                                                puts("\nUnrecognized command.\n");
-                                                }
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
-                                }
-                                else if (strcmp(choice, "8") == 0)
-                                {
-                                        continue;
-                                }
-                                else
-                                {
-                                        puts("\nUnrecognized command.\n");
+                                        puts("\nType PCB Priority:");
+                                        //init choice buffer
+                                        char priority[5] = {0};
+                                        //Read from the buffer
+                                        sys_req(READ, COM1, choice, 5);
+                                        //uncomment when made
+                                        //pcb_setpriority(name, priority);
+                                        
                                 }
                         }
                         else if (strcmp(choice, "2") == 0)
@@ -705,9 +538,7 @@ void comhand(void)
                                 
                                 if (strcmp(choice, "1") == 0){
                                         //Show Pcb Menu
-                                        puts("\nChoose PCB to Show:");
-                                        //Choices Go Here
-                                        puts("\n1) PCB 1 1\n2) PCB 2\n3) Back\n");
+                                        puts("\n Enter PCB to Show:");
                                         //required for UI
                                         puts(">");
                                         //init choice buffer
@@ -715,23 +546,7 @@ void comhand(void)
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         //PCB 1
-                                        if (strcmp(choice, "1") == 0)
-                                        {
-                                                show_pcb("pcb1");
-                                        }
-                                        else if (strcmp(choice, "2") == 0)
-                                        {
-                                                show_pcb("pcb2");
-                                        }
-                                        //keep, this is the back option for the inital menu, make 3 higher if you add more menus
-                                        else if (strcmp(choice, "3") == 0)
-                                        {
-                                                continue;
-                                        }
-                                        else
-                                        {
-                                                puts("\nUnrecognized command.\n");
-                                        }
+                                        show_pcb(choice);
                                         
                                 }
                                 else if (strcmp(choice, "2") == 0){
@@ -779,4 +594,5 @@ void comhand(void)
                         puts("\nUnrecognized command.\n");
                 }
         }
+}
 }
