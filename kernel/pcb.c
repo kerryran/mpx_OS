@@ -1,9 +1,6 @@
 #include <memory.h>
 #include <../include/string.h>
 
-// Number of characters a pcb name can be
-int MAX_NAME_LEN = 8;
-
 typedef enum classes
 {
     SYSTEM = 0,
@@ -24,8 +21,8 @@ typedef enum state
 // The struct we need
 typedef struct pcb
 {
-    char *name_ptr;
-    char name_arr[MAX_NAME_LEN];
+    const char *name_ptr;
+    char name_arr[8];
     enum classes class;
     state dispatch;
     state execute;
@@ -56,7 +53,7 @@ pcb *pcb_allocate(void)
         return NULL;
     }
 
-    return *some_pcb;
+    return some_pcb;
 }
 
 // Free all memory associated with a PCB, including the stack
@@ -99,12 +96,6 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 // Search all process queues for a process with the provided name (processes will not have the same name)
 struct pcb *pcb_find(const char *name)
 {
-    // ERROR CATCH
-    if (name == NULL)
-    {
-        return NULL;
-    }
-
     pcb *current = NULL;
 
     // NOTSUSPENDED READY
@@ -161,12 +152,6 @@ struct pcb *pcb_find(const char *name)
 // Blocked queues are sorted by FIFO only
 void pcb_insert(struct pcb *pcb)
 {
-    // ERROR CATCH
-    if (pcb == NULL)
-    {
-        return;
-    }
-
     // Check execute and dispatch states to determine list to choose
 
     // NOTSUSPENDED READY
@@ -183,7 +168,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-            pcb *current = ready_head;
+            struct pcb *current = ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -208,7 +193,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-            pcb *current = suspended_ready_head;
+            struct pcb *current = suspended_ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -232,7 +217,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse to the end of the list
-            pcb *current = blocked_head;
+            struct pcb *current = blocked_head;
             while (current->next != NULL)
             {
                 current = current->next;
@@ -242,7 +227,7 @@ void pcb_insert(struct pcb *pcb)
         }
     }
     // SUSPENDED BLOCKED
-    else if (pcb->dispatch == 4 & pcb->exec == 1)
+    else if (pcb->dispatch == 4 & pcb->execute == 1)
     {
         // Case 1: Head is NULL
         if (suspended_blocked_head == NULL)
@@ -254,7 +239,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse to the end of the list
-            pcb *current = suspended_blocked_head;
+            struct pcb *current = suspended_blocked_head;
             while (current->next != NULL)
             {
                 current = current->next;
@@ -271,12 +256,6 @@ void pcb_insert(struct pcb *pcb)
 // NULL VALUE = 2
 int pcb_remove(struct pcb *pcb)
 {
-    // ERROR CATCH
-    if (pcb == NULL)
-    {
-        return 2;
-    }
-
     // Check execute and dispatch states to determine list to choose
 
     // NOTSUSPENDED READY
@@ -292,8 +271,8 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-            pcb *current = ready_head;
-            pcb *prev = NULL;
+            struct pcb *current = ready_head;
+            struct pcb *prev = NULL;
 
             while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
             {
@@ -330,8 +309,8 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-            pcb *current = suspended_ready_head;
-            pcb *prev = NULL;
+            struct pcb *current = suspended_ready_head;
+            struct pcb *prev = NULL;
 
             while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
             {
@@ -368,8 +347,8 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-            pcb *current = blocked_head;
-            pcb *prev = NULL;
+            struct pcb *current = blocked_head;
+            struct pcb *prev = NULL;
 
             while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
             {
@@ -394,7 +373,7 @@ int pcb_remove(struct pcb *pcb)
         }
     }
     // SUSPENDED BLOCKED
-    else if (pcb->dispatch == 4 & pcb->exec == 1)
+    else if (pcb->dispatch == 4 & pcb->execute == 1)
     {
         // Case 1: Head is NULL
         if (suspended_blocked_head == NULL)
@@ -406,8 +385,8 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-            pcb *current = suspended_blocked_head;
-            pcb *prev = NULL;
+            struct pcb *current = suspended_blocked_head;
+            struct pcb *prev = NULL;
 
             while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
             {
