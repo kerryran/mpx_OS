@@ -85,7 +85,7 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    new_pcb->name_ptr = name;
+    new_pcb->name_ptr = (char*)name;
 
     new_pcb->class = class;
 
