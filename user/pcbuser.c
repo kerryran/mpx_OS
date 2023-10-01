@@ -129,6 +129,11 @@ void pcb_resume(char name[])
 //set priority
 void set_priority(char* name, int new_priority){
 
+    struct pcb* pcb = pcb_find(name);
+
+    pcb_remove(pcb);
+    pcb->priority = new_priority;
+    pcb_insert(pcb);
 }
 // show PCB
 void show_pcb(char *name)
