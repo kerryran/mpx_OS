@@ -128,24 +128,40 @@ void pcb_resume(char name[])
 
 //set priority
 void set_priority(char* name, int new_priority){
+    pcb* pcb = pcb_find(name);
+
+    if (pcb == NULL)
+   {
+    puts("PCB does not exist");
+   }
+
+   else if (new_priority < 1 || new_priority > 9)
+   {
+    puts("Priority is invalid");
+   }
+   else
+   {
+    pcb->priority=new_priority;
+   }
 
 }
 // show PCB
 void show_pcb(char *name)
 {
     // not workin
-    char temp = pcb_find(name);
-    {
+    pcb* temp = pcb_find(name);
+    
         if (temp == NULL)
         {
             // process not found
-            puts("process not found");
+            puts("PCB does not exist");
         }
         else
         {
-            char[] status[] = {pcb.name, pcb.class, pcb.priority};
+           char *array[5] = {(char*)temp->name_ptr, (char*)temp->class, (char*)temp->execute, (char*)temp->dispatch,(char*)temp->priority};
+            puts((char*)array);
         }
-    }
+    
 }
 void show_ready(char *name)
 {
