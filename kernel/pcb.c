@@ -59,7 +59,6 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     for (i = 0; i < 7 && name[i] != '\0'; i++) {
         new_pcb->name_arr[i] = name[i];
     }
-    new_pcb->name_arr;
 
     new_pcb->class = class;
     new_pcb->priority = priority;
