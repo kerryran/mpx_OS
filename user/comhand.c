@@ -464,7 +464,7 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
+                                        // Convert class to an integer
                                         sys_req(READ, COM1, class, 5);
                                         int classInt = atoi(class);
                                         //Read from the buffer
@@ -480,12 +480,28 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
+                                        // Convert class to an integer
                                         sys_req(READ, COM1, priority, 5);
                                         int priorityInt = atoi(priority);
                                         //Read from the buffer
-                                        
-                                        pcb_create(choice, classInt, priorityInt);
+                                        //has errors, checking for 0
+                                        // if(class == 0){
+                                        //         puts("You are about to create a system process. This action cannot be undone without restarting the system.");
+                                        //         puts("\nConfirm:");
+                                        //         puts("\n>");
+                                        //         char confirm[5] = {0};
+                                        //         // Read from the buffer
+                                        //         sys_req(READ, COM1, confirm, 5);
+
+                                        //         if (strcmp(choice, "1") == 0)
+                                        //         {
+                                        //                 pcb_create(choice, classInt, priorityInt);
+                                        //         }
+                                        //         else{
+                                        //                 puts("Action canceled");
+                                        //                 continue;
+                                        //         }
+                                        // }
                                         
                                 }
                                 else if (strcmp(choice, "2") == 0)
@@ -587,7 +603,7 @@ void comhand(void)
                                         int priorityInt = atoi(priority);
                                         
                                         if((priorityInt < 0) || (priorityInt>9)){
-                                                puts("Invalid Priority");
+                                                puts("\nInvalid Priority");
                                                 continue;
                                         }
                                         //uncomment when made
