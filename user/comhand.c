@@ -604,12 +604,18 @@ void comhand(void)
                                 else{
                                         puts("\nUnrecognized command.\n");
                                 }
-                                        
-
-
+                        }
+                        else if (strcmp(choice, "3") == 0)
+                        {
+                                continue;
+                        }
+                        else    {
+                        puts("\nUnrecognized command.\n");
+                        }
                 }
+                
                 // Shutdown
-                else if (strcmp(buffer,"5") == 0)
+                else if (strcmp(buffer, "5") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
@@ -634,5 +640,4 @@ void comhand(void)
                         puts("\nUnrecognized command.\n");
                 }
         }
-}
 }
