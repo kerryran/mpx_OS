@@ -382,6 +382,18 @@
       //This source file provides functions for reading and setting the system date and time. It communicates
       //with the real-time clock (RTC) hardware to retrieve and update date and time information.
 
+   4.4 'pcbuser.c'
+
+      //This source file provides functions for deleting, blocking and unblocking, suspending and resuming, and setting
+      //the priority of PCBs. The file also contains functions to show individual PCBs, as well as show ready, blocked
+      //and all of the PCB in their respective queues. 
+
+   4.5 'pcb.c'
+
+      //This source file provides functions for allocating memory for a new PCB, freeing memory associated with a PCB,
+      //initializing a PCB with data provided, searching queues to find specific processes, and inserting and removing
+      //PCBs based on their priority and state from their respective queues. 
+
 5. Enumeration
 
    5.1 `uart_registers`
@@ -407,3 +419,7 @@
    //This header file provides standard library functions.
    - `mpx/interrupts.h`: 
    //This header file contains interrupt-related definitions.
+   - 'mpx/pcb.h'
+   //This header file contains pcb-related definitions and initializes the struct for each PCB. 
+   - 'pcbuser.h'
+   //This header file contains PCB user related definitions.

@@ -2,8 +2,6 @@
 #include <string.h>
 #include <../include/mpx/pcb.h>
 
-// Number of characters a pcb name can be
-
 // HEADS
 pcb *ready_head = NULL;
 pcb *suspended_ready_head = NULL;
@@ -31,7 +29,7 @@ struct pcb *pcb_allocate(void)
 // Free all memory associated with a PCB, including the stack
 int pcb_free(struct pcb *pcb)
 {
-    int free = sys_free_mem((char*)(pcb->name_ptr));
+    int free = sys_free_mem((char *)(pcb->name_ptr));
 
     int free_pcb = sys_free_mem(pcb);
 
@@ -53,10 +51,11 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    //im not sure what this does, the name was appearing invisible before and this is what i was told to use
-    //originial: new_pcb->name_ptr = (char*)name;
+    // im not sure what this does, the name was appearing invisible before and this is what i was told to use
+    // originial: new_pcb->name_ptr = (char*)name;
     int i;
-    for (i = 0; i < 7 && name[i] != '\0'; i++) {
+    for (i = 0; i < 7 && name[i] != '\0'; i++)
+    {
         new_pcb->name_arr[i] = name[i];
     }
 
@@ -127,7 +126,6 @@ struct pcb *pcb_find(const char *name)
     return NULL;
 }
 
-
 // Insert a PCB into the appropriate queue based on state and priority
 // Ready queues are sorted by priority (low to high), then FIFO
 // Blocked queues are sorted by FIFO only
@@ -149,7 +147,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-           struct pcb *current = ready_head;
+            struct pcb *current = ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -174,7 +172,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-           struct pcb *current = suspended_ready_head;
+            struct pcb *current = suspended_ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -198,7 +196,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse to the end of the list
-           struct pcb *current = blocked_head;
+            struct pcb *current = blocked_head;
             while (current->next != NULL)
             {
                 current = current->next;
@@ -252,10 +250,10 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-           struct pcb *current = ready_head;
-           struct pcb *prev = NULL;
+            struct pcb *current = ready_head;
+            struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
@@ -295,7 +293,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = suspended_ready_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
@@ -335,7 +333,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = blocked_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
@@ -375,7 +373,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = suspended_blocked_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
