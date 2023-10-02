@@ -158,10 +158,9 @@ void show_ready(char *name)
     puts(name);
 }
 
-void show_blocked(char *name)
+void show_blocked(void)
 {
-    // show blocked
-    puts(name);
+    puts("All PCBs in the Blocked State:")
 }
 
 void show_all(char *name)
