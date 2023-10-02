@@ -271,7 +271,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = ready_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
@@ -311,7 +311,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = suspended_ready_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
@@ -351,7 +351,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = blocked_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
@@ -391,7 +391,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = suspended_blocked_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
             {
                 prev = current;
                 current = current->next;
