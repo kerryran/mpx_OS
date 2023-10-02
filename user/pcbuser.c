@@ -173,15 +173,65 @@ void show_ready(void)
 {
     // check through the ready queue
     struct pcb *current_ready = ready_head;
-    puts("\n\nReady Queue:");
+    char num[10];
+
+    puts("\n\nReady Queue:\n");
     if (current_ready == NULL)
     {
         puts("\nReady Queue is Empty");
     }
-    while (current_ready != NULL)
+    else
     {
-        puts(current_ready->name_arr);
-        current_ready = current_ready->next;
+        puts("Format: Name, Class, State, Status, Priority \n");
+        while (current_ready != NULL)
+        {
+            puts(current_ready->name_arr);
+            puts(", ");
+            itoa(current_ready->class, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_ready->execute, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_ready->dispatch, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_ready->priority, num, 10);
+            puts(num);
+            puts("\n");
+
+            current_ready = current_ready->next;
+        }
+    }
+    // check through the suspended ready queue
+    current_ready = suspended_ready_head;
+
+    puts("\n\nSuspended Ready Queue:\n");
+    if (current_ready == NULL)
+    {
+        puts("\nSuspended Ready Queue is Empty");
+    }
+    else
+    {
+        puts("Format: Name, Class, State, Status, Priority \n");
+        while (current_ready != NULL)
+        {
+            puts(current_ready->name_arr);
+            puts(", ");
+            itoa(current_ready->class, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_ready->execute, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_ready->dispatch, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_ready->priority, num, 10);
+            puts(num);
+
+            current_ready = current_ready->next;
+        }
     }
 }
 void show_blocked(void)
