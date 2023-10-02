@@ -416,18 +416,18 @@ void comhand(void)
 
                                 if (strcmp(choice, "1") == 0)
                                 {
-                                        //Show Pcb Menu
+                                        // Show Pcb Menu
                                         puts("\nType PCB Name:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         puts("\nType PCB Class:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char class[5] = {0};
                                         int class_valid = isNum(class);
                                         if (class_valid == 0)
@@ -437,12 +437,12 @@ void comhand(void)
                                         }
                                         // Convert year to an integer
                                         int classInt = atoi(class);
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         puts("\nType PCB Priority:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char priority[5] = {0};
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
@@ -452,89 +452,88 @@ void comhand(void)
                                         }
                                         // Convert year to an integer
                                         int priorityInt = atoi(priority);
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         pcb_create(choice, classInt, priorityInt);
-                                        
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {
-                                        //Delete Pcb Menu
+                                        // Delete Pcb Menu
                                         puts("\nEnter PCB Name:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
+                                        // PCB 1
                                         pcb_delete(choice);
                                 }
                                 else if (strcmp(choice, "3") == 0)
                                 {
-                                        //Block Pcb Menu
+                                        // Block Pcb Menu
                                         puts("\nEnter PCB to Block:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         pcb_block(choice);
                                 }
                                 else if (strcmp(choice, "4") == 0)
                                 {
-                                        //Block Pcb Menu
+                                        // Block Pcb Menu
                                         puts("\nEnter PCB to UnBlock:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
+                                        // PCB 1
                                         pcb_unblock(choice);
                                 }
                                 else if (strcmp(choice, "5") == 0)
                                 {
-                                        //Suspend Pcb Menu
+                                        // Suspend Pcb Menu
                                         puts("\nType PCB to Suspend:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
+                                        // PCB 1
                                         pcb_suspend(choice);
                                 }
                                 else if (strcmp(choice, "6") == 0)
                                 {
-                                        //Resume Pcb Menu
+                                        // Resume Pcb Menu
                                         puts("\nType PCB to Resume:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
+                                        // PCB 1
                                         pcb_resume(choice);
                                 }
                                 else if (strcmp(choice, "7") == 0)
                                 {
-                                        //Change Pcb Priority Menu
+                                        // Change Pcb Priority Menu
                                         puts("\nChoose PCB to Change Priority:");
-                                        //Choices Go Here
+                                        // Choices Go Here
                                         puts("\nType PCB Name:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
                                         puts("\nType PCB Priority:");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char priority[5] = {0};
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
@@ -542,84 +541,82 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
-                                        //int priorityInt = atoi(priority);
-                                        //Read from the buffer
+
+                                        // int priorityInt = atoi(priority);
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //uncomment when made
-                                        //pcb_setpriority(name, priority);
-                                        
+                                        // uncomment when made
+                                        // pcb_setpriority(name, priority);
                                 }
                         }
                         else if (strcmp(choice, "2") == 0)
                         {
                                 puts("\nView PCB Menu:");
-                                puts("\n1) Show PCB\n2) Show Ready\n3) Show Blocked\n4) Show All\n5) Back\n");                                
+                                puts("\n1) Show PCB\n2) Show Ready\n3) Show Blocked\n4) Show All\n5) Back\n");
                                 puts(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
                                 sys_req(READ, COM1, choice, 5);
-                                
-                                if (strcmp(choice, "1") == 0){
-                                        //Show Pcb Menu
+
+                                if (strcmp(choice, "1") == 0)
+                                {
+                                        // Show Pcb Menu
                                         puts("\n Enter PCB to Show:");
-                                        //required for UI
+                                        // required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        // init choice buffer
                                         char choice[5] = {0};
-                                        //Read from the buffer
+                                        // Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
-                                        //PCB 1
+                                        // PCB 1
                                         show_pcb(choice);
-                                        
                                 }
-                                else if (strcmp(choice, "2") == 0){
-                                        //show_ready();
-                                        //show_ready();
+                                else if (strcmp(choice, "2") == 0)
+                                {
+                                        show_ready();
                                 }
-                                else if (strcmp(choice, "3") == 0){
-                                        //show_blocked();
-                                        //show_blocked();
+                                else if (strcmp(choice, "3") == 0)
+                                {
+                                        show_blocked();
                                 }
-                                else if (strcmp(choice, "4") == 0){
-                                        //show_all();
-                                        //show_all();
+                                else if (strcmp(choice, "4") == 0)
+                                {
+                                        show_all();
                                 }
-                                else if (strcmp(choice, "5") == 0){
+                                else if (strcmp(choice, "5") == 0)
+                                {
                                         continue;
                                 }
-                                else{
+                                else
+                                {
                                         puts("\nUnrecognized command.\n");
                                 }
-                                        
-
-
-                }
-                // Shutdown
-                else if (strcmp(buffer, "5") == 0)
-                {
-                        puts("\nAre you sure you want to shutdown?\n");
-                        puts("1) Confirm\nAny-Key) Cancel\n");
-                        puts(">");
-                        // Confirm buffer
-                        char confirm[5] = {0};
-                        // Read in confirm
-                        sys_req(READ, COM1, confirm, 5);
-                        if (strcmp(confirm, "1") == 0)
+                        }
+                        // Shutdown
+                        else if (strcmp(buffer, "5") == 0)
                         {
-                                puts("\nShutting Down...\n");
-                                return;
+                                puts("\nAre you sure you want to shutdown?\n");
+                                puts("1) Confirm\nAny-Key) Cancel\n");
+                                puts(">");
+                                // Confirm buffer
+                                char confirm[5] = {0};
+                                // Read in confirm
+                                sys_req(READ, COM1, confirm, 5);
+                                if (strcmp(confirm, "1") == 0)
+                                {
+                                        puts("\nShutting Down...\n");
+                                        return;
+                                }
+                                else
+                                {
+                                        puts("\nCanceled Shutdown...\n");
+                                        continue;
+                                }
                         }
                         else
                         {
-                                puts("\nCanceled Shutdown...\n");
-                                continue;
+                                puts("\nUnrecognized command.\n");
                         }
                 }
-                else
-                {
-                        puts("\nUnrecognized command.\n");
-                }
         }
-}
 }

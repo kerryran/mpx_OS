@@ -68,115 +68,180 @@ void pcb_delete(char name[])
 // block
 void pcb_block(char name[])
 {
-    pcb* pcb = pcb_find(name);
+    pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("PCB does not exist");
-   }
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist");
+    }
 
-   pcb_remove(pcb);
-   pcb->execute = BLOCKED;
-   pcb_insert(pcb);
+    pcb_remove(pcb);
+    pcb->execute = BLOCKED;
+    pcb_insert(pcb);
 }
 
 // suspend
 void pcb_suspend(char name[])
 {
-   pcb* pcb = pcb_find(name);
+    pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("PCB does not exist");
-   }
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist");
+    }
 
-   pcb_remove(pcb);
-   pcb->dispatch = SUSPENDED;
-   pcb_insert(pcb);
-
+    pcb_remove(pcb);
+    pcb->dispatch = SUSPENDED;
+    pcb_insert(pcb);
 }
 
 // unblock
 void pcb_unblock(char name[])
 {
-    pcb* pcb = pcb_find(name);
+    pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("PCB does not exist");
-   }
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist");
+    }
 
-   pcb_remove(pcb);
-   pcb->execute = READY;
-   pcb_insert(pcb);
+    pcb_remove(pcb);
+    pcb->execute = READY;
+    pcb_insert(pcb);
 }
 
 // resume
 void pcb_resume(char name[])
 {
-    pcb* pcb = pcb_find(name);
-
-   if (pcb == NULL)
-   {
-    puts("PCB does not exist");
-   }
-
-   pcb_remove(pcb);
-   pcb->dispatch = NOT_SUSPENDED;
-   pcb_insert(pcb);
-}
-
-//set priority
-void set_priority(char* name, int new_priority){
-    pcb* pcb = pcb_find(name);
+    pcb *pcb = pcb_find(name);
 
     if (pcb == NULL)
-   {
-    puts("PCB does not exist");
-   }
+    {
+        puts("PCB does not exist");
+    }
 
-   else if (new_priority < 1 || new_priority > 9)
-   {
-    puts("Priority is invalid");
-   }
-   else
-   {
-    pcb->priority=new_priority;
-   }
+    pcb_remove(pcb);
+    pcb->dispatch = NOT_SUSPENDED;
+    pcb_insert(pcb);
+}
 
+// set priority
+void set_priority(char *name, int new_priority)
+{
+    pcb *pcb = pcb_find(name);
+
+    if (pcb == NULL)
+    {
+        puts("PCB does not exist");
+    }
+
+    else if (new_priority < 1 || new_priority > 9)
+    {
+        puts("Priority is invalid");
+    }
+    else
+    {
+        pcb->priority = new_priority;
+    }
 }
 // show PCB
 void show_pcb(char *name)
 {
     // not workin
-    pcb* temp = pcb_find(name);
-    
-        if (temp == NULL)
-        {
-            // process not found
-            puts("PCB does not exist");
-        }
-        else
-        {
-           char *array[5] = {(char*)temp->name_ptr, (char*)temp->class, (char*)temp->execute, (char*)temp->dispatch,(char*)temp->priority};
-            puts((char*)array);
-        }
-    
+    pcb *temp = pcb_find(name);
+
+    if (temp == NULL)
+    {
+        // process not found
+        puts("PCB does not exist");
+    }
+    else
+    {
+        char *array[5] = {(char *)temp->name_ptr, (char *)temp->class, (char *)temp->execute, (char *)temp->dispatch, (char *)temp->priority};
+        puts((char *)array);
+    }
 }
-void show_ready(char *name)
+void show_ready(void)
 {
-    // show_ready
-    puts(name);
+    // Table
+    puts("Name     |Class|State|Status        |Priority\n");
+
+    // Get head of list
+    pcb *current = get_ready();
+
+    // Loop through list
+    while (current != NULL)
+    {
+        puts((char *)current->name_ptr);
+        puts(" ");
+        puts((char *)current->class);
+        puts(" ");
+        puts((char *)current->execute);
+        puts(" ");
+        puts((char *)current->dispatch);
+        puts(" ");
+        puts((char *)current->priority);
+        puts("\n");
+        current = current->next;
+    }
+
+    current = get_sus_ready();
+    while (current != NULL)
+    {
+        puts((char *)current->name_ptr);
+        puts(" ");
+        puts((char *)current->class);
+        puts(" ");
+        puts((char *)current->execute);
+        puts(" ");
+        puts((char *)current->dispatch);
+        puts(" ");
+        puts((char *)current->priority);
+        puts("\n");
+        current = current->next;
+    }
 }
 
-void show_blocked(char *name)
+// Show all blocked processes
+void show_blocked(void)
 {
-    // show blocked
-    puts(name);
+    // Table
+    puts("Name     |Class|State|Status        |Priority\n");
+
+    pcb *current = get_blocked();
+    while (current != NULL)
+    {
+        puts((char *)current->name_ptr);
+        puts(" ");
+        puts((char *)current->class);
+        puts(" ");
+        puts((char *)current->execute);
+        puts(" ");
+        puts((char *)current->dispatch);
+        puts(" ");
+        puts((char *)current->priority);
+        puts("\n");
+        current = current->next;
+    }
+
+    current = get_sus_blocked();
+    while (current != NULL)
+    {
+        puts((char *)current->name_ptr);
+        puts(" ");
+        puts((char *)current->class);
+        puts(" ");
+        puts((char *)current->execute);
+        puts(" ");
+        puts((char *)current->dispatch);
+        puts(" ");
+        puts((char *)current->priority);
+        puts("\n");
+        current = current->next;
+    }
 }
 
-void show_all(char *name)
+void show_all(void)
 {
     puts("this is show all");
-    puts(name);
 }

@@ -2,13 +2,29 @@
 #include <string.h>
 #include <../include/mpx/pcb.h>
 
-// Number of characters a pcb name can be
-
 // HEADS
 pcb *ready_head = NULL;
 pcb *suspended_ready_head = NULL;
 pcb *blocked_head = NULL;
 pcb *suspended_blocked_head = NULL;
+
+// GETTERS
+struct pcb *get_ready(void)
+{
+    return ready_head;
+}
+struct pcb *get_sus_ready(void)
+{
+    return suspended_ready_head;
+}
+struct pcb *get_blocked(void)
+{
+    return blocked_head;
+}
+struct pcb *get_sus_blocked(void)
+{
+    return suspended_blocked_head;
+}
 
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
@@ -31,7 +47,7 @@ struct pcb *pcb_allocate(void)
 // Free all memory associated with a PCB, including the stack
 int pcb_free(struct pcb *pcb)
 {
-    int free = sys_free_mem((char*)(pcb->name_ptr));
+    int free = sys_free_mem((char *)(pcb->name_ptr));
 
     int free_pcb = sys_free_mem(pcb);
 
@@ -53,7 +69,7 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    new_pcb->name_ptr = (char*)name;
+    new_pcb->name_ptr = (char *)name;
 
     new_pcb->class = class;
 
@@ -144,7 +160,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-           struct pcb *current = ready_head;
+            struct pcb *current = ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -169,7 +185,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse the list to find the proper position
-           struct pcb *current = suspended_ready_head;
+            struct pcb *current = suspended_ready_head;
 
             while (current->next != NULL && current->next->priority >= pcb->priority)
             {
@@ -193,7 +209,7 @@ void pcb_insert(struct pcb *pcb)
         else
         {
             // Traverse to the end of the list
-           struct pcb *current = blocked_head;
+            struct pcb *current = blocked_head;
             while (current->next != NULL)
             {
                 current = current->next;
@@ -247,8 +263,8 @@ int pcb_remove(struct pcb *pcb)
         else
         {
             // Traverse the list to find the PCB and it's previous node
-           struct pcb *current = ready_head;
-           struct pcb *prev = NULL;
+            struct pcb *current = ready_head;
+            struct pcb *prev = NULL;
 
             while (current != NULL && strcmp(current->name_ptr, pcb->name_ptr))
             {
