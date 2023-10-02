@@ -148,7 +148,7 @@ void show_pcb(char *name)
 
     // Check if the PCB with the given name exists
      if (found_pcb != NULL) {
-        puts("\nProcess Information:");
+        puts("\n\nProcess Information:");
         puts("\nName: ");
         puts(found_pcb->name_arr);
         puts("\nClass: ");
@@ -174,7 +174,10 @@ void show_pcb(char *name)
 void show_ready(void) {
     // check through the ready queue
     struct pcb *current_ready = ready_head;
-    puts("\nReady Queue:");
+    puts("\n\nReady Queue:");
+    if(current_ready == NULL){
+        puts("\nReady Queue is Empty");
+    }
     while (current_ready != NULL) {
         puts(current_ready->name_arr);
         current_ready = current_ready->next;
@@ -183,7 +186,10 @@ void show_ready(void) {
 void show_blocked(void) {
     // check through the blocked queue
     struct pcb *current_blocked = blocked_head;
-    puts("\nBlocked Queue:");
+    puts("\n\nBlocked Queue:");
+    if(current_blocked == NULL){
+        puts("\nBlocked Queue is Empty");
+    }
     while (current_blocked != NULL) {
         puts(current_blocked->name_arr);
         current_blocked = current_blocked->next;
@@ -192,7 +198,10 @@ void show_blocked(void) {
 void show_all(void) {
     // check through the ready queue
     struct pcb *current_ready = ready_head;
-    puts("\nReady Queue:");
+    puts("\n\nReady Queue:");
+    if(current_ready == NULL){
+        puts("\nReady Queue is Empty");
+    }
     while (current_ready != NULL) {
         show_pcb(current_ready->name_arr); // Display information for the PCB
         current_ready = current_ready->next;
@@ -200,7 +209,10 @@ void show_all(void) {
 
     // check suspended ready queue
     struct pcb *current_suspended_ready = suspended_ready_head;
-    puts("\nSuspended Ready Queue:");
+    puts("\n\nSuspended Ready Queue:");\
+    if(current_suspended_ready == NULL){
+        puts("\nSuspended Ready Queue is Empty");
+    }
     while (current_suspended_ready != NULL) {
         show_pcb(current_suspended_ready->name_arr); // Display information for the PCB
         current_suspended_ready = current_suspended_ready->next;
@@ -208,7 +220,10 @@ void show_all(void) {
 
     // check the blocked queue
     struct pcb *current_blocked = blocked_head;
-    puts("\nBlocked Queue:");
+    puts("\n\nBlocked Queue:");
+    if(current_blocked == NULL){
+        puts("\nBlocked Queue is Empty");
+    }
     while (current_blocked != NULL) {
         show_pcb(current_blocked->name_arr); // Display information for the PCB
         current_blocked = current_blocked->next;
@@ -216,7 +231,10 @@ void show_all(void) {
 
     // check the suspended blocked queue
     struct pcb *current_suspended_blocked = suspended_blocked_head;
-    puts("\nSuspended Blocked Queue:");
+    puts("\n\nSuspended Blocked Queue:");
+    if(current_suspended_blocked == NULL){
+        puts("\nSuspended Blocked Queue is Empty");
+    }
     while (current_suspended_blocked != NULL) {
         show_pcb(current_suspended_blocked->name_arr); // Display information for the PCB
         current_suspended_blocked = current_suspended_blocked->next;
