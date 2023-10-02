@@ -120,7 +120,6 @@ int serial_poll(device dev, char *buffer, size_t len)
 					outb(dev, ' ');
 					outb(dev, '\b');
 					cursor_location--;
-					cursor_location--;
 					buffer[buffer_count] = 0;
 				}
 				else

@@ -11,19 +11,13 @@
 struct pcb *pcb_create(char name[], int class, int priority)
 {
 
-    // pcb_setup() to create a pcb
-    pcb *new_pcb = pcb_setup(name, class, priority);
-
-    // insert into the appropriate queue with pcb_insert()
-    pcb_insert(new_pcb);
-
     // ERROR HANDLING:
     // name must be unique and valid
+
     if (pcb_find(name) != NULL)
     {
         puts("PCB already exists.\n");
     }
-
     // class must be valid
     if ((class != 1) && (class != 0))
     {
@@ -36,6 +30,12 @@ struct pcb *pcb_create(char name[], int class, int priority)
         puts("Priority is invalid.\n");
     }
 
+    // pcb_setup() to create a pcb
+    pcb *new_pcb = pcb_setup(name, class, priority);
+
+    // insert into the appropriate queue with pcb_insert()
+    pcb_insert(new_pcb);
+
     return new_pcb;
 }
 
@@ -46,23 +46,26 @@ void pcb_delete(char name[])
     // find process
     pcb *pcb = pcb_find(name);
 
-    // remove from queue w/ pcb_remove()
-    pcb_remove(pcb);
-
-    // free all associated mem with pcb_free()
-    pcb_free(pcb);
-
-    // ERROR HANDLING:
-    // valid name
     if (pcb_find(name) == NULL)
     {
         puts("Cannot remove, PCB does not exist.\n");
     }
     // cannot be a system process
-    if (pcb->priority == 0)
+    else if (pcb->priority == 0)
     {
         puts("Cannot remove a system PCB.\n");
     }
+    else
+    {
+        // remove from queue w/ pcb_remove()
+        pcb_remove(pcb);
+
+        // free all associated mem with pcb_free()
+        pcb_free(pcb);
+    };
+
+    // ERROR HANDLING:
+    // valid name
 }
 
 // block
@@ -126,122 +129,127 @@ void pcb_resume(char name[])
 }
 
 // set priority
-void set_priority(char *name, int new_priority)
+void set_priority(char name[], int new_priority)
 {
     pcb *pcb = pcb_find(name);
-
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist");
-    }
-
-    else if (new_priority < 1 || new_priority > 9)
-    {
-        puts("Priority is invalid");
-    }
-    else
-    {
-        pcb->priority = new_priority;
-    }
+    pcb_remove(pcb);
+    pcb->priority = new_priority;
+    pcb_insert(pcb);
 }
 // show PCB
 void show_pcb(char *name)
 {
-    // not workin
-    pcb *temp = pcb_find(name);
+    struct pcb *found_pcb = pcb_find(name);
 
-    if (temp == NULL)
+    // Check if the PCB with the given name exists
+    if (found_pcb != NULL)
     {
-        // process not found
-        puts("PCB does not exist");
+        puts("\n\nProcess Information:");
+        puts("\nName: ");
+        puts(found_pcb->name_arr);
+        puts("\nClass: ");
+        char class_str[10];
+        itoa(found_pcb->class, class_str, 10);
+        puts(class_str);
+        puts("\nState: ");
+        char execute_str[10];
+        itoa(found_pcb->execute, execute_str, 10);
+        puts(execute_str);
+        puts("\nSuspended Status: ");
+        char dispatch_str[10];
+        itoa(found_pcb->dispatch, dispatch_str, 10);
+        puts(dispatch_str);
+        puts("\nPriority: ");
+        char priority_str[10];
+        itoa(found_pcb->priority, priority_str, 10);
+        puts(priority_str);
     }
     else
     {
-        char *array[5] = {(char *)temp->name_ptr, (char *)temp->class, (char *)temp->execute, (char *)temp->dispatch, (char *)temp->priority};
-        puts((char *)array);
+        puts("\nProcess not found.");
     }
 }
 void show_ready(void)
 {
-    // Table
-    puts("Name     |Class|State|Status        |Priority\n");
-
-    // Get head of list
-    pcb *current = get_ready();
-
-    // Loop through list
-    while (current != NULL)
+    // check through the ready queue
+    struct pcb *current_ready = ready_head;
+    puts("\n\nReady Queue:");
+    if (current_ready == NULL)
     {
-        puts((char *)current->name_ptr);
-        puts(" ");
-        puts((char *)current->class);
-        puts(" ");
-        puts((char *)current->execute);
-        puts(" ");
-        puts((char *)current->dispatch);
-        puts(" ");
-        puts((char *)current->priority);
-        puts("\n");
-        current = current->next;
+        puts("\nReady Queue is Empty");
     }
-
-    current = get_sus_ready();
-    while (current != NULL)
+    while (current_ready != NULL)
     {
-        puts((char *)current->name_ptr);
-        puts(" ");
-        puts((char *)current->class);
-        puts(" ");
-        puts((char *)current->execute);
-        puts(" ");
-        puts((char *)current->dispatch);
-        puts(" ");
-        puts((char *)current->priority);
-        puts("\n");
-        current = current->next;
+        puts(current_ready->name_arr);
+        current_ready = current_ready->next;
     }
 }
-
-// Show all blocked processes
 void show_blocked(void)
 {
-    // Table
-    puts("Name     |Class|State|Status        |Priority\n");
-
-    pcb *current = get_blocked();
-    while (current != NULL)
+    // check through the blocked queue
+    struct pcb *current_blocked = blocked_head;
+    puts("\n\nBlocked Queue:");
+    if (current_blocked == NULL)
     {
-        puts((char *)current->name_ptr);
-        puts(" ");
-        puts((char *)current->class);
-        puts(" ");
-        puts((char *)current->execute);
-        puts(" ");
-        puts((char *)current->dispatch);
-        puts(" ");
-        puts((char *)current->priority);
-        puts("\n");
-        current = current->next;
+        puts("\nBlocked Queue is Empty");
     }
-
-    current = get_sus_blocked();
-    while (current != NULL)
+    while (current_blocked != NULL)
     {
-        puts((char *)current->name_ptr);
-        puts(" ");
-        puts((char *)current->class);
-        puts(" ");
-        puts((char *)current->execute);
-        puts(" ");
-        puts((char *)current->dispatch);
-        puts(" ");
-        puts((char *)current->priority);
-        puts("\n");
-        current = current->next;
+        puts(current_blocked->name_arr);
+        current_blocked = current_blocked->next;
     }
 }
-
 void show_all(void)
 {
-    puts("this is show all");
+    // check through the ready queue
+    struct pcb *current_ready = ready_head;
+    puts("\n\nReady Queue:");
+    if (current_ready == NULL)
+    {
+        puts("\nReady Queue is Empty");
+    }
+    while (current_ready != NULL)
+    {
+        show_pcb(current_ready->name_arr); // Display information for the PCB
+        current_ready = current_ready->next;
+    }
+
+    // check suspended ready queue
+    struct pcb *current_suspended_ready = suspended_ready_head;
+    puts("\n\nSuspended Ready Queue:");
+    if (current_suspended_ready == NULL)
+    {
+        puts("\nSuspended Ready Queue is Empty");
+    }
+    while (current_suspended_ready != NULL)
+    {
+        show_pcb(current_suspended_ready->name_arr); // Display information for the PCB
+        current_suspended_ready = current_suspended_ready->next;
+    }
+
+    // check the blocked queue
+    struct pcb *current_blocked = blocked_head;
+    puts("\n\nBlocked Queue:");
+    if (current_blocked == NULL)
+    {
+        puts("\nBlocked Queue is Empty");
+    }
+    while (current_blocked != NULL)
+    {
+        show_pcb(current_blocked->name_arr); // Display information for the PCB
+        current_blocked = current_blocked->next;
+    }
+
+    // check the suspended blocked queue
+    struct pcb *current_suspended_blocked = suspended_blocked_head;
+    puts("\n\nSuspended Blocked Queue:");
+    if (current_suspended_blocked == NULL)
+    {
+        puts("\nSuspended Blocked Queue is Empty");
+    }
+    while (current_suspended_blocked != NULL)
+    {
+        show_pcb(current_suspended_blocked->name_arr); // Display information for the PCB
+        current_suspended_blocked = current_suspended_blocked->next;
+    }
 }

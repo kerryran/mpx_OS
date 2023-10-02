@@ -58,5 +58,9 @@ void pcb_insert(struct pcb *pcb);
 
 // Remove a PCB from its current queue but do not free any assocaited memoery or data structures
 int pcb_remove(struct pcb *pcb);
+extern struct pcb *ready_head;
+extern struct pcb *suspended_ready_head;
+extern struct pcb *blocked_head;
+extern struct pcb *suspended_blocked_head;
 
 #endif
