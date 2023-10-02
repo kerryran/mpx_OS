@@ -57,13 +57,13 @@ void comhand(void)
                         puts("ii. Set Time - Allows user to set the time.\n");
                         puts("i. Process - Opens the process menu.\n");
                         puts("ii. Manage - Opens the Manage PCB Menu.\n");
-                        puts("iii. Create PCB - Allows user to create a new process by entering a name followed by a class (0 for system-level 1 for user-level) followed by a priority (highest 0 to 9 lowest)\n");
+                        puts("iii. Create PCB - Allows user to create a new process by entering a name followed by a \nclass (0 for system-level 1 for user-level) followed by a priority (highest 0-9 lowest).\n");
                         puts("iii. Delete PCB - Takes name input from user and deletes that process.\n");
                         puts("iii. Block PCB - Takes name input from the user and blocks that process.\n");
                         puts("iii. UnBlock PCB - Takes name input from the user and unblocks that process.\n");
                         puts("iii. Suspend PCB - Takes name input from the user and suspends that process.\n");
                         puts("iii. Resume PCB - Takes name input from the user and resumes that process.\n");
-                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input (0 to 9) to set process priority.\n");
+                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input \n(highest 0 to 9 lowest) to set process priority.\n");
                         puts("ii. View - Opens the View PCB Menu.\n");
                         puts("iii. Show PCB - Allows user to enter a name to search for a pcb and displays its information.\n");
                         puts("iii. Show Ready - Displays ready PCBs.\n");
