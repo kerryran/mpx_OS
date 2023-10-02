@@ -178,7 +178,7 @@ void show_ready(void)
     puts("\n\nReady Queue:\n");
     if (current_ready == NULL)
     {
-        puts("\nReady Queue is Empty");
+        puts("\nReady Queue is Empty\n");
     }
     else
     {
@@ -209,7 +209,7 @@ void show_ready(void)
     puts("\n\nSuspended Ready Queue:\n");
     if (current_ready == NULL)
     {
-        puts("\nSuspended Ready Queue is Empty");
+        puts("\nSuspended Ready Queue is Empty\n");
     }
     else
     {
@@ -229,6 +229,7 @@ void show_ready(void)
             puts(", ");
             itoa(current_ready->priority, num, 10);
             puts(num);
+            puts("\n");
 
             current_ready = current_ready->next;
         }
@@ -238,17 +239,69 @@ void show_blocked(void)
 {
     // check through the blocked queue
     struct pcb *current_blocked = blocked_head;
-    puts("\n\nBlocked Queue:");
+    char num[10];
+
+    puts("\n\nBlocked Queue:\n");
     if (current_blocked == NULL)
     {
-        puts("\nBlocked Queue is Empty");
+        puts("\nBlocked Queue is Empty\n");
     }
-    while (current_blocked != NULL)
+    else
     {
-        puts(current_blocked->name_arr);
-        current_blocked = current_blocked->next;
+        puts("Format: Name, Class, State, Status, Priority \n");
+        while (current_blocked != NULL)
+        {
+            puts(current_blocked->name_arr);
+            puts(", ");
+            itoa(current_blocked->class, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_blocked->execute, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_blocked->dispatch, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_blocked->priority, num, 10);
+            puts(num);
+            puts("\n");
+
+            current_blocked = current_blocked->next;
+        }
+    }
+    // check through the suspended blocked queue
+    current_blocked = suspended_blocked_head;
+
+    puts("\n\nSuspended Blocked Queue:\n");
+    if (current_blocked == NULL)
+    {
+        puts("\nSuspended Blocked Queue is Empty\n");
+    }
+    else
+    {
+        puts("Format: Name, Class, State, Status, Priority \n");
+        while (current_blocked != NULL)
+        {
+            puts(current_blocked->name_arr);
+            puts(", ");
+            itoa(current_blocked->class, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_blocked->execute, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_blocked->dispatch, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_blocked->priority, num, 10);
+            puts(num);
+            puts("\n");
+
+            current_blocked = current_blocked->next;
+        }
     }
 }
+
 void show_all(void)
 {
     // check through the ready queue
