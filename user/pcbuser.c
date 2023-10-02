@@ -94,6 +94,11 @@ void pcb_suspend(char name[])
     {
         puts("\nPCB does not exist");
     }
+    // cannot be a system process
+    else if (pcb->class == 0)
+    {
+        puts("\nCannot suspend a system PCB.\n");
+    }
     else
     {
         pcb_remove(pcb);
@@ -141,9 +146,22 @@ void set_priority(char name[], int new_priority)
 {
 
     pcb *pcb = pcb_find(name);
-    pcb_remove(pcb);
-    pcb->priority = new_priority;
-    pcb_insert(pcb);
+
+    if (pcb == NULL)
+    {
+        puts("\nPCB does not exist");
+    }
+
+    if ((new_priority < 0) || (new_priority > 9))
+    {
+        puts("Invalid Priority");
+    }
+    else
+    {
+        pcb_remove(pcb);
+        pcb->priority = new_priority;
+        pcb_insert(pcb);
+    }
 }
 // show PCB
 void show_pcb(char *name)

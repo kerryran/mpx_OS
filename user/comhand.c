@@ -591,12 +591,7 @@ void comhand(void)
                                         char choice[9] = {0};
                                         // Read from the buffer
                                         sys_req(READ, COM1, choice, 9);
-                                        struct pcb *pcb = pcb_find(choice);
-                                        if (pcb == NULL)
-                                        {
-                                                puts("PCB does not exist.\n");
-                                                continue;
-                                        }
+
                                         puts("\nType PCB Priority:");
                                         // init choice buffer
                                         puts("\n>");
@@ -614,11 +609,6 @@ void comhand(void)
                                         // Convert priority to an integer
                                         int priorityInt = atoi(priority);
 
-                                        if ((priorityInt < 0) || (priorityInt > 9))
-                                        {
-                                                puts("Invalid Priority");
-                                                continue;
-                                        }
                                         // uncomment when made
                                         set_priority(choice, priorityInt);
                                 }
