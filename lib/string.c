@@ -98,23 +98,24 @@ void puts(char *string)
 // Method for concatenating two strings
 char *strcat(char *first, char *second)
 {
-	//int to iterate through indexes of strings
+	// int to iterate through indexes of strings
 	int i;
 
-	//int with the value of the length of the first string
-	int j =strlen(first);
+	// int with the value of the length of the first string
+	int j = strlen(first);
 
-	//iterate through the second string until the null terminator
-	for (i=0; second[i] != '\0'; i++){
-		
-		//add the chars, from the second string, one at a time to the first string
-		first[i+j] = second[i];
+	// iterate through the second string until the null terminator
+	for (i = 0; second[i] != '\0'; i++)
+	{
+
+		// add the chars, from the second string, one at a time to the first string
+		first[i + j] = second[i];
 	}
 
-	//add the null terminator
-	first[i+j] = '\0';
+	// add the null terminator
+	first[i + j] = '\0';
 
-	//return the combined strings
+	// return the combined strings
 	return first;
 }
 
@@ -139,10 +140,14 @@ char *substring(char string[], int index, int length)
 	return resultptr;
 }
 
-int isNum(char buffer[]){
+int isNum(char buffer[])
+{
 
-	for(int index =0; buffer[index] != '\0'; index++){
-		if(buffer[index] <48 || buffer[index] > 57){
+	for (int index = 0; buffer[index] != '\0'; index++)
+	{
+		// Not a number
+		if (buffer[index] < 48 || buffer[index] > 57)
+		{
 			return 0;
 		}
 	}

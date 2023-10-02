@@ -483,46 +483,37 @@ void comhand(void)
                                         sys_req(READ, COM1, priority, 5);
                                         int priorityInt = atoi(priority);
                                         // Read from the buffer
-                                        //Read from the buffer
-                                        //has errors, checking for 
+                                        // Read from the buffer
+                                        // has errors, checking for
 
-                                        //goes here if its a valid entry
-                                        
-                                        if (((strcmp(class,"0") == 0) || (strcmp(class,"1")==0)) && ((strcmp(choice,"")!=0))){
+                                        // goes here if its a valid entry
 
-                                        
-                                         if(strcmp(class,"0") == 0 ){
-                                                //goes here if class is 0 (system process)
-                                                 puts("You are about to create a system process. This action cannot be undone without restarting the system.");
-                                                 puts("\nConfirm:");
-                                                 puts("\n1) Yes");
-                                                 puts("\nAny) Cancel");
-                                                 puts("\n>");
-                                                 char confirm[5] = {0};
-                                                 // Read from the buffer
-                                                 sys_req(READ, COM1, confirm, 5);
+                                        if (strcmp(class, "0") == 0 && strcmp(class, "") == 0)
+                                        {
+                                                // goes here if class is 0 (system process)
+                                                puts("You are about to create a system process. This action cannot be undone without restarting the system.");
+                                                puts("\nConfirm:");
+                                                puts("\n1) Yes");
+                                                puts("\nAny) Cancel");
+                                                puts("\n>");
+                                                char confirm[5] = {0};
+                                                // Read from the buffer
+                                                sys_req(READ, COM1, confirm, 5);
 
-                                                 if (strcmp(confirm, "1") == 0)
-                                                 {
-                                                         pcb_create(choice, classInt, priorityInt);
-                                                 }
-                                                 else{
-                                                         puts("Action canceled");
-                                                         continue;
-                                                 }
-                                         }
-                                         else{
+                                                if (strcmp(confirm, "1") == 0)
+                                                {
+                                                        pcb_create(choice, classInt, priorityInt);
+                                                }
+                                                else
+                                                {
+                                                        puts("Action canceled");
+                                                        continue;
+                                                }
+                                        }
+                                        else
+                                        {
                                                 pcb_create(choice, classInt, priorityInt);
-                                         }
-                                         
-                                         
                                         }
-                                        //invalid entry
-                                        else{
-                                                puts("Action canceled");
-                                        }
-                                        
-                                                
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {

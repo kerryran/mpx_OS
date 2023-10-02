@@ -10,31 +10,32 @@
 
 struct pcb *pcb_create(char name[], int class, int priority)
 {
-
-    // ERROR HANDLING:
-    // name must be unique and valid
-
-    // pcb_setup() to create a pcb
-    pcb *new_pcb = pcb_setup(name, class, priority);
-    // insert into the appropriate queue with pcb_insert()
+    // Unique name
     if (pcb_find(name) != NULL)
     {
         puts("\nPCB already exists.\n");
-        return new_pcb;
+        return NULL;
     }
-    // class must be valid
-    if ((class != 1) && (class != 0))
+
+    // Valid name
+    if (strcmp(name, "") == 0)
     {
-        puts("\nClass not valid.\n");
-        return new_pcb;
+        puts("\nInvalid name.\n");
+    }
+
+    if (class != 0 && class != 1)
+    {
+        puts("\nClass is invalid.\n");
+        return NULL;
     }
 
     // priority must be valid
     if ((priority < 0) || (priority > 9))
     {
         puts("\nPriority is invalid.\n");
-        return new_pcb;
+        return NULL;
     }
+    pcb *new_pcb = pcb_setup(name, class, priority);
     pcb_insert(new_pcb);
 
     return new_pcb;
@@ -184,7 +185,7 @@ void show_ready(void)
     struct pcb *current_ready = ready_head;
     char num[10];
 
-    puts("\n\nReady Queue:\n");
+    puts("\nReady Queue:\n");
     if (current_ready == NULL)
     {
         puts("\nReady Queue is Empty\n");
@@ -215,7 +216,7 @@ void show_ready(void)
     // check through the suspended ready queue
     current_ready = suspended_ready_head;
 
-    puts("\n\nSuspended Ready Queue:\n");
+    puts("\nSuspended Ready Queue:\n");
     if (current_ready == NULL)
     {
         puts("\nSuspended Ready Queue is Empty\n");
@@ -250,7 +251,7 @@ void show_blocked(void)
     struct pcb *current_blocked = blocked_head;
     char num[10];
 
-    puts("\n\nBlocked Queue:\n");
+    puts("\nBlocked Queue:\n");
     if (current_blocked == NULL)
     {
         puts("\nBlocked Queue is Empty\n");
@@ -281,7 +282,7 @@ void show_blocked(void)
     // check through the suspended blocked queue
     current_blocked = suspended_blocked_head;
 
-    puts("\n\nSuspended Blocked Queue:\n");
+    puts("\nSuspended Blocked Queue:\n");
     if (current_blocked == NULL)
     {
         puts("\nSuspended Blocked Queue is Empty\n");

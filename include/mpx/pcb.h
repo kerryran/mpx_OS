@@ -32,14 +32,6 @@ typedef struct pcb
 
 } pcb;
 
-struct pcb *get_ready(void);
-
-struct pcb *get_sus_ready(void);
-
-struct pcb *get_blocked(void);
-
-struct pcb *get_sus_blocked(void);
-
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
 struct pcb *pcb_allocate(void);
