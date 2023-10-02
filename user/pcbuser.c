@@ -163,6 +163,7 @@ void show_pcb(char *name)
         char priority_str[10];
         itoa(found_pcb->priority, priority_str, 10);
         puts(priority_str);
+        puts("\n");
     }
     else
     {
