@@ -136,7 +136,7 @@ void pcb_insert(struct pcb *pcb)
     // Check execute and dispatch states to determine list to choose
 
     // NOTSUSPENDED READY
-    if (pcb->dispatch == 3 & pcb->execute == 0)
+    if (pcb->dispatch == 3 && pcb->execute == 0)
     {
         // Case 1: Head is NULL and Case 2: pcb priority is lower than head
         if (ready_head == NULL || pcb->priority > ready_head->priority)
@@ -161,7 +161,7 @@ void pcb_insert(struct pcb *pcb)
         }
     }
     // SUSPENDED READY
-    else if (pcb->dispatch == 4 & pcb->execute == 0)
+    else if (pcb->dispatch == 4 && pcb->execute == 0)
     {
         // Case 1: Head is NULL and Case 2: pcb priority is lower than head
         if (suspended_ready_head == NULL || pcb->priority > suspended_ready_head->priority)
@@ -186,7 +186,7 @@ void pcb_insert(struct pcb *pcb)
         }
     }
     // NOTSUSPENDED BLOCKED
-    else if (pcb->dispatch == 3 & pcb->execute == 1)
+    else if (pcb->dispatch == 3 && pcb->execute == 1)
     {
         // Case 1: Head is NULL
         if (blocked_head == NULL)
@@ -208,7 +208,7 @@ void pcb_insert(struct pcb *pcb)
         }
     }
     // SUSPENDED BLOCKED
-    else if (pcb->dispatch == 4 & pcb->execute == 1)
+    else if (pcb->dispatch == 4 && pcb->execute == 1)
     {
         // Case 1: Head is NULL
         if (suspended_blocked_head == NULL)
@@ -240,7 +240,7 @@ int pcb_remove(struct pcb *pcb)
     // Check execute and dispatch states to determine list to choose
 
     // NOTSUSPENDED READY
-    if (pcb->dispatch == 3 & pcb->execute == 0)
+    if (pcb->dispatch == 3 && pcb->execute == 0)
     {
         // Case 1: Head is NULL
         if (ready_head == NULL)
@@ -280,7 +280,7 @@ int pcb_remove(struct pcb *pcb)
         }
     }
     // SUSPENDED READY
-    else if (pcb->dispatch == 4 & pcb->execute == 0)
+    else if (pcb->dispatch == 4 && pcb->execute == 0)
     {
         // Case 1: Head is NULL
         if (suspended_ready_head == NULL)
@@ -320,7 +320,7 @@ int pcb_remove(struct pcb *pcb)
         }
     }
     // NOTSUSPENDED BLOCKED
-    else if (pcb->dispatch == 3 & pcb->execute == 1)
+    else if (pcb->dispatch == 3 && pcb->execute == 1)
     {
         // Case 1: Head is NULL
         if (blocked_head == NULL)
@@ -360,7 +360,7 @@ int pcb_remove(struct pcb *pcb)
         }
     }
     // SUSPENDED BLOCKED
-    else if (pcb->dispatch == 4 & pcb->execute == 1)
+    else if (pcb->dispatch == 4 && pcb->execute == 1)
     {
         // Case 1: Head is NULL
         if (suspended_blocked_head == NULL)

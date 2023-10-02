@@ -43,27 +43,34 @@ struct pcb *pcb_create(char name[], int class, int priority)
 // delete
 void pcb_delete(char name[])
 {
+    
 
     // find process
     pcb *pcb = pcb_find(name);
 
-    // remove from queue w/ pcb_remove()
-    pcb_remove(pcb);
-
-    // free all associated mem with pcb_free()
-    pcb_free(pcb);
-
-    // ERROR HANDLING:
-    // valid name
-    if (pcb_find(name) == NULL)
+     if (pcb_find(name) == NULL)
     {
         puts("Cannot remove, PCB does not exist.\n");
     }
     // cannot be a system process
-    if (pcb->priority == 0)
+    else if(pcb->priority == 0)
     {
         puts("Cannot remove a system PCB.\n");
     }
+    else{
+         // remove from queue w/ pcb_remove()
+        pcb_remove(pcb);
+
+        // free all associated mem with pcb_free()
+        pcb_free(pcb);
+
+        
+    };
+
+   
+    // ERROR HANDLING:
+    // valid name
+   
 }
 
 // block
