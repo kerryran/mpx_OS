@@ -8,24 +8,6 @@ pcb *suspended_ready_head = NULL;
 pcb *blocked_head = NULL;
 pcb *suspended_blocked_head = NULL;
 
-// GETTERS
-struct pcb *get_ready(void)
-{
-    return ready_head;
-}
-struct pcb *get_sus_ready(void)
-{
-    return suspended_ready_head;
-}
-struct pcb *get_blocked(void)
-{
-    return blocked_head;
-}
-struct pcb *get_sus_blocked(void)
-{
-    return suspended_blocked_head;
-}
-
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
 struct pcb *pcb_allocate(void)
