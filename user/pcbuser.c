@@ -14,26 +14,30 @@ struct pcb *pcb_create(char name[], int class, int priority)
     // ERROR HANDLING:
     // name must be unique and valid
 
-    if (pcb_find(name) != NULL)
-    {
-        puts("PCB already exists.\n");
-    }
-    // class must be valid
-    if ((class != 1) && (class != 0))
-    {
-        puts("Class not valid.\n");
-    }
-
-    // priority must be valid
-    if ((priority < 0) || (priority > 9))
-    {
-        puts("Priority is invalid.\n");
-    }
+    
 
     // pcb_setup() to create a pcb
     pcb *new_pcb = pcb_setup(name, class, priority);
 
     // insert into the appropriate queue with pcb_insert()
+    if (pcb_find(name) != NULL)
+    {
+        puts("\nPCB already exists.\n");
+        return new_pcb;
+    }
+    // class must be valid
+    if ((class != 1) && (class != 0))
+    {
+        puts("\nClass not valid.\n");
+        return new_pcb;
+    }
+
+    // priority must be valid
+    if ((priority < 0) || (priority > 9))
+    {
+        puts("\nPriority is invalid.\n");
+        return new_pcb;
+    }
     pcb_insert(new_pcb);
 
     return new_pcb;
@@ -48,12 +52,12 @@ void pcb_delete(char name[])
 
     if (pcb_find(name) == NULL)
     {
-        puts("Cannot remove, PCB does not exist.\n");
+        puts("\nCannot remove, PCB does not exist.\n");
     }
     // cannot be a system process
     else if (pcb->class == 0)
     {
-        puts("Cannot remove a system PCB.\n");
+        puts("\nCannot remove a system PCB.\n");
     }
     else
     {
@@ -73,10 +77,10 @@ void pcb_block(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist");
-    }
+   if (pcb == NULL)
+   {
+    puts("\nPCB does not exist");
+   }
 
     pcb_remove(pcb);
     pcb->execute = BLOCKED;
@@ -88,10 +92,10 @@ void pcb_suspend(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist");
-    }
+   if (pcb == NULL)
+   {
+    puts("\nPCB does not exist");
+   }
 
     pcb_remove(pcb);
     pcb->dispatch = SUSPENDED;
@@ -103,10 +107,10 @@ void pcb_unblock(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist");
-    }
+   if (pcb == NULL)
+   {
+    puts("\nPCB does not exist");
+   }
 
     pcb_remove(pcb);
     pcb->execute = READY;
@@ -118,10 +122,10 @@ void pcb_resume(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-    if (pcb == NULL)
-    {
-        puts("PCB does not exist");
-    }
+   if (pcb == NULL)
+   {
+    puts("\nPCB does not exist");
+   }
 
     pcb_remove(pcb);
     pcb->dispatch = NOT_SUSPENDED;

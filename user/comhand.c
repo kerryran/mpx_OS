@@ -463,7 +463,7 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
+                                        // Convert class to an integer
                                         sys_req(READ, COM1, class, 5);
                                         int classInt = atoi(class);
                                         // Read from the buffer
@@ -479,7 +479,7 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
+                                        // Convert class to an integer
                                         sys_req(READ, COM1, priority, 5);
                                         int priorityInt = atoi(priority);
                                         // Read from the buffer
