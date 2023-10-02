@@ -127,25 +127,8 @@ void pcb_resume(char name[])
 }
 
 //set priority
-void set_priority(char* name, int new_priority){
+void set_priority(char name[], int new_priority){
     pcb* pcb = pcb_find(name);
-
-    if (pcb == NULL)
-   {
-    puts("PCB does not exist");
-   }
-
-   else if (new_priority < 1 || new_priority > 9)
-   {
-    puts("Priority is invalid");
-   }
-   else
-   {
-    pcb->priority=new_priority;
-   }
-
-    struct pcb* pcb = pcb_find(name);
-
     pcb_remove(pcb);
     pcb->priority = new_priority;
     pcb_insert(pcb);
@@ -176,7 +159,7 @@ void show_ready(char *name)
 
 void show_blocked(void)
 {
-    puts("All PCBs in the Blocked State:")
+    puts("All PCBs in the Blocked State:");
 }
 
 void show_all(char *name)

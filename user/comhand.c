@@ -5,6 +5,7 @@
 #include <../include/dateAndTime.h>
 #include <stdlib.h>
 #include <../include/pcbuser.h>
+#include <../include/mpx/pcb.h>
 void comhand(void)
 {
         // Welcome/Start-Up Message
@@ -533,8 +534,16 @@ void comhand(void)
                                         char choice[5] = {0};
                                         //Read from the buffer
                                         sys_req(READ, COM1, choice, 5);
+                                        struct pcb* pcb = pcb_find(choice);
+                                        if (pcb == NULL){
+                                                puts("PCB does not exist.\n");
+                                                continue;
+                                        }
                                         puts("\nType PCB Priority:");
                                         //init choice buffer
+                                        puts(">");
+                                        //Read from the buffer
+                                        sys_req(READ, COM1, choice, 5);
                                         char priority[5] = {0};
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
@@ -542,12 +551,16 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
+                                        
                                         // Convert year to an integer
-                                        //int priorityInt = atoi(priority);
-                                        //Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        int priorityInt = atoi(priority);
+                                        
+                                        if((priorityInt < 0) || (priorityInt>9)){
+                                                puts("Invalid Priority");
+                                                continue;
+                                        }
                                         //uncomment when made
-                                        //pcb_setpriority(name, priority);
+                                        set_priority(choice, priorityInt);
                                         
                                 }
                         }
@@ -596,7 +609,7 @@ void comhand(void)
 
                 }
                 // Shutdown
-                else if (strcmp(buffer, "5") == 0)
+                else if (strcmp(buffer,"5") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");

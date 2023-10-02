@@ -6,6 +6,7 @@ void pcb_block(char name[]);
 void pcb_unblock(char name[]);
 void pcb_suspend(char name[]);
 void pcb_resume(char name[]);
+void set_priority(char name[], int new_priority);
 void show_pcb(char *name);
 void show_ready(char *name);
 void show_blocked(char *name);
