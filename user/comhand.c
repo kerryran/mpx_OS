@@ -10,19 +10,27 @@ void comhand(void)
 {
         // Welcome/Start-Up Message
         puts("\nWelcome to\n");
-        puts(" _____                               ___  ____   \n");
-        puts("|  ___| __ ___   __ _  __ _ _   _   / _ \\/ ___|  \n");
-        puts("| |_ | '__/ _ \\ / _` |/ _` | | | | | | | \\___ \\  \n");
-        puts("|  _|| | | (_) | (_| | (_| | |_| | | |_| |___) | \n");
-        puts("|_|  |_|  \\___/ \\__, |\\__, |\\__, |  \\___/|____/  \n");
-        puts("                |___/ |___/ |___/                \n");
-        puts("\nDeveloped by\n");
-        puts(" _____                ____                        _  \n");
-        puts("|  ___| __ ___   __ _/ ___|  __ _ _   _  __ _  __| | \n");
-        puts("| |_ | '__/ _ \\ / _` \\___ \\ / _` | | | |/ _` |/ _` | \n");
-        puts("|  _|| | | (_) | (_| |___) | (_| | |_| | (_| | (_| | \n");
-        puts("|_|  |_|  \\___/ \\__, |____/ \\__, |\\__,_|\\__,_|\\__,_| \n");
-        puts("                |___/          |_|                   \n");
+        puts("   _____                               ___  ____   \n");
+        puts("  |  ___| __ ___   __ _  __ _ _   _   / _ \\/ ___|  \n");
+        puts("  | |_ | '__/ _ \\ / _` |/ _` | | | | | | | \\___ \\  \n");
+        puts("  |  _|| | | (_) | (_| | (_| | |_| | | |_| |___) | \n");
+        puts("  |_|  |_|  \\___/ \\__, |\\__, |\\__, |  \\___/|____/  \n");
+        puts("                  |___/ |___/ |___/                \n");
+        puts("      _    _          _    _          _    _\n");
+        puts("     (o)--(o)        (o)--(o)        (o)--(o)\n");
+        puts("    /.______.\\      /.______.\\      /.______.\\\n");
+        puts("    \\________/      \\________/      \\________/\n");
+        puts("   ./        \\.    ./        \\.    ./        \\.\n");
+        puts("  ( .        , )  ( .        , )  ( .        , )\n");
+        puts("   \\ \\_\\\\//_/ /    \\ \\_\\\\//_/ /    \\ \\_\\\\//_/ /\n");
+
+        puts("\n                  Developed by\n");
+        puts("   _____                ____                        _  \n");
+        puts("  |  ___| __ ___   __ _/ ___|  __ _ _   _  __ _  __| | \n");
+        puts("  | |_ | '__/ _ \\ / _` \\___ \\ / _` | | | |/ _` |/ _` | \n");
+        puts("  |  _|| | | (_) | (_| |___) | (_| | |_| | (_| | (_| | \n");
+        puts("  |_|  |_|  \\___/ \\__, |____/ \\__, |\\__,_|\\__,_|\\__,_| \n");
+        puts("                  |___/          |_|                   ");
 
         while (true)
         {
@@ -40,14 +48,34 @@ void comhand(void)
                 // Print out help menu
                 if (strcmp(buffer, "1") == 0)
                 {
-                        puts("\nCommands:\n1) Help - describes all the available commands.\n2) Version - describes the operating system version.\n3) Get Date -returns the system date.\n");
-                        puts("4) Set Date - allows user to update the system date, format as MM/DD/YY.\n5) Get Time - returns the system time.\n6) Set Time - allows user to update the system time, format as HH:MM:SS\n");
-                        puts("7) Quit - Logs user out of the machine.\n");
+                        puts("\nCommands:\ni. Help - describes all the available commands.\n");
+                        puts("i. Version - describes the operating system version.\n");
+                        puts("i. Date & Time - Opens the date & time menu.\n");
+                        puts("ii. Get Date - Displays the current date.\n");
+                        puts("ii. Set Date - Allows user to set the date MM/DD/YY.\n");
+                        puts("ii. Get Time - Displays the current time.\n");
+                        puts("ii. Set Time - Allows user to set the time.\n");
+                        puts("i. Process - Opens the process menu.\n");
+                        puts("ii. Manage - Opens the Manage PCB Menu.\n");
+                        puts("iii. Create PCB - Allows user to create a new process by entering a name followed by a class (0 for system-level 1 for user-level) followed by a priority (highest 0 to 9 lowest)\n");
+                        puts("iii. Delete PCB - Takes name input from user and deletes that process.\n");
+                        puts("iii. Block PCB - Takes name input from the user and blocks that process.\n");
+                        puts("iii. UnBlock PCB - Takes name input from the user and unblocks that process.\n");
+                        puts("iii. Suspend PCB - Takes name input from the user and suspends that process.\n");
+                        puts("iii. Resume PCB - Takes name input from the user and resumes that process.\n");
+                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input (0 to 9) to set process priority.\n");
+                        puts("ii. View - Opens the View PCB Menu.\n");
+                        puts("iii. Show PCB - Allows user to enter a name to search for a pcb and displays its information.\n");
+                        puts("iii. Show Ready - Displays ready PCBs.\n");
+                        puts("iii. Show Blocked - Displays blocked PCBs.\n");
+                        puts("iii. Show All - Displays information about all PCBs.\n");
+                        puts("i. Quit - Logs the user out.\n");
+                        
                 }
                 // Print out version number
                 else if (strcmp(buffer, "2") == 0)
                 {
-                        puts("\nVersion: 2.0\n");
+                        puts("\nVersion: 2.1 (now with frogs!)\n");
                 }
                 // Print out Date and Time Menu
                 else if (strcmp(buffer, "3") == 0)
