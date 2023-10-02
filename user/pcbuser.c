@@ -14,8 +14,6 @@ struct pcb *pcb_create(char name[], int class, int priority)
     // ERROR HANDLING:
     // name must be unique and valid
 
-    
-
     // pcb_setup() to create a pcb
     pcb *new_pcb = pcb_setup(name, class, priority);
 
@@ -67,9 +65,6 @@ void pcb_delete(char name[])
         // free all associated mem with pcb_free()
         pcb_free(pcb);
     }
-
-    // ERROR HANDLING:
-    // valid name
 }
 
 // block
@@ -77,14 +72,17 @@ void pcb_block(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("\nPCB does not exist");
-   }
+    if (pcb == NULL)
+    {
+        puts("\nPCB does not exist\n");
+    }
+    else
+    {
 
-    pcb_remove(pcb);
-    pcb->execute = BLOCKED;
-    pcb_insert(pcb);
+        pcb_remove(pcb);
+        pcb->execute = BLOCKED;
+        pcb_insert(pcb);
+    }
 }
 
 // suspend
@@ -92,14 +90,16 @@ void pcb_suspend(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("\nPCB does not exist");
-   }
-
-    pcb_remove(pcb);
-    pcb->dispatch = SUSPENDED;
-    pcb_insert(pcb);
+    if (pcb == NULL)
+    {
+        puts("\nPCB does not exist");
+    }
+    else
+    {
+        pcb_remove(pcb);
+        pcb->dispatch = SUSPENDED;
+        pcb_insert(pcb);
+    }
 }
 
 // unblock
@@ -107,14 +107,16 @@ void pcb_unblock(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("\nPCB does not exist");
-   }
-
-    pcb_remove(pcb);
-    pcb->execute = READY;
-    pcb_insert(pcb);
+    if (pcb == NULL)
+    {
+        puts("\nPCB does not exist");
+    }
+    else
+    {
+        pcb_remove(pcb);
+        pcb->execute = READY;
+        pcb_insert(pcb);
+    }
 }
 
 // resume
@@ -122,14 +124,16 @@ void pcb_resume(char name[])
 {
     pcb *pcb = pcb_find(name);
 
-   if (pcb == NULL)
-   {
-    puts("\nPCB does not exist");
-   }
-
-    pcb_remove(pcb);
-    pcb->dispatch = NOT_SUSPENDED;
-    pcb_insert(pcb);
+    if (pcb == NULL)
+    {
+        puts("\nPCB does not exist");
+    }
+    else
+    {
+        pcb_remove(pcb);
+        pcb->dispatch = NOT_SUSPENDED;
+        pcb_insert(pcb);
+    }
 }
 
 // set priority

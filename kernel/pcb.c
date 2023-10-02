@@ -51,10 +51,8 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    // im not sure what this does, the name was appearing invisible before and this is what i was told to use
-    // originial: new_pcb->name_ptr = (char*)name;
     int i;
-    for (i = 0; i < 7 && name[i] != '\0'; i++)
+    for (i = 0; i < 8 && name[i] != '\0'; i++)
     {
         new_pcb->name_arr[i] = name[i];
     }
