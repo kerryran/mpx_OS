@@ -447,14 +447,14 @@ void comhand(void)
                                         // Show Pcb Menu
                                         puts("\nType PCB Name:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[10] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 10);
                                         puts("\nType PCB Class:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init class buffer
                                         char class[5] = {0};
                                         int class_valid = isNum(class);
@@ -470,7 +470,7 @@ void comhand(void)
 
                                         puts("\nType PCB Priority:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init priority buffer
                                         char priority[5] = {0};
                                         int priority_valid = isNum(priority);

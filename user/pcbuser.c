@@ -54,7 +54,7 @@ void pcb_delete(char name[])
         puts("\nCannot remove, PCB does not exist.\n");
     }
     // cannot be a system process
-    else if (pcb->priority == 0)
+    else if (pcb->class == 0)
     {
         puts("\nCannot remove a system PCB.\n");
     }
@@ -65,7 +65,7 @@ void pcb_delete(char name[])
 
         // free all associated mem with pcb_free()
         pcb_free(pcb);
-    };
+    }
 
     // ERROR HANDLING:
     // valid name
@@ -134,6 +134,7 @@ void pcb_resume(char name[])
 // set priority
 void set_priority(char name[], int new_priority)
 {
+
     pcb *pcb = pcb_find(name);
     pcb_remove(pcb);
     pcb->priority = new_priority;
@@ -308,55 +309,6 @@ void show_blocked(void)
 
 void show_all(void)
 {
-    // check through the ready queue
-    struct pcb *current_ready = ready_head;
-    puts("\n\nReady Queue:");
-    if (current_ready == NULL)
-    {
-        puts("\nReady Queue is Empty");
-    }
-    while (current_ready != NULL)
-    {
-        show_pcb(current_ready->name_arr); // Display information for the PCB
-        current_ready = current_ready->next;
-    }
-
-    // check suspended ready queue
-    struct pcb *current_suspended_ready = suspended_ready_head;
-    puts("\n\nSuspended Ready Queue:");
-    if (current_suspended_ready == NULL)
-    {
-        puts("\nSuspended Ready Queue is Empty");
-    }
-    while (current_suspended_ready != NULL)
-    {
-        show_pcb(current_suspended_ready->name_arr); // Display information for the PCB
-        current_suspended_ready = current_suspended_ready->next;
-    }
-
-    // check the blocked queue
-    struct pcb *current_blocked = blocked_head;
-    puts("\n\nBlocked Queue:");
-    if (current_blocked == NULL)
-    {
-        puts("\nBlocked Queue is Empty");
-    }
-    while (current_blocked != NULL)
-    {
-        show_pcb(current_blocked->name_arr); // Display information for the PCB
-        current_blocked = current_blocked->next;
-    }
-
-    // check the suspended blocked queue
-    struct pcb *current_suspended_blocked = suspended_blocked_head;
-    puts("\n\nSuspended Blocked Queue:");
-    if (current_suspended_blocked == NULL)
-    {
-        puts("\nSuspended Blocked Queue is Empty");
-    }
-    while (current_suspended_blocked != NULL)
-    {
-        show_pcb(current_suspended_blocked->name_arr); // Display information for the PCB
-        current_suspended_blocked = current_suspended_blocked->next;
-    }
+    show_ready();
+    show_blocked();
 }
