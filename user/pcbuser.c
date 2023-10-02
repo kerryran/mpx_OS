@@ -11,11 +11,6 @@
 struct pcb *pcb_create(char name[], int class, int priority)
 {
 
-    // pcb_setup() to create a pcb
-    pcb *new_pcb = pcb_setup(name, class, priority);
-
-    // insert into the appropriate queue with pcb_insert()
-    pcb_insert(new_pcb);
 
     // ERROR HANDLING:
     // name must be unique and valid
@@ -35,6 +30,12 @@ struct pcb *pcb_create(char name[], int class, int priority)
     {
         puts("Priority is invalid.\n");
     }
+
+    // pcb_setup() to create a pcb
+    pcb *new_pcb = pcb_setup(name, class, priority);
+
+    // insert into the appropriate queue with pcb_insert()
+    pcb_insert(new_pcb);
 
     return new_pcb;
 }
