@@ -428,7 +428,7 @@ void comhand(void)
                                         puts("\nType PCB Class:");
                                         //required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        //init class buffer
                                         char class[5] = {0};
                                         int class_valid = isNum(class);
                                         if (class_valid == 0)
@@ -437,13 +437,14 @@ void comhand(void)
                                                 continue;
                                         }
                                         // Convert year to an integer
+                                        sys_req(READ, COM1, class, 5);
                                         int classInt = atoi(class);
                                         //Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        
                                         puts("\nType PCB Priority:");
                                         //required for UI
                                         puts(">");
-                                        //init choice buffer
+                                        //init priority buffer
                                         char priority[5] = {0};
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
@@ -452,9 +453,10 @@ void comhand(void)
                                                 continue;
                                         }
                                         // Convert year to an integer
+                                        sys_req(READ, COM1, priority, 5);
                                         int priorityInt = atoi(priority);
                                         //Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        
                                         pcb_create(choice, classInt, priorityInt);
                                         
                                 }
@@ -543,8 +545,9 @@ void comhand(void)
                                         //init choice buffer
                                         puts(">");
                                         //Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        
                                         char priority[5] = {0};
+                                        sys_req(READ, COM1, priority, 5);
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
                                         {
@@ -552,7 +555,7 @@ void comhand(void)
                                                 continue;
                                         }
                                         
-                                        // Convert year to an integer
+                                        // Convert priority to an integer
                                         int priorityInt = atoi(priority);
                                         
                                         if((priorityInt < 0) || (priorityInt>9)){
@@ -587,16 +590,13 @@ void comhand(void)
                                         
                                 }
                                 else if (strcmp(choice, "2") == 0){
-                                        //show_ready();
-                                        //show_ready();
+                                        show_ready();
                                 }
                                 else if (strcmp(choice, "3") == 0){
-                                        //show_blocked();
-                                        //show_blocked();
+                                        show_blocked();
                                 }
                                 else if (strcmp(choice, "4") == 0){
-                                        //show_all();
-                                        //show_all();
+                                        show_all();
                                 }
                                 else if (strcmp(choice, "5") == 0){
                                         continue;

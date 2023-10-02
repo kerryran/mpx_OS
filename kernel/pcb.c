@@ -53,13 +53,18 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    new_pcb->name_ptr = (char*)name;
+    //im not sure what this does, the name was appearing invisible before and this is what i was told to use
+    //originial: new_pcb->name_ptr = (char*)name;
+    int i;
+    for (i = 0; i < 7 && name[i] != '\0'; i++) {
+        new_pcb->name_arr[i] = name[i];
+    }
+    new_pcb->name_arr;
 
     new_pcb->class = class;
-
     new_pcb->priority = priority;
 
-    // Set states to READY and NOTSUSPENDED
+    // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
     new_pcb->dispatch = NOT_SUSPENDED;
     // Comhand (user) handles blocking and suspending processes by updating the pcb
@@ -72,13 +77,13 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 // Search all process queues for a process with the provided name (processes will not have the same name)
 struct pcb *pcb_find(const char *name)
 {
-    pcb *current = NULL;
+    struct pcb *current = NULL;
 
     // NOTSUSPENDED READY
     current = ready_head;
     while (current != NULL)
     {
-        if (strcmp(current->name_ptr, name) == 0)
+        if (strcmp(current->name_arr, name) == 0)
         {
             // Found a pcb with the name
             return current;
@@ -89,7 +94,7 @@ struct pcb *pcb_find(const char *name)
     current = suspended_ready_head;
     while (current != NULL)
     {
-        if (strcmp(current->name_ptr, name) == 0)
+        if (strcmp(current->name_arr, name) == 0)
         {
             // Found a pcb with the name
             return current;
@@ -100,7 +105,7 @@ struct pcb *pcb_find(const char *name)
     current = blocked_head;
     while (current != NULL)
     {
-        if (strcmp(current->name_ptr, name) == 0)
+        if (strcmp(current->name_arr, name) == 0)
         {
             // Found a pcb with the name
             return current;
@@ -111,7 +116,7 @@ struct pcb *pcb_find(const char *name)
     current = suspended_blocked_head;
     while (current != NULL)
     {
-        if (strcmp(current->name_ptr, name) == 0)
+        if (strcmp(current->name_arr, name) == 0)
         {
             // Found a pcb with the name
             return current;
@@ -122,6 +127,7 @@ struct pcb *pcb_find(const char *name)
     // NAME WAS NOT FOUND
     return NULL;
 }
+
 
 // Insert a PCB into the appropriate queue based on state and priority
 // Ready queues are sorted by priority (low to high), then FIFO
