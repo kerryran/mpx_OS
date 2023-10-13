@@ -20,6 +20,9 @@ typedef struct context
     int EDI;
     int EBP;
     int ESP;
+    // struct context *next;
+    // How to add the context to the PCB stack space?
+    // And where is this done? System call?
 
 } context;
 
