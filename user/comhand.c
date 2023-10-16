@@ -36,7 +36,7 @@ void comhand(void)
         {
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
-                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Quit\n");
+                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6)  Quit\n");
                 puts("Enter a number to select:\n");
                 puts(">");
 
@@ -527,7 +527,7 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_delete(choice);
->>>>>>> main
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
                                 else if (strcmp(choice, "3") == 0)
                                 {
@@ -540,7 +540,7 @@ void comhand(void)
                                         // Read from the buffer
                                         sys_req(READ, COM1, choice, 9);
                                         pcb_block(choice);
->>>>>>> main
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
                                 else if (strcmp(choice, "4") == 0)
                                 {
@@ -554,7 +554,7 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_unblock(choice);
->>>>>>> main
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
                                 else if (strcmp(choice, "5") == 0)
                                 {
@@ -568,7 +568,7 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_suspend(choice);
->>>>>>> main
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
                                 else if (strcmp(choice, "6") == 0)
                                 {
@@ -582,7 +582,7 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_resume(choice);
->>>>>>> main
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
                                 else if (strcmp(choice, "7") == 0)
                                 {
@@ -670,9 +670,33 @@ void comhand(void)
                                 puts("\nUnrecognized command.\n");
                         }
                 }
-
-                // Shutdown
                 else if (strcmp(buffer, "5") == 0)
+                {
+                        puts("\nTest R3 Menu\n");
+                        puts("1) Yield\n2) Call R3\n");
+                        puts(">");
+                        // Confirm buffer
+                        char confirm[5] = {0};
+                        // Read in confirm
+                        sys_req(READ, COM1, confirm, 5);
+                        if (strcmp(confirm, "1") == 0)
+                        {
+                                sys_req(IDLE);
+                                continue;
+                        }
+                        if (strcmp(confirm, "2") == 0)
+                        {
+                                puts("not implemented yet");
+                                continue;
+                        }
+                        else
+                        {
+                                puts("\nCanceled Shutdown...\n");
+                                continue;
+                        }
+                }
+                // Shutdown
+                else if (strcmp(buffer, "6") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
@@ -692,6 +716,7 @@ void comhand(void)
                                 continue;
                         }
                 }
+                
                 else
                 {
                         puts("\nUnrecognized command.\n");
