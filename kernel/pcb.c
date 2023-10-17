@@ -186,6 +186,7 @@ void pcb_insert(struct pcb *pcb)
     {
         // Case 1: Head is NULL and Case 2: pcb priority is lower than head
         if (blocked_head == NULL || pcb->priority > blocked_head->priority)
+        {
             // Case 1: Head is NULL
             if (blocked_head == NULL || pcb->priority > blocked_head->priority)
             {
@@ -204,6 +205,7 @@ void pcb_insert(struct pcb *pcb)
                 // Insert after current
                 current->next = pcb;
             }
+        }
     }
     // SUSPENDED BLOCKED
     else if (pcb->dispatch == 4 && pcb->execute == 1)
