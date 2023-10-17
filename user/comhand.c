@@ -447,14 +447,14 @@ void comhand(void)
                                         // Show Pcb Menu
                                         puts("\nType PCB Name:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 9);
                                         puts("\nType PCB Class:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init class buffer
                                         char class[5] = {0};
                                         int class_valid = isNum(class);
@@ -463,14 +463,14 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
+                                        // Convert class to an integer
                                         sys_req(READ, COM1, class, 5);
                                         int classInt = atoi(class);
                                         // Read from the buffer
 
                                         puts("\nType PCB Priority:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init priority buffer
                                         char priority[5] = {0};
                                         int priority_valid = isNum(priority);
@@ -479,23 +479,52 @@ void comhand(void)
                                                 puts("\nInvalid");
                                                 continue;
                                         }
-                                        // Convert year to an integer
+                                        // Convert class to an integer
                                         sys_req(READ, COM1, priority, 5);
                                         int priorityInt = atoi(priority);
                                         // Read from the buffer
+                                        // Read from the buffer
+                                        // has errors, checking for
 
-                                        pcb_create(choice, classInt, priorityInt);
+                                        // goes here if its a valid entry
+
+                                        if (strcmp(class, "0") == 0 && strcmp(class, "") == 0)
+                                        {
+                                                // goes here if class is 0 (system process)
+                                                puts("You are about to create a system process. This action cannot be undone without restarting the system.");
+                                                puts("\nConfirm:");
+                                                puts("\n1) Yes");
+                                                puts("\nAny) Cancel");
+                                                puts("\n>");
+                                                char confirm[5] = {0};
+                                                // Read from the buffer
+                                                sys_req(READ, COM1, confirm, 5);
+
+                                                if (strcmp(confirm, "1") == 0)
+                                                {
+                                                        pcb_create(choice, classInt, priorityInt);
+                                                }
+                                                else
+                                                {
+                                                        puts("Action canceled");
+                                                        continue;
+                                                }
+                                        }
+                                        else
+                                        {
+                                                pcb_create(choice, classInt, priorityInt);
+                                        }
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {
                                         // Delete Pcb Menu
                                         puts("\nEnter PCB Name:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_delete(choice);
                                 }
@@ -504,23 +533,23 @@ void comhand(void)
                                         // Block Pcb Menu
                                         puts("\nEnter PCB to Block:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 9);
                                         pcb_block(choice);
                                 }
                                 else if (strcmp(choice, "4") == 0)
                                 {
                                         // Block Pcb Menu
-                                        puts("\nEnter PCB to UnBlock:");
+                                        puts("\nEnter PCB to Unblock:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_unblock(choice);
                                 }
@@ -529,11 +558,11 @@ void comhand(void)
                                         // Suspend Pcb Menu
                                         puts("\nType PCB to Suspend:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_suspend(choice);
                                 }
@@ -542,11 +571,11 @@ void comhand(void)
                                         // Resume Pcb Menu
                                         puts("\nType PCB to Resume:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_resume(choice);
                                 }
@@ -557,20 +586,15 @@ void comhand(void)
                                         // Choices Go Here
                                         puts("\nType PCB Name:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char choice[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
-                                        struct pcb *pcb = pcb_find(choice);
-                                        if (pcb == NULL)
-                                        {
-                                                puts("PCB does not exist.\n");
-                                                continue;
-                                        }
+                                        sys_req(READ, COM1, choice, 9);
+
                                         puts("\nType PCB Priority:");
                                         // init choice buffer
-                                        puts(">");
+                                        puts("\n>");
                                         // Read from the buffer
 
                                         char priority[5] = {0};
@@ -585,11 +609,6 @@ void comhand(void)
                                         // Convert priority to an integer
                                         int priorityInt = atoi(priority);
 
-                                        if ((priorityInt < 0) || (priorityInt > 9))
-                                        {
-                                                puts("Invalid Priority");
-                                                continue;
-                                        }
                                         // uncomment when made
                                         set_priority(choice, priorityInt);
                                 }
@@ -606,15 +625,15 @@ void comhand(void)
                                 if (strcmp(choice, "1") == 0)
                                 {
                                         // Show Pcb Menu
-                                        puts("\n Enter PCB to Show:");
+                                        puts("\nEnter PCB to Show:");
                                         // required for UI
-                                        puts(">");
+                                        puts("\n>");
                                         // init choice buffer
-                                        char choice[5] = {0};
+                                        char name[9] = {0};
                                         // Read from the buffer
-                                        sys_req(READ, COM1, choice, 5);
+                                        sys_req(READ, COM1, name, 9);
                                         // PCB 1
-                                        show_pcb(choice);
+                                        show_pcb(name);
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {

@@ -8,24 +8,6 @@ pcb *suspended_ready_head = NULL;
 pcb *blocked_head = NULL;
 pcb *suspended_blocked_head = NULL;
 
-// GETTERS
-struct pcb *get_ready(void)
-{
-    return ready_head;
-}
-struct pcb *get_sus_ready(void)
-{
-    return suspended_ready_head;
-}
-struct pcb *get_blocked(void)
-{
-    return blocked_head;
-}
-struct pcb *get_sus_blocked(void)
-{
-    return suspended_blocked_head;
-}
-
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
 struct pcb *pcb_allocate(void)
@@ -69,10 +51,8 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     pcb *new_pcb = pcb_allocate();
 
-    // im not sure what this does, the name was appearing invisible before and this is what i was told to use
-    // originial: new_pcb->name_ptr = (char*)name;
     int i;
-    for (i = 0; i < 7 && name[i] != '\0'; i++)
+    for (i = 0; i < 8 && name[i] != '\0'; i++)
     {
         new_pcb->name_arr[i] = name[i];
     }

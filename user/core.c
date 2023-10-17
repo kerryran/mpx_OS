@@ -1,11 +1,11 @@
 /***********************************************************************
-* This file contains the sys_req() function linking MPX userland to
-* kernel space, as well as functions that need to be instantiated as
-* processes for modules R3 and R4.
-*
-* You should not need to make any modifications to this file. Doing so
-* may result in losing points.
-***********************************************************************/
+ * This file contains the sys_req() function linking MPX userland to
+ * kernel space, as well as functions that need to be instantiated as
+ * processes for modules R3 and R4.
+ *
+ * You should not need to make any modifications to this file. Doing so
+ * may result in losing points.
+ ***********************************************************************/
 
 #include <stdarg.h>
 #include <stddef.h>
@@ -32,7 +32,8 @@ int sys_req(op_code op, ...)
 	char *buffer = NULL;
 	size_t len = 0;
 
-	if (op == READ || op == WRITE) {
+	if (op == READ || op == WRITE)
+	{
 		va_list ap;
 		va_start(ap, op);
 		dev = va_arg(ap, device);
@@ -44,10 +45,11 @@ int sys_req(op_code op, ...)
 	int ret = 0;
 	__asm__ volatile("int $0x60" : "=a"(ret) : "a"(op), "b"(dev), "c"(buffer), "d"(len));
 
-	if (ret == -1 && (op == READ || op == WRITE)) {
+	if (ret == -1 && (op == READ || op == WRITE))
+	{
 		return (op == READ)
-			? serial_poll(dev, buffer, len)
-			: serial_out(dev, buffer, len);
+				   ? serial_poll(dev, buffer, len)
+				   : serial_out(dev, buffer, len);
 	}
 
 	return ret;
@@ -66,7 +68,8 @@ static void r3_proc(int iterations, const char *procname)
 	memcpy(output, dispatched, strlen(dispatched) + 1);
 	memcpy(output + strlen(output), procname, strlen(procname) + 1);
 	memcpy(output + strlen(output), crlf, strlen(crlf) + 1);
-	for (int i = 0; i < iterations; i++) {
+	for (int i = 0; i < iterations; i++)
+	{
 		sys_req(WRITE, COM1, output, strlen(output));
 		sys_req(IDLE);
 	}
@@ -82,7 +85,8 @@ static void r3_proc(int iterations, const char *procname)
 	memcpy(output, after, strlen(after) + 1);
 	memcpy(output + strlen(output), procname, strlen(procname) + 1);
 	memcpy(output + strlen(output), crlf, strlen(crlf) + 1);
-	for (;;) {
+	for (;;)
+	{
 		sys_req(WRITE, COM1, output, strlen(output));
 		sys_req(EXIT);
 	}
@@ -123,8 +127,9 @@ void proc5(void)
 void sys_idle_process(void)
 {
 	char msg[] = "IDLE PROCESS EXECUTING.\r\n";
-	
-	for (;;) {
+
+	for (;;)
+	{
 		sys_req(WRITE, COM1, msg, strlen(msg));
 		sys_req(IDLE);
 	}

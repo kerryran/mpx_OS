@@ -22,7 +22,7 @@ typedef enum state
 typedef struct pcb
 {
     const char *name_ptr;
-    char name_arr[8];
+    char name_arr[10];
     enum classes class;
     state dispatch;
     state execute;
@@ -31,14 +31,6 @@ typedef struct pcb
     struct pcb *next;
 
 } pcb;
-
-struct pcb *get_ready(void);
-
-struct pcb *get_sus_ready(void);
-
-struct pcb *get_blocked(void);
-
-struct pcb *get_sus_blocked(void);
 
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization
@@ -58,6 +50,7 @@ void pcb_insert(struct pcb *pcb);
 
 // Remove a PCB from its current queue but do not free any assocaited memoery or data structures
 int pcb_remove(struct pcb *pcb);
+// Queue heads
 extern struct pcb *ready_head;
 extern struct pcb *suspended_ready_head;
 extern struct pcb *blocked_head;
