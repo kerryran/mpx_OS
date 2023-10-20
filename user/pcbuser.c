@@ -81,6 +81,7 @@ void pcb_block(char name[])
 
         pcb_remove(pcb);
         pcb->execute = BLOCKED;
+        pcb->next = NULL;
         pcb_insert(pcb);
     }
 }
@@ -103,6 +104,7 @@ void pcb_suspend(char name[])
     {
         pcb_remove(pcb);
         pcb->dispatch = SUSPENDED;
+        pcb->next = NULL;
         pcb_insert(pcb);
     }
 }
@@ -120,6 +122,7 @@ void pcb_unblock(char name[])
     {
         pcb_remove(pcb);
         pcb->execute = READY;
+        pcb->next = NULL;
         pcb_insert(pcb);
     }
 }
@@ -133,12 +136,11 @@ void pcb_resume(char name[])
     {
         puts("\nPCB does not exist");
     }
-    else
-    {
-        pcb_remove(pcb);
-        pcb->dispatch = NOT_SUSPENDED;
-        pcb_insert(pcb);
-    }
+
+    pcb_remove(pcb);
+    pcb->dispatch = NOT_SUSPENDED;
+    pcb->next = NULL;
+    pcb_insert(pcb);
 }
 
 // set priority
@@ -160,6 +162,7 @@ void set_priority(char name[], int new_priority)
     {
         pcb_remove(pcb);
         pcb->priority = new_priority;
+        pcb->next = NULL;
         pcb_insert(pcb);
     }
 }
