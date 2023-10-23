@@ -16,7 +16,6 @@ void yield(void){
 }
  
 void load_r3(void){
-
     //Load the R3 test processes from <processes.h>
     //Each process (one per function) is loaded
     //and queued in a non-suspended ready state,
