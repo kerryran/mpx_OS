@@ -26,12 +26,11 @@ typedef struct pcb
     enum classes class;
     state dispatch;
     state execute;
-    int priority; // 0 = highest, 9 = lowest
+    int priority;                // 0 = highest, 9 = lowest
     struct context *pcb_context; // Include the context structure
     struct pcb *next;
     char stack[1024];
 } pcb;
-
 
 // Allocate memory for a new PCB, including the stack and in
 // and basic initialization

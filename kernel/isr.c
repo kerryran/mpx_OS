@@ -3,80 +3,98 @@
 #include <../include/sys_req.h>
 #include <stddef.h>
 
-pcb *pcb_exec = NULL;
-pcb *next = NULL;
-context *first_cont = NULL;
+// Global PCB pointer representing the currently executing process
+pcb *current = NULL;
 
-struct context *sys_call(struct context *cont)
+// The temporary next process pointer
+pcb *next = NULL;
+
+// Context from when sys_call is first called
+context *first_context = NULL;
+
+struct context *sys_call(struct context *context)
 {
     // Get the operation code from EAX
-    op_code operation_code = (op_code)cont->EAX;
+    op_code operation_code = (op_code)context->EAX;
 
-    // Declare a context pointer to be returned
-    pcb *next = NULL;
-    pcb *ready = ready_head;
+    // Get the head of the ready queue
+    current = ready_head;
 
     // Handle system call based on the operation code
     switch (operation_code)
     {
-        // If context is EXIT
+    // If operation code is EXIT, terminate the process
     case EXIT:
         // Check if this is the first time sys_call has been called
-        if (first_cont == NULL)
+        if (first_context == NULL)
         {
             // Save the context
-            first_cont = cont;
+            first_context = context;
         }
 
-        pcb_free(ready);
-
-        if (ready == NULL)
+        // If there are no ready, unsuspended processes, return the original context
+        if (ready_head == NULL)
         {
-            return cont;
+            first_context->EAX = 0;
+            return first_context;
         }
 
-        pcb_remove(ready);
-        next = ready;
-        next->execute = 0;  // Ready
-        next->dispatch = 4; // Suspended
+        // Free the currently running process
+        pcb_free(current);
 
-        // return (context) stackptr;
+        // Remove the current process from the ready queue
+        pcb_remove(current);
 
-        cont->EAX = 0;
-        break; // Remove this when the return is implemented
-    // If context is IDLE
+        // If the ready_head is not NULL, load the first (in the queue?) as implemented in IDLE
+
+        // Remove the first process from the ready queue and store it in a tmp var as the next process
+        pcb_remove(current);
+        next = current;
+
+        // Save the content of the current process by updating its stack pointer
+        // Question: What is the stack pointer? How is that implemented? What are we updating about it?
+
+        // Add the current process back to the queue
+        pcb_insert(current);
+
+        // Return a pointer to the context of the next process
+        next->pcb_context->EAX = 0;
+        return next->pcb_context;
+
+    // If operation code is IDLE, perform a context switch
     case IDLE:
         // Check if this is the first time sys_call has been called
-        if (first_cont == NULL)
+        if (first_context == NULL)
         {
             // Save the context
-            first_cont = cont;
+            first_context = context;
         }
-        // Handle IDLE case
-        if (ready == NULL)
+
+        // If the ready, non-suspended queue is empty continue with the current process
+        if (ready_head == NULL)
         {
-            return cont;
+            context->EAX = 0;
+            return context;
         }
 
-        next = ready;
-        next->execute = 0;  // Ready
-        next->dispatch = 4; // Suspended
-        pcb_remove(ready);
+        // Remove the first process from the ready queue and store it in a tmp var as the next process
+        pcb_remove(current);
+        next = current;
 
-        if (ready != NULL)
-        {
-            ready->execute = 0;
-            ready->dispatch = 4;
-            // ready-.stackptr = cont;
-            pcb_insert(ready);
-        }
-        ready = next;
-        // return next->stackpr;
-        break; // remove this when the return is implemented
+        // Save the content of the current process by updating its stack pointer
+        // Question: What is the stack pointer? How is that implemented? What are we updating about it?
 
+        // Add the current process back to the queue
+        pcb_insert(current);
+
+        // Return the context of the next process
+        next->pcb_context->EAX = 0;
+        return next->pcb_context;
+
+    // If the operation code is anything else
     default:
-        // Set the return value to -1 for unknown operation codes
-        cont->EAX = -1;
-        return cont;
+        // Set the return value to -1
+        context->EAX = -1;
+        return context;
     }
 }

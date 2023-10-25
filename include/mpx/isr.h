@@ -18,3 +18,5 @@ typedef struct context
     unsigned int EBP;
     unsigned int ESP;
 } context;
+
+struct context *sys_call(struct context *context);

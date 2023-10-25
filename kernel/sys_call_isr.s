@@ -20,6 +20,7 @@ sys_call_isr:
     ; Push the current ESP value
     push esp
 
+    ; Doesn't sys_call need a parameter?
     call sys_call
 
     mov esp, [eax]
