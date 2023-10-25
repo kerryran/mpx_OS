@@ -65,8 +65,8 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     new_pcb->dispatch = NOT_SUSPENDED;
 
     // Initialize context with appropriate values
-   new_pcb->pcb_context.EAX = 0; // Set register values or other CPU state information
-new_pcb->pcb_context.ESP = (unsigned int)new_pcb->stack + sizeof(new_pcb->stack); // Set stack pointer (ESP)
+   new_pcb->pcb_context->EAX = 0; // Set register values or other CPU state information
+new_pcb->pcb_context->ESP = (unsigned int)new_pcb->stack + sizeof(new_pcb->stack); // Set stack pointer (ESP)
 
 
     return new_pcb;
