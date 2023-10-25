@@ -363,6 +363,191 @@
          // int
          Usage:
          // Use this function to determine if a string contains numeric values.
+   3.5.0 PCB User Functions
+      
+      3.5.1 struct pcb *pcb_create(char name[], int class, int priority)
+
+      // Creates a PCB and initalizes its name, class, and priority
+      Parameters:
+      - char name[] : Pointer to the name character array
+      - int class: An integer to represent the class
+      - int priortiy: An integer to represent the priority
+      Return Value:
+      // Returns the successfully created PCB 
+      Return Type:
+      // struct
+      Usage: 
+      // Use this function to create a new PCB 
+
+      3.5.2 void pcb_delete(char name[])
+
+      // Deletes a PCB based on its name
+      Parameters:
+      - char name[] : Pointer to a name character array
+      Return Type:
+      // void
+      Usage: 
+      // Use this function to delete a PCB
+
+      3.5.3 void pcb_block(char name[])
+
+      // Sets the class of a PCB to blocked
+      Parameters:
+      - char name[] : Pointer to a name character array
+      Return Type:
+      // void
+      Usage:
+      // Use this function to set a PCB to Blocked
+
+      3.5.4 void pcb_unblock(char name[])
+
+      // Sets the class of a PCB to unblocked
+      Parameters:
+      - char name[] : Pointer to a name character array
+      Return Type:
+      // void
+      Usage:
+      // Use this function to set a PCB to Unblocked
+
+      3.5.5 void pcb_suspend(char name[])
+
+      // Sets the class of a PCB to suspended
+      Parameters:
+      - char name[] : Pointer to a name character array
+      Return Type:
+      // void
+      Usage:
+      // Use this function to set a PCB to suspended
+
+      3.5.6 void pcb_resume(char name[])
+
+      // Sets the class of a PCB to resume
+      Parameters:
+      - char name[] : Pointer to a name character array
+      Return Type:
+      // void
+      Usage:
+      // Use this function to resume a suspended PCB
+
+      3.5.7 void set_priority(char name[], int new_priority)
+
+      // Sets the priority of a PCB
+      Parameters: 
+      - char name[] : Pointer to a name character array
+      - int new_priority : int value of the new priority to be set
+      Return Type:
+      // void
+      Usage:
+      // Use this function if you want to change the priority of a PCB
+
+      3.5.8 void show_pcb(char *name)
+
+      //Shows a specific PCB 
+      Parameters:
+      - char name[] : Pointer to a name character array
+      Return Type:
+      // void
+      Usage:
+      // Use this function to display a specific PCB given its name
+
+      3.5.9 void show_ready(void)
+
+      //Shows any PCBs that are set to ready 
+      Parameters:
+      // void
+      Return Type:
+      // void
+      Usage:
+      // Use this function to display all PCBs that are set to ready
+
+      3.5.10 void show_blocked(void)
+
+      //Shows any PCBs that are set to blocked 
+      Parameters:
+      // void
+      Return Type:
+      // void
+      Usage:
+      // Use this function to display all PCBs that are set to blocked
+
+      3.5.11 void show_all(void)
+
+       //Shows all PCBs
+      Parameters:
+      // void
+      Return Type:
+      // void
+      Usage:
+      // Use this function to display all PCBs
+
+   3.6.0 PCB Functions
+
+      3.6.1 struct pcb *pcb_allocate(void)
+
+      //Allocates memory for a new PCB
+      Parameters:
+      // void
+      Return Value:
+      // Returns a PCB with allocated memory 
+      Return Type:
+      // struct
+      Usage: 
+      // Use this function to allocate memory for a new PCB including the stack for initialization
+
+      3.6.2 int pcb_free(struct pcb *pcb)
+
+      //Free all memory associated with a PCB including the stack
+      Parameters:
+      - struct pcb *pcb: struct that represents the PCB
+      Return Value:
+      // int where 0 is successful and -1 is unsuccessful
+      Return Type:
+      // int
+      Usage: 
+      // Use this function to free all memory associated with a PCB including its stack 
+
+      3.6.3 struct pcb *pcb_setup(const char *name, int class, int priority)
+
+      // Initializes a new PCB with the appropriate data provided
+      Parameters:
+      - const char *name : Pointer to a name character array
+      - int class : int that represents the class
+      - int priority: int that represents the priority
+      Return Value:
+      // a new pcb with all values set
+      Return Type:
+      // struct
+
+      3.6.4 struct pcb *pcb_find(const char *name)
+
+      //Finds a pcb based on it's name
+      Parameters:
+      - const char* name: Pointer to a name chracter array
+      Return Value:
+      // a pcb with a matching name
+      Return Type:
+      // struct 
+
+      3.6.5 void pcb_insert(struct pcb *pcb)
+
+      //Inserts a pcb to the appropriate queue based on state and priority
+      Parameters:
+      - struct pcb* pcb: A pcb to insert into the queue
+      Return Type:
+      // void
+
+      3.6.6 int pcb_remove(struct pcb *pcb)
+
+      //Removes a pcb from its current queue without freeing associated memory
+      Parameters:
+      - struct pcb* pcb: a pcb to remove from the queue
+      Return Value:
+      // Returns 0 if the remove is successful, Returns 1 if the pcb was not found
+      Return Type:
+      // int 
+
+
+
 
       
 
@@ -423,3 +608,20 @@
    //This header file contains pcb-related definitions and initializes the struct for each PCB. 
    - 'pcbuser.h'
    //This header file contains PCB user related definitions.
+
+7. Structures
+
+  - 'extern struct pcb *ready_head'
+  //This structure represents the head of the ready queue
+  - 'extern struct pcb *suspended_ready_head'
+  //This structure represents the head of the suspended ready queue
+  - 'extern struct pcb *blocked_head'
+  //This structure represents the head of the blocked queue
+  - 'extern struct pcb *suspended_blocked_head'
+  //This structure represents the head of the suspended blocked queue
+  - 'enum classes'
+  //This enum represents the classes that a process can be set to
+  - 'enum state'
+  //This enum represents the state that a process can be set to
+  - 'struct pcb'
+  //This structure represents all of the necessary parameters to create a process (pcb)
