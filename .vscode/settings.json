@@ -4,7 +4,8 @@
         "pcb.h": "c",
         "typeinfo": "c",
         "pcblist.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "string.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

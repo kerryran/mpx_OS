@@ -1,5 +1,6 @@
 #include <memory.h>
 #include <string.h>
+#include <../include/mpx/isr.h>
 #include <../include/mpx/pcb.h>
 
 // HEADS
@@ -48,7 +49,6 @@ int pcb_free(struct pcb *pcb)
 // Allocate (via allocate_pcb()) a new PCB and initialize it with data provided, sets the state to Ready, Not-suspeneded
 struct pcb *pcb_setup(const char *name, int class, int priority)
 {
-
     pcb *new_pcb = pcb_allocate();
 
     int i;
@@ -63,12 +63,16 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
     new_pcb->dispatch = NOT_SUSPENDED;
-    // Comhand (user) handles blocking and suspending processes by updating the pcb
-    // We just set up tools to make pcbs and manipulate queues
-    // Probably help with Comhand after we get kernal to work
+
+    // Initialize context with appropriate values
+   new_pcb->pcb_context.EAX = 0; // Set register values or other CPU state information
+new_pcb->pcb_context.ESP = (unsigned int)new_pcb->stack + sizeof(new_pcb->stack); // Set stack pointer (ESP)
+
+    // ...
 
     return new_pcb;
 }
+
 
 // Search all process queues for a process with the provided name (processes will not have the same name)
 struct pcb *pcb_find(const char *name)

@@ -7,7 +7,7 @@ typedef struct context
     int FS;
     int GS;
     int SS;
-    int EI;
+    int EIP;
     int EFLAGS;
     int EAX;
     int EBX;

@@ -1,4 +1,3 @@
-
 global sys_call_isr
 extern sys_call
 
