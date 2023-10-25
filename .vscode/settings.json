@@ -3,7 +3,8 @@
         "interrupts.h": "c",
         "pcb.h": "c",
         "typeinfo": "c",
-        "pcblist.h": "c"
+        "pcblist.h": "c",
+        "processes.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
