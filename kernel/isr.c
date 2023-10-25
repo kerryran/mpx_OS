@@ -30,7 +30,7 @@ struct context *sys_call(struct context *cont)
             break;
 
         case IDLE:
-            // Handle IDLE case if needed
+            // Handle IDLE case
             cont->EAX = 0;
             break;
 
