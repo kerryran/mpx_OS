@@ -18,7 +18,7 @@ void yield(void){
 void load_r3(void){
     //Load the R3 test processes from <processes.h>
     //Each process (one per function) is loaded
-    pcb *pcb1 = pcb_setup("proc1", 0, 5);  // call setup pcb
+    pcb *pcb1 = pcb_setup("proc1", 1, 2);  // call setup pcb
     //and queued in a non-suspended ready state,
     pcb1->dispatch =3;
     pcb1->execute =0;
@@ -28,7 +28,36 @@ void load_r3(void){
     pcb_insert(pcb1);
 
     //proc2 steps
-    pcb *pbc2 = set_up("proc2", 0, )
+    pcb *pbc2 = set_up("proc2", 1, 2);
+    pcb2->dispatch =3;
+    pcb2->execute =0;
+    pcb2->priority = 1;
+    // HERE create an initial context
+    pcb_insert(pcb2);
+
+    //proc3 steps
+    pcb *pbc3 = set_up("proc3", 1, 2);
+    pcb3->dispatch =3;
+    pcb3->execute =0;
+    pcb3->priority = 1;
+    // HERE create an initial context
+    pcb_insert(pcb3);
+
+    //proc4 steps
+    pcb *pbc4 = set_up("proc4", 1, 2);
+    pcb4->dispatch =3;
+    pcb4->execute =0;
+    pcb4->priority = 1;
+    // HERE create an initial context
+    pcb_insert(pcb4);
+
+    //proc5 steps
+    pcb *pbc5 = set_up("proc5", 1, 2);
+    pcb5->dispatch =3;
+    pcb5->execute =0;
+    pcb5->priority = 1;
+    // HERE create an initial context
+    pcb_insert(pcb5);
 
 
     //initialze and save the context for each process at the top of the PCB stack:
