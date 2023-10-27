@@ -95,6 +95,8 @@ struct context *sys_call(struct context *context)
     default:
         // Set the return value to -1
         context->EAX = -1;
+        
         return context;
     }
 }
+

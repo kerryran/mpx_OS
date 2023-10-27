@@ -63,6 +63,13 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
     new_pcb->dispatch = NOT_SUSPENDED;
+     new_pcb->pcb_context = (struct context *)sys_alloc_mem(sizeof(struct context));
+
+    if (new_pcb->pcb_context == NULL) {
+        // Handle allocation failure
+        pcb_free(new_pcb);
+        return NULL;
+    }
 
     // Initialize context with appropriate values
     new_pcb->pcb_context->EAX = 0; // Set register values or other CPU state information
