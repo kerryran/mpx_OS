@@ -47,7 +47,7 @@ struct context *sys_call(struct context *cont)
         current = next;
 
         // Return a pointer to the context of the next process
-        (context *) (next->stack_ptr)->EAX = 0;
+        ((context *)next->stack_ptr)->EAX = 0;
         return (context *) next->stack_ptr;
 
     // If operation code is IDLE, perform a context switch
