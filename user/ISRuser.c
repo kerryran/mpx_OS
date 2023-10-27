@@ -20,16 +20,16 @@ void load_r3(void){
     //Each process (one per function) is loaded
     pcb *pcb1 = pcb_setup("proc1", 0, 5);  // call setup pcb
     //and queued in a non-suspended ready state,
-    pcb->dispatch =3;
-    pcb->execute =0;
+    pcb1->dispatch =3;
+    pcb1->execute =0;
     //with a name and priority of your choosing
-    pcb->name_arr = "proc1";
-    pcb->priority = 1;
-
+    pcb1->priority = 1;
     // HERE create an initial context
-    pcb_insert(pcb);
+    pcb_insert(pcb1);
+    
+
     //initialze and save the context for each process at the top of the PCB stack:
-    //(context *)cp = (context *)pcb->stack_top
+    (context *)cp = (context *)pcb->stack_top
     cp->cs = 0x08;
     cp->eip = proc1
     //CS must be 0x08 while other segments are 0x10
