@@ -38,7 +38,22 @@ void load_r3(void){
     //EIP must be a pointer to the function (the name of the function, without parentesis, is a point to that function)
     //EFLAGS must be 0x0202
     //All other registers should be 0
-
+    context->ESP =
+    context->EAX =
+    context->EBX =
+    context->ECX =
+    context->EDX =
+    context->EDP =
+    context->ESI =
+    context->EDI =
+    context->DS =    
+    context->ES =    
+    context->FS =    
+    context->GS =    
+    context->SS =    
+    context->EIP =
+    context->CS =    
+    context->EFLAGS =
 
     //make process
     //assign a context (stack ptr)
