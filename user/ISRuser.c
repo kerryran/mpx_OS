@@ -18,15 +18,20 @@ void yield(void){
 void load_r3(void){
     //Load the R3 test processes from <processes.h>
     //Each process (one per function) is loaded
-    pcb *pcb = proc1;
+    pcb *pcb1 = pcb_setup("proc1", 0, 5);  // call setup pcb
     //and queued in a non-suspended ready state,
     pcb->dispatch =3;
     pcb->execute =0;
     //with a name and priority of your choosing
     pcb->name_arr = "proc1";
     pcb->priority = 1;
+
+    // HERE create an initial context
+    pcb_insert(pcb);
     //initialze and save the context for each process at the top of the PCB stack:
-    
+    //(context *)cp = (context *)pcb->stack_top
+    cp->cs = 0x08;
+    cp->eip = proc1
     //CS must be 0x08 while other segments are 0x10
     //EBP must be the bottom of the PCB Stack
     //ESP must be the top of the PCB stack
