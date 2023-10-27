@@ -26,7 +26,10 @@ void load_r3(void){
     pcb1->priority = 1;
     // HERE create an initial context
     pcb_insert(pcb1);
-    
+
+    //proc2 steps
+    pcb *pbc2 = set_up("proc2", 0, )
+
 
     //initialze and save the context for each process at the top of the PCB stack:
     (context *)cp = (context *)pcb->stack_top
