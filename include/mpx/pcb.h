@@ -27,9 +27,9 @@ typedef struct pcb
     state dispatch;
     state execute;
     int priority;                // 0 = highest, 9 = lowest
-    struct context *pcb_context; // Include the context structure
     struct pcb *next;
     char stack[1024];
+    char * stack_ptr;
 } pcb;
 
 // Allocate memory for a new PCB, including the stack and in

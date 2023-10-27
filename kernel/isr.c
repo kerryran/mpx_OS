@@ -12,13 +12,13 @@ pcb *next = NULL;
 // Context from when sys_call is first called
 context *first_context = NULL;
 
-struct context *sys_call(struct context *context)
+struct context *sys_call(struct context *cont)
 {
     // Get the operation code from EAX
-    op_code operation_code = (op_code)context->EAX;
+    op_code operation_code = (op_code)cont->EAX;
 
-    // Get the head of the ready queue
-    current = ready_head;
+    // Get the head of the ready queue as the next process
+    next = ready_head;
 
     // Handle system call based on the operation code
     switch (operation_code)
@@ -29,7 +29,7 @@ struct context *sys_call(struct context *context)
         if (first_context == NULL)
         {
             // Save the context
-            first_context = context;
+            first_context = cont;
         }
 
         // If there are no ready, unsuspended processes, return the original context
@@ -39,27 +39,16 @@ struct context *sys_call(struct context *context)
             return first_context;
         }
 
+        // Remove the next process from the ready queue
+        pcb_remove(next);
         // Free the currently running process
         pcb_free(current);
 
-        // Remove the current process from the ready queue
-        pcb_remove(current);
-
-        // If the ready_head is not NULL, load the first (in the queue?) as implemented in IDLE
-
-        // Remove the first process from the ready queue and store it in a tmp var as the next process
-        pcb_remove(current);
-        next = current;
-
-        // Save the content of the current process by updating its stack pointer
-        // Question: What is the stack pointer? How is that implemented? What are we updating about it?
-
-        // Add the current process back to the queue
-        pcb_insert(current);
+        current = next;
 
         // Return a pointer to the context of the next process
-        next->pcb_context->EAX = 0;
-        return next->pcb_context;
+        (context *) (next->stack_ptr)->EAX = 0;
+        return (context *) next->stack_ptr;
 
     // If operation code is IDLE, perform a context switch
     case IDLE:
@@ -67,34 +56,34 @@ struct context *sys_call(struct context *context)
         if (first_context == NULL)
         {
             // Save the context
-            first_context = context;
+            first_context = cont;
         }
 
         // If the ready, non-suspended queue is empty continue with the current process
         if (ready_head == NULL)
         {
-            context->EAX = 0;
-            return context;
+            cont->EAX = 0;
+            return cont;
         }
-
-        // Remove the first process from the ready queue and store it in a tmp var as the next process
-        pcb_remove(current);
-        next = current;
-
-        // Save the content of the current process by updating its stack pointer
-        // Question: What is the stack pointer? How is that implemented? What are we updating about it?
-
-        // Add the current process back to the queue
-        pcb_insert(current);
+        // If the there is a currently executing process
+        if(current != NULL){
+            current->stack_ptr = (char *) cont;
+            current->execute = 0;
+            current->dispatch = 4;
+            pcb_insert(current);
+            cont->EAX = 0;
+        }
+        current = ready_head;
+        cont = (context *) current->stack_ptr;
+        cont->EAX = 0;
 
         // Return the context of the next process
-        next->pcb_context->EAX = 0;
-        return next->pcb_context;
+        return cont;
 
     // If the operation code is anything else
     default:
         // Set the return value to -1
-        context->EAX = -1;
-        return context;
+        cont->EAX = -1;
+        return cont;
     }
 }
