@@ -1,6 +1,7 @@
 #include <../include/mpx/pcb.h>
 #include <../include/mpx/isr.h>
 #include <../include/sys_req.h>
+#include <../include/string.h>
 #include <stddef.h>
 
 // Global PCB pointer representing the currently executing process
@@ -23,7 +24,7 @@ struct context *sys_call(struct context *cont)
     // Handle system call based on the operation code
     switch (operation_code)
     {
-    // If operation code is EXIT, terminate the process
+            // If operation code is EXIT, terminate the process
     case EXIT:
         // Check if this is the first time sys_call has been called
         if (first_context == NULL)
