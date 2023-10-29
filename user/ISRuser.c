@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <../include/dateAndTime.h>
 #include <mpx/io.h>
 #include <mpx/serial.h>
@@ -8,8 +7,8 @@
 #include <mpx/interrupts.h>
 #include <../include/mpx/isr.h>
 #include <../include/mpx/pcb.h>
-#include <include/processes.h>
-#include <include/pcbuser.h>
+#include <../include/processes.h>
+#include <../include/pcbuser.h>
 
 void yield(void){
     sys_req(IDLE);
@@ -19,7 +18,7 @@ void load_r3(void){
     //Load the R3 test processes from <processes.h>
     //Each process (one per function) is loaded
     pcb *pcb1 = pcb_setup("proc1", 1, 2);  // call setup pcb
-    context *context1 = (context *)pcb1->stack_top
+    context *context1 = (context *)pcb1->stack_ptr;
     //and queued in a non-suspended ready state,
     pcb1->dispatch =3;
     pcb1->execute =0;
@@ -38,15 +37,15 @@ void load_r3(void){
     pcb1->context->FS = (unsigned int)0x10;   
     pcb1->context->GS = (unsigned int)0x10;   
     pcb1->context->SS =  (unsigned int)0x10;  
-    pcb1->context->EIP = proc1;
+    pcb1->context->EIP = (unsigned int)0x10;  
     pcb1->context->CS = (unsigned int)0x08;
     pcb1->context->EFLAGS =(unsigned int)0x0202;
     // HERE create an initial context
     pcb_insert(pcb1);
 
     //proc2 steps
-    pcb *pbc2 = set_up("proc2", 1, 2);
-    (context *)context = (context *)pcb->stack_top
+    pcb *pbc2 = pcb_setup("proc2", 1, 2);
+    (context *)context = (context *)pcb->stack_ptr;
     pcb2->dispatch =3;
     pcb2->execute =0;
     pcb2->priority = 1;
@@ -63,15 +62,15 @@ void load_r3(void){
     pcb2->context->FS = (unsigned int)0x10;   
     pcb2->context->GS = (unsigned int)0x10;   
     pcb2->context->SS =  (unsigned int)0x10;  
-    pcb2->context->EIP = proc2;
+    pcb2->context->EIP = (unsigned int)0x10;  
     pcb2->context->CS = (unsigned int)0x08;
     pcb2->context->EFLAGS =(unsigned int)0x0202;
     // HERE create an initial context
     pcb_insert(pcb2);
 
     //proc3 steps
-    pcb *pbc3 = set_up("proc3", 1, 2);
-    (context *)context = (context *)pcb->stack_top
+    pcb *pbc3 = pcb_setup("proc3", 1, 2);
+    (context *)context = (context *)pcb->stack_ptr;
     pcb3->dispatch =3;
     pcb3->execute =0;
     pcb3->priority = 1;
@@ -89,14 +88,14 @@ void load_r3(void){
     pcb3->context->FS = (unsigned int)0x10;   
     pcb3->context->GS = (unsigned int)0x10;   
     pcb3->context->SS =  (unsigned int)0x10;  
-    pcb3->context->EIP = proc3;
+    pcb3->context->EIP = (unsigned int)0x10;  
     pcb3->context->CS = (unsigned int)0x08;
     pcb3->context->EFLAGS =(unsigned int)0x0202;
     pcb_insert(pcb3);
 
     //proc4 steps
-    pcb *pbc4 = set_up("proc4", 1, 2);
-    (context *)context = (context *)pcb->stack_top
+    pcb *pbc4 = pcb_setup("proc4", 1, 2);
+    (context *)context = (context *)pcb->stack_ptr;
     pcb4->dispatch =3;
     pcb4->execute =0;
     pcb4->priority = 1;
@@ -114,14 +113,14 @@ void load_r3(void){
     pcb4->context->FS = (unsigned int)0x10;   
     pcb4->context->GS = (unsigned int)0x10;   
     pcb4->context->SS =  (unsigned int)0x10;  
-    pcb4->context->EIP = proc4;
+    pcb4->context->EIP = (unsigned int)0x10;  
     pcb4->context->CS = (unsigned int)0x08;
     pcb4->context->EFLAGS =(unsigned int)0x0202;
     pcb_insert(pcb4);
 
     //proc5 steps
-    pcb *pbc5 = set_up("proc5", 1, 2);
-    (context *)context = (context *)pcb->stack_top
+    pcb *pbc5 = pcb_setup("proc5", 1, 2);
+    (context *)context = (context *)pcb->stack_ptr;
     pcb5->dispatch =3;
     pcb5->execute =0;
     pcb5->priority = 1;
@@ -139,7 +138,7 @@ void load_r3(void){
     pcb5->context->FS = (unsigned int)0x10;   
     pcb5->context->GS = (unsigned int)0x10;   
     pcb5->context->SS =  (unsigned int)0x10;  
-    pcb5->context->EIP = proc5;
+    pcb5->context->EIP = (unsigned int)0x10;  
     pcb5->context->CS = (unsigned int)0x08;
     pcb5->context->EFLAGS =(unsigned int)0x0202;
     pcb_insert(pcb5);

@@ -4,10 +4,14 @@
 #include <mpx/serial.h>
 #include <../include/dateAndTime.h>
 #include <stdlib.h>
+#include <../include/mpx/ISRuser.h>
 #include <../include/pcbuser.h>
 #include <../include/mpx/pcb.h>
+
 void comhand(void)
 {
+        load_r3();
+
         // Welcome/Start-Up Message
         puts("\nWelcome to\n");
         puts("   _____                               ___  ____   \n");

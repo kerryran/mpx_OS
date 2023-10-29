@@ -5,7 +5,13 @@
         "typeinfo": "c",
         "pcblist.h": "c",
         "stddef.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdlib.h": "c",
+        "serial.h": "c",
+        "isr.h": "c",
+        "dateandtime.h": "c",
+        "processes.h": "c",
+        "pcbuser.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
