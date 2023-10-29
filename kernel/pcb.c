@@ -63,18 +63,9 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
     new_pcb->dispatch = NOT_SUSPENDED;
-     new_pcb->pcb_context = (struct context *)sys_alloc_mem(sizeof(struct context));
-
-    if (new_pcb->pcb_context == NULL) {
-        // Handle allocation failure
-        pcb_free(new_pcb);
-        return NULL;
-    }
 
     // Initialize context with appropriate values
-    new_pcb->pcb_context->EAX = 0; // Set register values or other CPU state information
-    new_pcb->pcb_context->ESP = (unsigned int)new_pcb->stack + sizeof(new_pcb->stack); // Set stack pointer (ESP)
-
+    new_pcb->stack_ptr = (char *)(new_pcb->stack +1022) - sizeof(context);
 
     return new_pcb;
 }
