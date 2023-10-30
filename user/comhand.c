@@ -87,7 +87,7 @@ void comhand(void)
                         // Read from the buffer
                         sys_req(READ, COM1, choice, 5);
                         // Print out: Get Date
-                        if (strcmp(choice "1") == 0)
+                        if (strcmp(choice, "1") == 0)
                         {
                                 puts("The date is: ");
                                 get_date();
