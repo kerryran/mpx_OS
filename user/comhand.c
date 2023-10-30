@@ -60,7 +60,6 @@ void comhand(void)
                         puts("ii. Set Time - Allows user to set the time.\n");
                         puts("i. Process - Opens the process menu.\n");
                         puts("ii. Manage - Opens the Manage PCB Menu.\n");
-                        puts("iii. Create PCB - Allows user to create a new process by entering a name followed by a \nclass (0 for system-level 1 for user-level) followed by a priority (highest 0-9 lowest).\n");
                         puts("iii. Delete PCB - Takes name input from user and deletes that process.\n");
                         puts("iii. Block PCB - Takes name input from the user and blocks that process.\n");
                         puts("iii. UnBlock PCB - Takes name input from the user and unblocks that process.\n");
@@ -72,6 +71,9 @@ void comhand(void)
                         puts("iii. Show Ready - Displays ready PCBs.\n");
                         puts("iii. Show Blocked - Displays blocked PCBs.\n");
                         puts("iii. Show All - Displays information about all PCBs.\n");
+                        puts("ii. Test R3 - Opens the menu to manage the R3 test processes.\n");
+                        puts("iii. Yield - executes queued processes.\n");
+                        puts("iii. Call R3 - Loads the test processes for R3.\n");
                         puts("i. Quit - Logs the user out.\n");
                 }
                 // Print out version number
