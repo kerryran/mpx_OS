@@ -74,7 +74,7 @@ void comhand(void)
                 // Print out version number
                 else if (strcmp(buffer, "2") == 0)
                 {
-                        puts("\nVersion: 2.1 (now with frogs!)\n");
+                        puts("\nVersion: 3.0 (now with frogs!)\n");
                 }
                 // Print out Date and Time Menu
                 else if (strcmp(buffer, "3") == 0)
@@ -87,7 +87,7 @@ void comhand(void)
                         // Read from the buffer
                         sys_req(READ, COM1, choice, 5);
                         // Print out: Get Date
-                        if (strcmp(choice, "1") == 0)
+                        if (strcmp(choice "1") == 0)
                         {
                                 puts("The date is: ");
                                 get_date();
