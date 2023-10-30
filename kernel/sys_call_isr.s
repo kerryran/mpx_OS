@@ -21,7 +21,7 @@ sys_call_isr:
 ; Push the current ESP value, stack pointer
     push ESP
     call sys_call
-    mov esp, eax
+    mov ESP, EAX
 
 ; Pop segments
     pop DS

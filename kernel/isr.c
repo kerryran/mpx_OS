@@ -15,75 +15,63 @@ context *first_context = NULL;
 
 struct context *sys_call(struct context *cont)
 {
-    // Get the operation code from EAX
-    op_code operation_code = (op_code)cont->EAX;
-
-    // Get the head of the ready queue as the next process
-    next = ready_head;
+    // Get the head of the ready queue
+    pcb * ready = ready_head;
 
     // Handle system call based on the operation code
-    switch (operation_code)
-    {
-            // If operation code is EXIT, terminate the process
-    case EXIT:
-        // Check if this is the first time sys_call has been called
-        if (first_context == NULL)
-        {
-            // Save the context
+
+    // IDLE or EXIT
+    if( cont->EAX == IDLE || cont->EAX == EXIT){
+        //Save the first context
+        if( first_context == NULL){
             first_context = cont;
         }
 
-        // If there are no ready, unsuspended processes, return the original context
-        if (ready_head == NULL)
-        {
-            first_context->EAX = 0;
-            return first_context;
+        //IDLE
+        if (cont->EAX == IDLE) {
+            //If the ready head is null, return context
+            if (ready == NULL){
+                return cont;
+            }
+
+            // Remove the ready head and set it to ready suspended
+            next = ready;
+            next->execute = 0;
+            next->dispatch = 4;
+
+            pcb_remove(ready);
+
+            //If there is a currently executing process
+            if(current != NULL){
+                //Ready, Suspend and save the context
+                current->execute = 0;
+                current->dispatch = 4;
+                current->stack_ptr = (char*) cont;
+                pcb_insert(current);
+            }
+
+            current = next;
+            return (context *)next->stack_ptr;
         }
+        //EXIT
+        else {
+            pcb_free(current);
 
-        // Remove the next process from the ready queue
-        pcb_remove(next);
-        // Free the currently running process
-        pcb_free(current);
+            if( ready == NULL){
+                return first_context;
+            }
 
-        current = next;
+            pcb_remove(current);
 
-        // Return a pointer to the context of the next process
-        ((context *)next->stack_ptr)->EAX = 0;
-        return (context *) next->stack_ptr;
+            next = ready;
+            next->execute = 0;
+            next->dispatch = 4;
 
-    // If operation code is IDLE, perform a context switch
-    case IDLE:
-        // Check if this is the first time sys_call has been called
-        if (first_context == NULL)
-        {
-            // Save the context
-            first_context = cont;
+            return (context *) next->stack_ptr;
         }
-
-        // If the ready, non-suspended queue is empty continue with the current process
-        if (ready_head == NULL)
-        {
-            cont->EAX = 0;
-            return cont;
-        }
-        // If the there is a currently executing process
-        if(current != NULL){
-            current->stack_ptr = (char *) cont;
-            current->execute = 0;
-            current->dispatch = 4;
-            pcb_insert(current);
-            cont->EAX = 0;
-        }
-        current = ready_head;
-        cont = (context *) current->stack_ptr;
-        cont->EAX = 0;
-
-        // Return the context of the next process
-        return cont;
-
-    // If the operation code is anything else
-    default:
-        // Set the return value to -1
+    }
+    //Unrecognized op code
+    else {
         cont->EAX = -1;
         return cont;
     }
