@@ -19,7 +19,7 @@ void load_r3(){
     //Each process (one per function) is loaded
     // Create a process in the ready, non-suspended state with any priority and name
 
-    exists = pcb_find("proc1");
+    pcb * exists = pcb_find("proc1");
     if (exists != NULL) {
         puts("ERROR proc1 exists already");
     }
@@ -29,7 +29,7 @@ void load_r3(){
 
         //Initialize the context with the appropriate values
         context * context1 = (context *) pcb1->stack_ptr;
-        memset(context1, 0, sizeof(content));
+        memset(context1, 0, sizeof(context));
 
         //Segments
         context1->CS = (unsigned int)0x08;
@@ -59,7 +59,6 @@ void load_r3(){
     pcb * pcb2 = pcb_setup("proc2", 1, 2);
     
     context * context2 = (context *) pcb2->stack_ptr;
-    context1->ESP = (unsigned int)0x00; 
     context2->EAX =(unsigned int)0x00; 
     context2->EBX =(unsigned int)0x00; 
     context2->ECX =(unsigned int)0x00; 
@@ -102,7 +101,6 @@ void load_r3(){
     pcb *pcb4 = pcb_setup("proc4", 1, 2);
     context * context4 = (context *)pcb4->stack_ptr;
     // HERE create an initial context
-    context1->ESP = (unsigned int)0x00; 
     context4->EAX =(unsigned int)0x00; 
     context4->EBX =(unsigned int)0x00; 
     context4->ECX =(unsigned int)0x00; 
@@ -124,7 +122,6 @@ void load_r3(){
     pcb *pcb5 = pcb_setup("proc5", 1, 2);
     context * context5 = (context *) pcb5->stack_ptr;
     // HERE create an initial context
-    context1->ESP = (unsigned int)0x00; 
     context5->EAX =(unsigned int)0x00; 
     context5->EBX =(unsigned int)0x00; 
     context5->ECX =(unsigned int)0x00; 
