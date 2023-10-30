@@ -65,7 +65,7 @@ void comhand(void)
                         puts("iii. UnBlock PCB - Takes name input from the user and unblocks that process.\n");
                         puts("iii. Suspend PCB - Takes name input from the user and suspends that process.\n");
                         puts("iii. Resume PCB - Takes name input from the user and resumes that process.\n");
-                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input \n(highest 0 to 9 lowest) to set process priority.\n");
+                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input \n \t(highest 0 to 9 lowest) to set process priority.\n");
                         puts("ii. View - Opens the View PCB Menu.\n");
                         puts("iii. Show PCB - Allows user to enter a name to search for a pcb and displays its information.\n");
                         puts("iii. Show Ready - Displays ready PCBs.\n");
