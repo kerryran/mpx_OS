@@ -11,7 +11,7 @@
 #include <../include/pcbuser.h>
 
 void yield(){
-    sys_req(IDLE);
+    sys_req(IDLE, 0, NULL, NULL);
 }
  
 void load_r3(){
@@ -19,39 +19,52 @@ void load_r3(){
     //Each process (one per function) is loaded
     // Create a process in the ready, non-suspended state with any priority and name
 
-    pcb *pcb1 = pcb_setup("proc1", 1, 2);
+    exists = pcb_find("proc1");
+    if (exists != NULL) {
+        puts("ERROR proc1 exists already");
+    }
+    else {
 
-    //Initialize the context with the appropriate values
-    context *context1 = (context *)pcb1->stack_ptr;
-    context1->ESP = (unsigned int)0x00; 
-    context1->EAX = (unsigned int)0x00; 
-    context1->EBX = (unsigned int)0x00; 
-    context1->ECX = (unsigned int)0x00; 
-    context1->EDX = (unsigned int)0x00; 
-    context1->EDP = (unsigned int)0x00; 
-    context1->ESI = (unsigned int)0x00; 
-    context1->EDI = (unsigned int)0x00; 
-    context1->DS = (unsigned int)0x10;   
-    context1->ES = (unsigned int)0x10;   
-    context1->FS = (unsigned int)0x10;   
-    context1->GS = (unsigned int)0x10;   
-    context1->SS = (unsigned int)0x10;  
-    context1->EIP = (unsigned int) proc1;  
-    context1->CS = (unsigned int)0x08;
-    context1->EFLAGS =(unsigned int)0x0202;
-    //Add the process to the queue
-    pcb_insert(pcb1);
+        pcb *pcb1 = pcb_setup("proc1", 1, 2);
+
+        //Initialize the context with the appropriate values
+        context * context1 = (context *) pcb1->stack_ptr;
+        memset(context1, 0, sizeof(content));
+
+        //Segments
+        context1->CS = (unsigned int)0x08;
+        context1->DS = (unsigned int)0x10;   
+        context1->ES = (unsigned int)0x10;   
+        context1->FS = (unsigned int)0x10;   
+        context1->GS = (unsigned int)0x10;   
+        context1->SS = (unsigned int)0x10;  
+        //Registers
+        context1->EBP = (unsigned int) pcb1->stack_ptr;
+        context1->EAX = (unsigned int) 0x00; 
+        context1->EBX = (unsigned int) 0x00; 
+        context1->ECX = (unsigned int) 0x00; 
+        context1->EDX = (unsigned int) 0x00; 
+        context1->EBP = (unsigned int) 0x00; 
+        context1->ESI = (unsigned int) 0x00; 
+        context1->EDI = (unsigned int) 0x00; 
+        //Flags
+        context1->EIP = (unsigned int) proc1;  
+        context1->EFLAGS =(unsigned int)0x0202;
+        //Add the process to the queue
+        pcb_insert(pcb1);
+        puts("Created proc1");
+    }
 
     //proc2 steps
     pcb * pcb2 = pcb_setup("proc2", 1, 2);
     
     context * context2 = (context *) pcb2->stack_ptr;
-    context2->ESP =(unsigned int)0x00; 
+    context1->ESP = (unsigned int)0x00; 
     context2->EAX =(unsigned int)0x00; 
     context2->EBX =(unsigned int)0x00; 
     context2->ECX =(unsigned int)0x00; 
     context2->EDX =(unsigned int)0x00; 
-    context2->EDP =(unsigned int)0x00; 
+    context2->EBP =(unsigned int)0x00; 
     context2->ESI = (unsigned int)0x00; 
     context2->EDI =  (unsigned int)0x00; 
     context2->DS = (unsigned int)0x10;   
@@ -68,12 +81,11 @@ void load_r3(){
     pcb *pcb3 = pcb_setup("proc3", 1, 2);
     context * context3 = (context *) pcb3->stack_ptr;
     // HERE create an initial context
-    context3->ESP =(unsigned int)0x00; 
     context3->EAX =(unsigned int)0x00; 
     context3->EBX =(unsigned int)0x00; 
     context3->ECX =(unsigned int)0x00; 
     context3->EDX =(unsigned int)0x00; 
-    context3->EDP =(unsigned int)0x00; 
+    context3->EBP =(unsigned int)0x00; 
     context3->ESI = (unsigned int)0x00; 
     context3->EDI =  (unsigned int)0x00; 
     context3->DS = (unsigned int)0x10;   
@@ -90,12 +102,12 @@ void load_r3(){
     pcb *pcb4 = pcb_setup("proc4", 1, 2);
     context * context4 = (context *)pcb4->stack_ptr;
     // HERE create an initial context
-    context4->ESP =(unsigned int)0x00; 
+    context1->ESP = (unsigned int)0x00; 
     context4->EAX =(unsigned int)0x00; 
     context4->EBX =(unsigned int)0x00; 
     context4->ECX =(unsigned int)0x00; 
     context4->EDX =(unsigned int)0x00; 
-    context4->EDP =(unsigned int)0x00; 
+    context4->EBP =(unsigned int)0x00; 
     context4->ESI = (unsigned int)0x00; 
     context4->EDI =  (unsigned int)0x00; 
     context4->DS = (unsigned int)0x10;   
@@ -112,12 +124,12 @@ void load_r3(){
     pcb *pcb5 = pcb_setup("proc5", 1, 2);
     context * context5 = (context *) pcb5->stack_ptr;
     // HERE create an initial context
-    context5->ESP =(unsigned int)0x00; 
+    context1->ESP = (unsigned int)0x00; 
     context5->EAX =(unsigned int)0x00; 
     context5->EBX =(unsigned int)0x00; 
     context5->ECX =(unsigned int)0x00; 
     context5->EDX =(unsigned int)0x00; 
-    context5->EDP =(unsigned int)0x00; 
+    context5->EBP =(unsigned int)0x00; 
     context5->ESI = (unsigned int)0x00; 
     context5->EDI =  (unsigned int)0x00; 
     context5->DS = (unsigned int)0x10;   

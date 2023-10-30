@@ -1,36 +1,43 @@
 global sys_call_isr
 extern sys_call
-sys_call_isr:    ; Push segment registers (DS, ES, FS, GS) in the reverse order
-    push ss
-    push gs
-    push fs
-    push es
-    push ds
-    ; Push general-purpose registers in the reverse order
-    push edi
-    push esi
-    push ebp
-    push edx
-    push ecx
-    push ebx
-    push eax
-    ; Push the current ESP value
-    push esp
+sys_call_isr:    
+   
+; Push general-purpose registers in the reverse order
+    push EBP
+    push EDI
+    push ESI
+    push EDX
+    push ECX
+    push EBX
+    push EAX
+
+; Push segment registers (DS, ES, FS, GS) in the reverse order
+    push SS
+    push GS
+    push FS
+    push ES
+    push DS
+
+; Push the current ESP value, stack pointer
+    push ESP
     call sys_call
     mov esp, eax
-    ; Pop the current ESP value
-    ;pop esp
-    pop eax
-    pop ebx
-    pop ecx
-    pop edx
-    pop esi
-    pop edi
-    ; Pop the segment registers in the correct order
-    pop ds
-    pop es
-    pop fs
-    pop gs
-    pop ss
-    ; Return from ISR
+
+; Pop segments
+    pop DS
+    pop ES
+    pop FS
+    pop GS
+    pop SS
+
+; Pop registers
+    pop EAX
+    pop EBX
+    pop ECX
+    pop EDX
+    pop ESI
+    pop EDI
+    pop EBP
+
+; Return from ISR
     iret
