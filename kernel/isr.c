@@ -37,9 +37,9 @@ struct context *sys_call(struct context *cont)
 
             //If there is a currently executing process
             if(current != NULL){
-                //Ready, Suspend and save the context
+                //Ready, NONSuspend and save the context
                 current->execute = 0;
-                current->dispatch = 4;
+                current->dispatch = 3;
                 current->stack_ptr = (char*) cont;
                 pcb_insert(current);
                 cont->EAX = 0;
@@ -73,6 +73,4 @@ struct context *sys_call(struct context *cont)
         cont->EAX = -1;
         return cont;
     }
-}
-
-//running proc5 
+} 
