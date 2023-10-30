@@ -8,7 +8,6 @@
 pcb *current = NULL;
 
 // The temporary next process pointer
-pcb *next = NULL;
 
 // Context from when sys_call is first called
 context *first_context = NULL;
@@ -17,6 +16,7 @@ struct context *sys_call(struct context *cont)
 {
     // Get the head of the ready queue
     pcb * ready = ready_head;
+    //Need to get the first object in the ready_head linked list, not the whole list?
 
     // Handle system call based on the operation code
 
@@ -42,9 +42,11 @@ struct context *sys_call(struct context *cont)
                 current->dispatch = 4;
                 current->stack_ptr = (char*) cont;
                 pcb_insert(current);
+                cont->EAX = 0;
             }
 
             current = ready_head;
+            ready_head = ready_head->next;
             cont = (context *) current->stack_ptr;
             cont->EAX = 0;
 
@@ -53,7 +55,7 @@ struct context *sys_call(struct context *cont)
         //EXIT
         else {
 
-            if( ready == NULL){
+            if( ready_head == NULL){
                 first_context->EAX = 0;
                 return first_context;
             }
@@ -61,9 +63,9 @@ struct context *sys_call(struct context *cont)
             pcb_remove(ready);
             
             pcb_free(current);
-
-            ((context *)next->stack_ptr)->EAX = 0;
-            return (context *) next->stack_ptr;
+            current = ready;
+            ((context *)current->stack_ptr)->EAX = 0;
+            return (context *) current->stack_ptr;
         }
     }
     //Unrecognized op code
@@ -72,3 +74,5 @@ struct context *sys_call(struct context *cont)
         return cont;
     }
 }
+
+//running proc5 

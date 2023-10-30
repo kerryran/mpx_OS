@@ -89,7 +89,7 @@ void load_r3(){
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
-        context2->EIP = (unsigned int) proc1;  
+        context2->EIP = (unsigned int) proc2;  
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
@@ -126,7 +126,7 @@ void load_r3(){
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
-        context2->EIP = (unsigned int) proc1;  
+        context2->EIP = (unsigned int) proc3;  
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
@@ -163,7 +163,7 @@ void load_r3(){
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
-        context2->EIP = (unsigned int) proc1;  
+        context2->EIP = (unsigned int) proc4;  
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
@@ -200,7 +200,7 @@ void load_r3(){
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
-        context2->EIP = (unsigned int) proc1;  
+        context2->EIP = (unsigned int) proc5;  
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
