@@ -4,9 +4,6 @@
         "pcb.h": "c",
         "typeinfo": "c",
         "pcblist.h": "c",
-<<<<<<< HEAD
-        "processes.h": "c"
-=======
         "stddef.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
@@ -15,7 +12,6 @@
         "dateandtime.h": "c",
         "processes.h": "c",
         "pcbuser.h": "c"
->>>>>>> kmr00004
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
