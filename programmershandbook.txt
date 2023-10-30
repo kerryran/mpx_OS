@@ -546,6 +546,36 @@
       Return Type:
       // int 
 
+   3.7 ISR User Functions
+
+      3.7.1 void yield(void)
+      //Calls the sys_req function which causes the command handler to yield the CPU
+      //If any processes are in the queue, they will execute
+      Parameters:
+      - void
+      Return Type:
+      //void
+
+      3.7.2 void load_r3(void)
+      //Loads the R3 test processes from processes.h 
+      Paramters:
+      - void
+      Return Type:
+      //void
+   
+   3.8 ISR Functions
+
+      3.8.1
+      struct context *sys_call(struct context *context)
+      //Takes one parameter that is a pointer to a struct representing the context of the current process and 
+      //returns a pointer to the context of the process to be loaded
+      Parameters:
+      -struct context *context: The structure that represents the context of the current process
+      Return Value:
+      //sets the EAX member to the return value that sys req() will see and return
+      Return Type:
+      //void
+
 
 
 
@@ -579,6 +609,19 @@
       //initializing a PCB with data provided, searching queues to find specific processes, and inserting and removing
       //PCBs based on their priority and state from their respective queues. 
 
+   4.6 'ISRuser.c'
+
+      //This source file loads the rest processes for R3 and adds them to a queue in a non suspended ready state.
+      //It initializes and saves the context for each process at the top of the PCB stack. It also takes away the 
+      //need for the create_pcb function. 
+
+   4.7 'isr.c'
+
+      //This source file places the correct processes into the registers in the correct order of the stack.
+      //If there are any ready, non-suspended PCBs in the queue, it will remove the first from the queue and store it in a 
+      //temporary variable as the next process. It saves the context of the current PCB by updating its stack pointer
+      //It adds the current PCB back to the queue and returns the context of the next process.
+
 5. Enumeration
 
    5.1 `uart_registers`
@@ -608,6 +651,11 @@
    //This header file contains pcb-related definitions and initializes the struct for each PCB. 
    - 'pcbuser.h'
    //This header file contains PCB user related definitions.
+   - 'ISRuser.h'
+   //This header file contains the ISR user related definitions
+   - 'isr.h'
+   //This header file contains the ISR related definitions 
+
 
 7. Structures
 
@@ -625,3 +673,5 @@
   //This enum represents the state that a process can be set to
   - 'struct pcb'
   //This structure represents all of the necessary parameters to create a process (pcb)
+  - 'struct context'
+  //This structure represents all of the context registers, flags, and segments needed for the context
