@@ -7,8 +7,8 @@
 #include <mpx/interrupts.h>
 #include <../include/mpx/isr.h>
 #include <../include/mpx/pcb.h>
-#include <include/processes.h>
-#include <include/pcbuser.h>
+#include <../include/processes.h>
+#include <../include/pcbuser.h>
 
 void yield(){
     sys_req(IDLE);
