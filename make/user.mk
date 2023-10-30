@@ -7,5 +7,6 @@ USER_OBJECTS=\
 	user/core.o\
 	user/comhand.o\
 	user/dateAndTime.o\
+	user/ISRuser.o\
 	user/pcbuser.o
 	
