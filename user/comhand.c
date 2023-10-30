@@ -676,7 +676,7 @@ void comhand(void)
                 else if (strcmp(buffer, "5") == 0)
                 {
                         puts("\nTest R3 Menu\n");
-                        puts("1) Yield\n2) Call R3\n");
+                        puts("1) Yield\n2) Call R3\n3) Back\n");
                         puts(">");
                         // Confirm buffer
                         char confirm[5] = {0};
@@ -692,10 +692,13 @@ void comhand(void)
                                 load_r3();
                                 continue;
                         }
+                            if (strcmp(confirm, "3") == 0)
+                        {
+                                continue;
+                        }
                         else
                         {
-                                puts("\nCanceled Shutdown...\n");
-                                continue;
+                                puts("\nUnrecognized command.\n");
                         }
                 }
                 // Shutdown

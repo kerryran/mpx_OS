@@ -31,15 +31,9 @@ struct context *sys_call(struct context *cont)
         if (cont->EAX == IDLE) {
             //If the ready head is null, return context
             if (ready == NULL){
+                cont->EAX = 0;
                 return cont;
             }
-
-            // Remove the ready head and set it to ready suspended
-            next = ready;
-            next->execute = 0;
-            next->dispatch = 4;
-
-            pcb_remove(ready);
 
             //If there is a currently executing process
             if(current != NULL){
@@ -50,23 +44,25 @@ struct context *sys_call(struct context *cont)
                 pcb_insert(current);
             }
 
-            current = next;
-            return (context *)next->stack_ptr;
+            current = ready_head;
+            cont = (context *) current->stack_ptr;
+            cont->EAX = 0;
+
+            return cont;
         }
         //EXIT
         else {
-            pcb_free(current);
 
             if( ready == NULL){
+                first_context->EAX = 0;
                 return first_context;
             }
 
             pcb_remove(ready);
+            
+            pcb_free(current);
 
-            next = ready;
-            next->execute = 0;
-            next->dispatch = 4;
-
+            ((context *)next->stack_ptr)->EAX = 0;
             return (context *) next->stack_ptr;
         }
     }
