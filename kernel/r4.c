@@ -13,25 +13,25 @@ void command_handler()
 	context *contexto = (context *) pcb->stack_ptr;
 	memset(contexto, 0, sizeof(context));
 
-	    //Segments
-        contexto->CS = (unsigned int)0x08;
-        contexto->DS = (unsigned int)0x10;   
-        contexto->ES = (unsigned int)0x10;   
-        contexto->FS = (unsigned int)0x10;   
-        contexto->GS = (unsigned int)0x10;   
-        contexto->SS = (unsigned int)0x10;  
-        //Registers
-        contexto->EBP = (unsigned int) pcb->stack;
-        contexto->EAX = (unsigned int) 0x00; 
-        contexto->EBX = (unsigned int) 0x00; 
-        contexto->ECX = (unsigned int) 0x00; 
-        contexto->EDX = (unsigned int) 0x00; 
-        contexto->EBP = (unsigned int) 0x00; 
-        contexto->ESI = (unsigned int) 0x00; 
-        contexto->EDI = (unsigned int) 0x00; 
-        //Flags
-        contexto->EIP = (unsigned int) comhand;  
-        contexto->EFLAGS =(unsigned int)0x0202;
+	//Segments
+    contexto->CS = (unsigned int)0x08;
+    contexto->DS = (unsigned int)0x10;   
+    contexto->ES = (unsigned int)0x10;   
+    contexto->FS = (unsigned int)0x10;   
+    contexto->GS = (unsigned int)0x10;   
+    contexto->SS = (unsigned int)0x10;  
+    //Registers
+    contexto->EBP = (unsigned int) pcb->stack;
+    contexto->EAX = (unsigned int) 0x00; 
+    contexto->EBX = (unsigned int) 0x00; 
+    contexto->ECX = (unsigned int) 0x00; 
+    contexto->EDX = (unsigned int) 0x00; 
+    contexto->EBP = (unsigned int) 0x00; 
+    contexto->ESI = (unsigned int) 0x00; 
+    contexto->EDI = (unsigned int) 0x00; 
+    //Flags
+    contexto->EIP = (unsigned int) comhand;  
+    contexto->EFLAGS =(unsigned int)0x0202;
 
 	pcb_insert(pcb);
 }
@@ -42,25 +42,25 @@ void sys_idle()
 	context *contexto = (context *) pcb->stack_ptr;
 	memset(contexto, 0, sizeof(context));
 
-	     //Segments
-        contexto->CS = (unsigned int)0x08;
-        contexto->DS = (unsigned int)0x10;   
-        contexto->ES = (unsigned int)0x10;   
-        contexto->FS = (unsigned int)0x10;   
-        contexto->GS = (unsigned int)0x10;   
-        contexto->SS = (unsigned int)0x10;  
-        //Registers
-        contexto->EBP = (unsigned int) pcb->stack;
-        contexto->EAX = (unsigned int) 0x00; 
-        contexto->EBX = (unsigned int) 0x00; 
-        contexto->ECX = (unsigned int) 0x00; 
-        contexto->EDX = (unsigned int) 0x00; 
-        contexto->EBP = (unsigned int) 0x00; 
-        contexto->ESI = (unsigned int) 0x00; 
-        contexto->EDI = (unsigned int) 0x00; 
-        //Flags
-        contexto->EIP = (unsigned int) sys_idle_process;  
-        contexto->EFLAGS =(unsigned int)0x0202;
+	//Segments
+    contexto->CS = (unsigned int)0x08;
+    contexto->DS = (unsigned int)0x10;   
+    contexto->ES = (unsigned int)0x10;   
+    contexto->FS = (unsigned int)0x10;   
+    contexto->GS = (unsigned int)0x10;   
+    contexto->SS = (unsigned int)0x10;  
+    //Registers
+    contexto->EBP = (unsigned int) pcb->stack;
+    contexto->EAX = (unsigned int) 0x00; 
+    contexto->EBX = (unsigned int) 0x00; 
+    contexto->ECX = (unsigned int) 0x00; 
+    contexto->EDX = (unsigned int) 0x00; 
+    contexto->EBP = (unsigned int) 0x00; 
+    contexto->ESI = (unsigned int) 0x00; 
+    contexto->EDI = (unsigned int) 0x00; 
+    //Flags
+    contexto->EIP = (unsigned int) sys_idle_process;  
+    contexto->EFLAGS =(unsigned int)0x0202;
 
 	pcb_insert(pcb);
 }
