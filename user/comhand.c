@@ -438,87 +438,13 @@ void comhand(void)
                         if (strcmp(choice, "1") == 0)
                         {
                                 puts("\nManage PCB Menu:");
-                                puts("\n1) Create PCB\n2) Delete PCB\n3) Block PCB\n4) Unblock PCB\n5) Suspend PCB\n6) Resume PCB\n7) Set PCB Priority\n8) Back\n");
+                                puts("\n1) Delete PCB\n2) Block PCB\n3) Unblock PCB\n4) Suspend PCB\n5) Resume PCB\n6) Set PCB Priority\n7) Back\n");
 
                                 puts(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
                                 sys_req(READ, COM1, choice, 5);
-
                                 if (strcmp(choice, "1") == 0)
-                                {
-                                        // Show Pcb Menu
-                                        puts("\nType PCB Name:");
-                                        // required for UI
-                                        puts("\n>");
-                                        // init choice buffer
-                                        char choice[9] = {0};
-                                        // Read from the buffer
-                                        sys_req(READ, COM1, choice, 9);
-                                        puts("\nType PCB Class:");
-                                        // required for UI
-                                        puts("\n>");
-                                        // init class buffer
-                                        char class[5] = {0};
-                                        int class_valid = isNum(class);
-                                        if (class_valid == 0)
-                                        {
-                                                puts("\nInvalid");
-                                                continue;
-                                        }
-                                        // Convert class to an integer
-                                        sys_req(READ, COM1, class, 5);
-                                        int classInt = atoi(class);
-                                        // Read from the buffer
-
-                                        puts("\nType PCB Priority:");
-                                        // required for UI
-                                        puts("\n>");
-                                        // init priority buffer
-                                        char priority[5] = {0};
-                                        int priority_valid = isNum(priority);
-                                        if (priority_valid == 0)
-                                        {
-                                                puts("\nInvalid");
-                                                continue;
-                                        }
-                                        // Convert class to an integer
-                                        sys_req(READ, COM1, priority, 5);
-                                        int priorityInt = atoi(priority);
-                                        // Read from the buffer
-                                        // Read from the buffer
-                                        // has errors, checking for
-
-                                        // goes here if its a valid entry
-
-                                        if (strcmp(class, "0") == 0 && strcmp(class, "") == 0)
-                                        {
-                                                // goes here if class is 0 (system process)
-                                                puts("You are about to create a system process. This action cannot be undone without restarting the system.");
-                                                puts("\nConfirm:");
-                                                puts("\n1) Yes");
-                                                puts("\nAny) Cancel");
-                                                puts("\n>");
-                                                char confirm[5] = {0};
-                                                // Read from the buffer
-                                                sys_req(READ, COM1, confirm, 5);
-
-                                                if (strcmp(confirm, "1") == 0)
-                                                {
-                                                        pcb_create(choice, classInt, priorityInt);
-                                                }
-                                                else
-                                                {
-                                                        puts("Action canceled");
-                                                        continue;
-                                                }
-                                        }
-                                        else
-                                        {
-                                                pcb_create(choice, classInt, priorityInt);
-                                        }
-                                }
-                                else if (strcmp(choice, "2") == 0)
                                 {
                                         // Delete Pcb Menu
                                         puts("\nEnter PCB Name:");
@@ -532,7 +458,7 @@ void comhand(void)
                                         pcb_delete(choice);
 // idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "3") == 0)
+                                else if (strcmp(choice, "2") == 0)
                                 {
                                         // Block Pcb Menu
                                         puts("\nEnter PCB to Block:");
@@ -545,7 +471,7 @@ void comhand(void)
                                         pcb_block(choice);
 // idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "4") == 0)
+                                else if (strcmp(choice, "3") == 0)
                                 {
                                         // Block Pcb Menu
                                         puts("\nEnter PCB to Unblock:");
@@ -559,7 +485,7 @@ void comhand(void)
                                         pcb_unblock(choice);
 // idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "5") == 0)
+                                else if (strcmp(choice, "4") == 0)
                                 {
                                         // Suspend Pcb Menu
                                         puts("\nType PCB to Suspend:");
@@ -573,7 +499,7 @@ void comhand(void)
                                         pcb_suspend(choice);
 // idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "6") == 0)
+                                else if (strcmp(choice, "5") == 0)
                                 {
                                         // Resume Pcb Menu
                                         puts("\nType PCB to Resume:");
@@ -587,7 +513,7 @@ void comhand(void)
                                         pcb_resume(choice);
 // idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "7") == 0)
+                                else if (strcmp(choice, "6") == 0)
                                 {
                                         // Change Pcb Priority Menu
                                         puts("\nChoose PCB to Change Priority:");

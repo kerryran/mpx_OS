@@ -8,38 +8,38 @@
 #include <../include/mpx/pcb.h>
 // include whatever needed files.
 
-struct pcb *pcb_create(char name[], int class, int priority)
-{
-    // Unique name
-    if (pcb_find(name) != NULL)
-    {
-        puts("\nPCB already exists.\n");
-        return NULL;
-    }
+// struct pcb *pcb_create(char name[], int class, int priority)
+// {
+//     // Unique name
+//     if (pcb_find(name) != NULL)
+//     {
+//         puts("\nPCB already exists.\n");
+//         return NULL;
+//     }
 
-    // Valid name
-    if (strcmp(name, "") == 0)
-    {
-        puts("\nInvalid name.\n");
-    }
+//     // Valid name
+//     if (strcmp(name, "") == 0)
+//     {
+//         puts("\nInvalid name.\n");
+//     }
 
-    if (class != 0 && class != 1)
-    {
-        puts("\nClass is invalid.\n");
-        return NULL;
-    }
+//     if (class != 0 && class != 1)
+//     {
+//         puts("\nClass is invalid.\n");
+//         return NULL;
+//     }
 
-    // priority must be valid
-    if ((priority < 0) || (priority > 9))
-    {
-        puts("\nPriority is invalid.\n");
-        return NULL;
-    }
-    pcb *new_pcb = pcb_setup(name, class, priority);
-    pcb_insert(new_pcb);
+   // // priority must be valid
+//     if ((priority < 0) || (priority > 9))
+//     {
+//         puts("\nPriority is invalid.\n");
+//         return NULL;
+//     }
+//     pcb *new_pcb = pcb_setup(name, class, priority);
+//     pcb_insert(new_pcb);
 
-    return new_pcb;
-}
+//     return new_pcb;
+// }
 
 // delete
 void pcb_delete(char name[])

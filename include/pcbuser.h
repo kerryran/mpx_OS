@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-struct pcb *pcb_create(char name[], int class, int priority);
+//struct pcb *pcb_create(char name[], int class, int priority);
 void pcb_delete(char name[]);
 void pcb_block(char name[]);
 void pcb_unblock(char name[]);
