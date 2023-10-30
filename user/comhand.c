@@ -4,8 +4,11 @@
 #include <mpx/serial.h>
 #include <../include/dateAndTime.h>
 #include <stdlib.h>
+#include <../include/mpx/isr.h>
+#include <../include/mpx/ISRuser.h>
 #include <../include/pcbuser.h>
 #include <../include/mpx/pcb.h>
+
 void comhand(void)
 {
         // Welcome/Start-Up Message
@@ -36,7 +39,7 @@ void comhand(void)
         {
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
-                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Quit\n");
+                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6)  Quit\n");
                 puts("Enter a number to select:\n");
                 puts(">");
 
@@ -57,24 +60,26 @@ void comhand(void)
                         puts("ii. Set Time - Allows user to set the time.\n");
                         puts("i. Process - Opens the process menu.\n");
                         puts("ii. Manage - Opens the Manage PCB Menu.\n");
-                        puts("iii. Create PCB - Allows user to create a new process by entering a name followed by a \nclass (0 for system-level 1 for user-level) followed by a priority (highest 0-9 lowest).\n");
                         puts("iii. Delete PCB - Takes name input from user and deletes that process.\n");
                         puts("iii. Block PCB - Takes name input from the user and blocks that process.\n");
                         puts("iii. UnBlock PCB - Takes name input from the user and unblocks that process.\n");
                         puts("iii. Suspend PCB - Takes name input from the user and suspends that process.\n");
                         puts("iii. Resume PCB - Takes name input from the user and resumes that process.\n");
-                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input \n(highest 0 to 9 lowest) to set process priority.\n");
+                        puts("iii. Set PCB Priority - Takes name input from the user and then an integer input \n \t(highest 0 to 9 lowest) to set process priority.\n");
                         puts("ii. View - Opens the View PCB Menu.\n");
                         puts("iii. Show PCB - Allows user to enter a name to search for a pcb and displays its information.\n");
                         puts("iii. Show Ready - Displays ready PCBs.\n");
                         puts("iii. Show Blocked - Displays blocked PCBs.\n");
                         puts("iii. Show All - Displays information about all PCBs.\n");
+                        puts("ii. Test R3 - Opens the menu to manage the R3 test processes.\n");
+                        puts("iii. Yield - executes queued processes.\n");
+                        puts("iii. Call R3 - Loads the test processes for R3.\n");
                         puts("i. Quit - Logs the user out.\n");
                 }
                 // Print out version number
                 else if (strcmp(buffer, "2") == 0)
                 {
-                        puts("\nVersion: 2.1 (now with frogs!)\n");
+                        puts("\nVersion: 3.0 (now with frogs!)\n");
                 }
                 // Print out Date and Time Menu
                 else if (strcmp(buffer, "3") == 0)
@@ -435,87 +440,13 @@ void comhand(void)
                         if (strcmp(choice, "1") == 0)
                         {
                                 puts("\nManage PCB Menu:");
-                                puts("\n1) Create PCB\n2) Delete PCB\n3) Block PCB\n4) Unblock PCB\n5) Suspend PCB\n6) Resume PCB\n7) Set PCB Priority\n8) Back\n");
+                                puts("\n1) Delete PCB\n2) Block PCB\n3) Unblock PCB\n4) Suspend PCB\n5) Resume PCB\n6) Set PCB Priority\n7) Back\n");
 
                                 puts(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
                                 sys_req(READ, COM1, choice, 5);
-
                                 if (strcmp(choice, "1") == 0)
-                                {
-                                        // Show Pcb Menu
-                                        puts("\nType PCB Name:");
-                                        // required for UI
-                                        puts("\n>");
-                                        // init choice buffer
-                                        char choice[9] = {0};
-                                        // Read from the buffer
-                                        sys_req(READ, COM1, choice, 9);
-                                        puts("\nType PCB Class:");
-                                        // required for UI
-                                        puts("\n>");
-                                        // init class buffer
-                                        char class[5] = {0};
-                                        int class_valid = isNum(class);
-                                        if (class_valid == 0)
-                                        {
-                                                puts("\nInvalid");
-                                                continue;
-                                        }
-                                        // Convert class to an integer
-                                        sys_req(READ, COM1, class, 5);
-                                        int classInt = atoi(class);
-                                        // Read from the buffer
-
-                                        puts("\nType PCB Priority:");
-                                        // required for UI
-                                        puts("\n>");
-                                        // init priority buffer
-                                        char priority[5] = {0};
-                                        int priority_valid = isNum(priority);
-                                        if (priority_valid == 0)
-                                        {
-                                                puts("\nInvalid");
-                                                continue;
-                                        }
-                                        // Convert class to an integer
-                                        sys_req(READ, COM1, priority, 5);
-                                        int priorityInt = atoi(priority);
-                                        // Read from the buffer
-                                        // Read from the buffer
-                                        // has errors, checking for
-
-                                        // goes here if its a valid entry
-
-                                        if (strcmp(class, "0") == 0 && strcmp(class, "") == 0)
-                                        {
-                                                // goes here if class is 0 (system process)
-                                                puts("You are about to create a system process. This action cannot be undone without restarting the system.");
-                                                puts("\nConfirm:");
-                                                puts("\n1) Yes");
-                                                puts("\nAny) Cancel");
-                                                puts("\n>");
-                                                char confirm[5] = {0};
-                                                // Read from the buffer
-                                                sys_req(READ, COM1, confirm, 5);
-
-                                                if (strcmp(confirm, "1") == 0)
-                                                {
-                                                        pcb_create(choice, classInt, priorityInt);
-                                                }
-                                                else
-                                                {
-                                                        puts("Action canceled");
-                                                        continue;
-                                                }
-                                        }
-                                        else
-                                        {
-                                                pcb_create(choice, classInt, priorityInt);
-                                        }
-                                }
-                                else if (strcmp(choice, "2") == 0)
                                 {
                                         // Delete Pcb Menu
                                         puts("\nEnter PCB Name:");
@@ -527,8 +458,9 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_delete(choice);
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "3") == 0)
+                                else if (strcmp(choice, "2") == 0)
                                 {
                                         // Block Pcb Menu
                                         puts("\nEnter PCB to Block:");
@@ -539,8 +471,9 @@ void comhand(void)
                                         // Read from the buffer
                                         sys_req(READ, COM1, choice, 9);
                                         pcb_block(choice);
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "4") == 0)
+                                else if (strcmp(choice, "3") == 0)
                                 {
                                         // Block Pcb Menu
                                         puts("\nEnter PCB to Unblock:");
@@ -552,8 +485,9 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_unblock(choice);
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "5") == 0)
+                                else if (strcmp(choice, "4") == 0)
                                 {
                                         // Suspend Pcb Menu
                                         puts("\nType PCB to Suspend:");
@@ -565,8 +499,9 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_suspend(choice);
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "6") == 0)
+                                else if (strcmp(choice, "5") == 0)
                                 {
                                         // Resume Pcb Menu
                                         puts("\nType PCB to Resume:");
@@ -578,8 +513,9 @@ void comhand(void)
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_resume(choice);
+// idk why this is here but it was giving me errors so i commented it out >>>>>>> main
                                 }
-                                else if (strcmp(choice, "7") == 0)
+                                else if (strcmp(choice, "6") == 0)
                                 {
                                         // Change Pcb Priority Menu
                                         puts("\nChoose PCB to Change Priority:");
@@ -665,9 +601,36 @@ void comhand(void)
                                 puts("\nUnrecognized command.\n");
                         }
                 }
-
-                // Shutdown
                 else if (strcmp(buffer, "5") == 0)
+                {
+                        puts("\nTest R3 Menu\n");
+                        puts("1) Yield\n2) Call R3\n3) Back\n");
+                        puts(">");
+                        // Confirm buffer
+                        char confirm[5] = {0};
+                        // Read in confirm
+                        sys_req(READ, COM1, confirm, 5);
+                        if (strcmp(confirm, "1") == 0)
+                        {
+                                yield();
+                                continue;
+                        }
+                        if (strcmp(confirm, "2") == 0)
+                        {
+                                load_r3();
+                                continue;
+                        }
+                            if (strcmp(confirm, "3") == 0)
+                        {
+                                continue;
+                        }
+                        else
+                        {
+                                puts("\nUnrecognized command.\n");
+                        }
+                }
+                // Shutdown
+                else if (strcmp(buffer, "6") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
@@ -687,6 +650,7 @@ void comhand(void)
                                 continue;
                         }
                 }
+                
                 else
                 {
                         puts("\nUnrecognized command.\n");

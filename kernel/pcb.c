@@ -1,5 +1,6 @@
 #include <memory.h>
 #include <string.h>
+#include <../include/mpx/isr.h>
 #include <../include/mpx/pcb.h>
 
 // HEADS
@@ -48,7 +49,6 @@ int pcb_free(struct pcb *pcb)
 // Allocate (via allocate_pcb()) a new PCB and initialize it with data provided, sets the state to Ready, Not-suspeneded
 struct pcb *pcb_setup(const char *name, int class, int priority)
 {
-
     pcb *new_pcb = pcb_allocate();
 
     int i;
@@ -63,12 +63,13 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
     // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
     new_pcb->dispatch = NOT_SUSPENDED;
-    // Comhand (user) handles blocking and suspending processes by updating the pcb
-    // We just set up tools to make pcbs and manipulate queues
-    // Probably help with Comhand after we get kernal to work
+
+    // Initialize context with appropriate values
+    new_pcb->stack_ptr = (char *)(new_pcb->stack +1022) - sizeof(context);
 
     return new_pcb;
 }
+
 
 // Search all process queues for a process with the provided name (processes will not have the same name)
 struct pcb *pcb_find(const char *name)
@@ -184,30 +185,34 @@ void pcb_insert(struct pcb *pcb)
     // NOTSUSPENDED BLOCKED
     else if (pcb->dispatch == 3 && pcb->execute == 1)
     {
-        // Case 1: Head is NULL
+        // Case 1: Head is NULL and Case 2: pcb priority is lower than head
         if (blocked_head == NULL || pcb->priority > blocked_head->priority)
         {
-            // The list is empty and this pcb is the head
-            blocked_head = pcb;
-        }
-        // Case 2: Head is not NULL
-        else
-        {
-            // Traverse to the end of the list
-            struct pcb *current = blocked_head;
-            while (current->next != NULL && current->next->priority >= pcb->priority)
+            // Case 1: Head is NULL
+            if (blocked_head == NULL || pcb->priority > blocked_head->priority)
             {
-                current = current->next;
+                // The list is empty and this pcb is the head
+                blocked_head = pcb;
             }
-            // Insert after current
-            current->next = pcb;
+            // Case 2: Head is not NULL
+            else
+            {
+                // Traverse to the end of the list
+                struct pcb *current = blocked_head;
+                while (current->next != NULL && current->next->priority >= pcb->priority && current->next->priority >= pcb->priority)
+                {
+                    current = current->next;
+                }
+                // Insert after current
+                current->next = pcb;
+            }
         }
     }
     // SUSPENDED BLOCKED
     else if (pcb->dispatch == 4 && pcb->execute == 1)
     {
         // Case 1: Head is NULL
-        if (suspended_blocked_head == NULL || pcb->priority > suspended_blocked_head->priority)
+        if (suspended_blocked_head == NULL || pcb->priority > suspended_blocked_head->priority || pcb->priority > suspended_blocked_head->priority)
         {
             // The list is empty and this pcb is the head
             suspended_blocked_head = pcb;
@@ -217,7 +222,7 @@ void pcb_insert(struct pcb *pcb)
         {
             // Traverse to the end of the list
             struct pcb *current = suspended_blocked_head;
-            while (current->next != NULL && current->next->priority >= pcb->priority)
+            while (current->next != NULL && current->next->priority >= pcb->priority && current->next->priority >= pcb->priority)
             {
                 current = current->next;
             }
