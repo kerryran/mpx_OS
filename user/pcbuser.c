@@ -136,13 +136,11 @@ void pcb_resume(char name[])
     {
         puts("\nPCB does not exist");
     }
-    else
-    {
-        pcb_remove(pcb);
-        pcb->dispatch = NOT_SUSPENDED;
-        pcb->next = NULL;
-        pcb_insert(pcb);
-    }
+
+    pcb_remove(pcb);
+    pcb->dispatch = NOT_SUSPENDED;
+    pcb->next = NULL;
+    pcb_insert(pcb);
 }
 
 // set priority

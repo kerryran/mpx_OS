@@ -26,10 +26,10 @@ typedef struct pcb
     enum classes class;
     state dispatch;
     state execute;
-    int priority; // 0 = highest, 9 = lowest
-    char stack[1024];
+    int priority;                // 0 = highest, 9 = lowest
     struct pcb *next;
-
+    char stack[1024];
+    char * stack_ptr;
 } pcb;
 
 // Allocate memory for a new PCB, including the stack and in
