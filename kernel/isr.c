@@ -61,7 +61,7 @@ struct context *sys_call(struct context *cont)
                 return first_context;
             }
 
-            pcb_remove(current);
+            pcb_remove(ready);
 
             next = ready;
             next->execute = 0;

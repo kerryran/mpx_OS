@@ -11,7 +11,7 @@
 #include <../include/pcbuser.h>
 
 void yield(){
-    sys_req(IDLE, 0, NULL, NULL);
+    sys_req(IDLE);
 }
  
 void load_r3(){
@@ -24,7 +24,7 @@ void load_r3(){
 
     // Process 1
     if (exists != NULL) {
-        puts("ERROR proc1 exists already");
+        puts("ERROR proc1 exists already ");
     }
     else {
 
@@ -55,14 +55,14 @@ void load_r3(){
         context1->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb1);
-        puts("Created proc1");
+        puts("Created proc1 ");
     }
 
 
     //Process 2
     exists = pcb_find("proc2");
     if (exists != NULL) {
-        puts("ERROR proc2 exists already");
+        puts("ERROR proc2 exists already ");
     }
     else {
 
@@ -93,13 +93,13 @@ void load_r3(){
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
-        puts("Created proc2");
+        puts("Created proc2 ");
     }
 
     //Process 3
     exists = pcb_find("proc3");
     if (exists != NULL) {
-        puts("ERROR proc3 exists already");
+        puts("ERROR proc3 exists already ");
     }
     else {
 
@@ -130,13 +130,13 @@ void load_r3(){
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
-        puts("Created proc3");
+        puts("Created proc3 ");
     }
 
     //Process 4
     exists = pcb_find("proc4");
     if (exists != NULL) {
-        puts("ERROR proc4 exists already");
+        puts("ERROR proc4 exists already ");
     }
     else {
 
@@ -167,13 +167,13 @@ void load_r3(){
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
-        puts("Created proc4");
+        puts("Created proc4 ");
     }
 
     //Process 5
     exists = pcb_find("proc5");
     if (exists != NULL) {
-        puts("ERROR proc5 exists already");
+        puts("ERROR proc5 exists already ");
     }
     else {
 
@@ -204,6 +204,6 @@ void load_r3(){
         context2->EFLAGS =(unsigned int)0x0202;
         //Add the process to the queue
         pcb_insert(pcb);
-        puts("Created proc5");
+        puts("Created proc5 ");
     }
 }

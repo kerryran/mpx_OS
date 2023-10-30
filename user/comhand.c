@@ -11,8 +11,6 @@
 
 void comhand(void)
 {
-        load_r3();
-
         // Welcome/Start-Up Message
         puts("\nWelcome to\n");
         puts("   _____                               ___  ____   \n");
@@ -686,12 +684,12 @@ void comhand(void)
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
-                                sys_req(IDLE);
+                                yield();
                                 continue;
                         }
                         if (strcmp(confirm, "2") == 0)
                         {
-                                puts("not implemented yet");
+                                load_r3();
                                 continue;
                         }
                         else
