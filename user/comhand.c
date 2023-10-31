@@ -604,7 +604,7 @@ void comhand(void)
                 else if (strcmp(buffer, "5") == 0)
                 {
                         puts("\nTest R3 Menu\n");
-                        puts("1) Yield\n2) Call R3\n3) Back\n");
+                        puts("1) Call R3\n2) Back\n");
                         puts(">");
                         // Confirm buffer
                         char confirm[5] = {0};
@@ -612,7 +612,7 @@ void comhand(void)
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
-                                yield();
+                               // yield();
                                 continue;
                         }
                         if (strcmp(confirm, "2") == 0)
