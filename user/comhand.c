@@ -663,6 +663,7 @@ void comhand(void)
                         if (strcmp(confirm, "1") == 0)
                         {
                                 puts("\nShutting Down...\n");
+                                ((context *)current->stack_ptr)->EAX = EXIT;
                                 return;
                         }
                         else

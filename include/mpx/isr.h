@@ -1,3 +1,5 @@
+
+extern struct pcb *current;
 // all registers for the context
 typedef struct context
 {
