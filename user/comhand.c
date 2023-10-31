@@ -41,7 +41,7 @@ void comhand(void)
         {
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
-                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6) Alarms\n7)  Quit\n");
+                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6) Alarms\n7) Quit\n");
                 puts("Enter a number to select:\n");
                 puts(">");
 
@@ -607,7 +607,7 @@ void comhand(void)
                 else if (strcmp(buffer, "5") == 0)
                 {
                         puts("\nTest R3 Menu\n");
-                        puts("1) Call R3\n2) Back\n");
+                        puts("1) Load R3\n2) Back\n");
                         puts(">");
                         // Confirm buffer
                         char confirm[5] = {0};
