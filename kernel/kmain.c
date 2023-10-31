@@ -92,13 +92,13 @@ void kmain(void)
 	//comhand();
 	//R4 System processes
 	command_handler();
-	//sys_idle();
+	sys_idle();
 
-	comhand();
+	//comhand();
 
 	//Comment out comhand and uncomment the below line to test the process
 
-	//__asm__ volatile ("int $0x60" :: "a"(IDLE));
+	__asm__ volatile ("int $0x60" :: "a"(IDLE));
 
 	// 10) System Shutdown -- *headers to be determined by your design*
 	// After your command handler returns, take care of any clean up that
