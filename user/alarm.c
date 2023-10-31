@@ -281,32 +281,35 @@ void check_alarm(struct alarm *alarm){
 void alarm_process(){
 
         //Create alarm process
+        alarm new_alarm = create_alarm();
     
-        //context * context1 = (context *) alarm->stack_ptr;
-        //memset(context1, 0, sizeof(context));
+        context * context1 = (context *) alarm->stack_ptr;
+        memset(context1, 0, sizeof(context));
 
-        //Segments
-        //context1->CS = (unsigned int)0x08;
-        //context1->DS = (unsigned int)0x10;   
-        //context1->ES = (unsigned int)0x10;   
-        //context1->FS = (unsigned int)0x10;   
-        //context1->GS = (unsigned int)0x10;   
-        //context1->SS = (unsigned int)0x10;  
-        //Registers
-        //context1->EBP = (unsigned int) pcb1->stack;
-        //context1->EAX = (unsigned int) 0x00; 
-        //context1->EBX = (unsigned int) 0x00; 
-        //context1->ECX = (unsigned int) 0x00; 
-        //context1->EDX = (unsigned int) 0x00; 
-        //context1->EBP = (unsigned int) 0x00; 
-        //context1->ESI = (unsigned int) 0x00; 
-        //context1->EDI = (unsigned int) 0x00; 
-        //Flags
-        //context1->EIP = (unsigned int) proc1;  
-        //context1->EFLAGS =(unsigned int)0x0202;
+        Segments
+        context1->CS = (unsigned int)0x08;
+        context1->DS = (unsigned int)0x10;   
+        context1->ES = (unsigned int)0x10;   
+        context1->FS = (unsigned int)0x10;   
+        context1->GS = (unsigned int)0x10;   
+        context1->SS = (unsigned int)0x10;  
+        Registers
+        context1->EBP = (unsigned int) pcb1->stack;
+        context1->EAX = (unsigned int) 0x00; 
+        context1->EBX = (unsigned int) 0x00; 
+        context1->ECX = (unsigned int) 0x00; 
+        context1->EDX = (unsigned int) 0x00; 
+        context1->EBP = (unsigned int) 0x00; 
+        context1->ESI = (unsigned int) 0x00; 
+        context1->EDI = (unsigned int) 0x00; 
+        Flags
+        context1->EIP = (unsigned int) proc1;  
+        context1->EFLAGS =(unsigned int)0x0202;
 
         //insert alarm into alarm queue
-
+        insert_alarm(new_alarm);
+        check_alarm(new_alarm);
+}
 void show_alarms(void)
 {
     // check through the blocked queue
