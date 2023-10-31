@@ -8,6 +8,7 @@
 #include <../include/mpx/ISRuser.h>
 #include <../include/pcbuser.h>
 #include <../include/mpx/pcb.h>
+#include <memory.h>
 
 void comhand(void)
 {
@@ -642,6 +643,7 @@ void comhand(void)
                         if (strcmp(confirm, "1") == 0)
                         {
                                 puts("\nShutting Down...\n");
+                                ((context *)current->stack_ptr)->EAX = EXIT;
                                 return;
                         }
                         else
