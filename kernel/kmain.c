@@ -92,7 +92,7 @@ void kmain(void)
 	//comhand();
 	//R4 System processes
 	command_handler();
-	sys_idle();
+	//sys_idle();
 
 	__asm__ volatile ("int $0x60" :: "a"(IDLE));
 

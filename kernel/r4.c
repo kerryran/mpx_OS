@@ -9,7 +9,7 @@
 
 void command_handler()
 {
-	pcb * pcb = pcb_setup("comhand", 0, 9);
+	pcb * pcb = pcb_setup("comhand", 0, 0);
 	context *contexto = (context *) pcb->stack_ptr;
 	memset(contexto, 0, sizeof(context));
 
@@ -38,7 +38,7 @@ void command_handler()
 
 void sys_idle()
 {
-    pcb * pcb = pcb_setup("idle", 0, 0);
+    pcb * pcb = pcb_setup("idle", 0, 9);
 	context *contexto = (context *) pcb->stack_ptr;
 	memset(contexto, 0, sizeof(context));
 
