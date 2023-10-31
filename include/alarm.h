@@ -11,9 +11,10 @@ typedef struct alarm{
     struct alarm *next;
 }alarm;
 
-void create_alarm(void);
+struct alarm *create_alarm(void);
 void insert_alarm(alarm *alarm);
 void remove_alarm(alarm *old_alarm);
 void check_alarm(struct alarm *alarm);
+void show_alarms(void);
 
 extern struct alarm *alarm_head;

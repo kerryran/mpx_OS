@@ -17,8 +17,9 @@
 #include <../include/mpx/ISRuser.h>
 
 alarm *alarm_head = NULL;
+//pcb *ready_head = NULL;
 
-void create_alarm(){
+struct alarm *create_alarm(){
 
     alarm *new_alarm = sys_alloc_mem(sizeof(*new_alarm));
 
@@ -42,7 +43,7 @@ void create_alarm(){
     if (hour_valid == 0)
     {
             puts("\nInvalid time, Please select a new option");
-            return;
+            return NULL;
     }
     // Convert the hour to int
     int hr = atoi(hour);
@@ -50,7 +51,7 @@ void create_alarm(){
     if (hr > 24)
     {
             puts("\nInvalid time, Please select a new option");
-            return;
+            return NULL;
     }
     // Allow user to enter the minutes
     puts("\nEnter The Minutes:\n");
@@ -65,14 +66,14 @@ void create_alarm(){
     if (minute_valid == 0)
     {
             puts("\nInvalid time, Please select a new option");
-            return;
+            return NULL;
     }
     // Convert minute to int
     int min = atoi(minute);
     if (min > 59)
     {
             puts("\nInvalid time, Please select a new option");
-            return;
+            return NULL;
     }
     // Allow user to enter the seconds
     puts("\nEnter The Seconds:\n");
@@ -87,14 +88,14 @@ void create_alarm(){
     if (second_valid == 0)
     {
             puts("\nInvalid time, Please select a new option");
-            return;
+            return NULL;
     }
     // Convert second to int
     int sec = atoi(second);
     if (sec > 59)
     {
             puts("\n Invalid time, Please select a new option");
-            return;
+            return NULL;
     }
 
     //After validating, set the time to the alarm
@@ -131,6 +132,14 @@ void create_alarm(){
     //Add alarm to queue
     insert_alarm(new_alarm);
 
+    pcb *test = pcb_find(new_alarm->name_arr);
+    if (test == NULL){
+        puts("failure");
+    }else{
+        puts("pcb was created");
+    }
+
+    return new_alarm;
 }
 void insert_alarm(alarm *alarm){
     if (alarm->dispatch == 3 && alarm->execute == 0)
@@ -156,6 +165,7 @@ void insert_alarm(alarm *alarm){
             alarm->next = current->next;
             current->next = alarm;
         }
+        
     }
     else{
         puts("Could not insert alarm.");
@@ -268,6 +278,46 @@ void check_alarm(struct alarm *alarm){
       sys_req(IDLE,COM1,NULL,NULL);
 }
 
-void remove_alarm_queue(){
-    //idk what to do here
+
+void show_alarms(void)
+{
+    // check through the blocked queue
+    struct alarm *current_alarm = alarm_head;
+    char num[10];
+
+    puts("\nAlarm Queue:\n");
+    if (current_alarm == NULL)
+    {
+        puts("\nAlarm Queue is Empty\n");
+    }
+    else
+    {
+        puts("Format: Name, State, Status, Time Set, Message \n");
+        while (current_alarm != NULL)
+        {
+            puts(current_alarm->name_arr);
+            puts(", ");
+            itoa(current_alarm->execute, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_alarm->dispatch, num, 10);
+            puts(num);
+            puts(", ");
+            itoa(current_alarm->hour, num, 10);
+            puts(num);
+            puts(":");
+            itoa(current_alarm->min, num, 10);
+            puts(num);
+            puts(":");
+            itoa(current_alarm->sec, num, 10);
+            puts(num);
+            puts(", ");
+            puts(current_alarm->message);
+            puts("\n");
+
+            current_alarm = current_alarm->next;
+        }
+    }
+    
+    
 }

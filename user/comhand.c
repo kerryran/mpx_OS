@@ -644,7 +644,7 @@ void comhand(void)
                                 load_r3();
                                 continue;
                         }
-                            if (strcmp(confirm, "2") == 0)
+                            if (strcmp(confirm, "3") == 0)
                         {
                                 continue;
                         }
@@ -656,7 +656,7 @@ void comhand(void)
                 else if(strcmp(buffer, "6") == 0){
                         //Alarm
                         puts("Alarm Menu\n");
-                        puts("1)Create an Alarm\n2)Back\n");
+                        puts("1)Create an Alarm\n2)Show Alarms\n3)Back\n");
                         puts_cursor(">");
                         // Confirm buffer
                         char confirm[5] = {0};
@@ -665,11 +665,18 @@ void comhand(void)
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
-                                create_alarm();
+                                alarm *new_alarm = create_alarm();
+                                check_alarm(new_alarm);
                                 continue;
                         }
                             if (strcmp(confirm, "2") == 0)
                         {
+                                show_alarms();
+                                continue;
+                        }
+                         if (strcmp(confirm, "3") == 0)
+                        {
+                                
                                 continue;
                         }
                         else
