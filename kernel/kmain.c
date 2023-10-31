@@ -6,6 +6,7 @@
 #include <string.h>
 #include <memory.h>
 #include <../include/comhand.h>
+#include <../include/mpx/r4.h>
 
 static void klogv(device dev, const char *msg)
 {
@@ -87,8 +88,17 @@ void kmain(void)
 	// Pass execution to your command handler so the user can interact with
 	// the system.
 	klogv(COM1, "Transferring control to commhand...");
-	// R4: __asm__ volatile ("int $0x60" :: "a"(IDLE));
+
+	//comhand();
+	//R4 System processes
+	command_handler();
+	sys_idle();
+
 	comhand();
+
+	//Comment out comhand and uncomment the below line to test the process
+
+	//__asm__ volatile ("int $0x60" :: "a"(IDLE));
 
 	// 10) System Shutdown -- *headers to be determined by your design*
 	// After your command handler returns, take care of any clean up that

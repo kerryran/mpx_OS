@@ -19,4 +19,5 @@ KERNEL_OBJECTS=\
 	kernel/kmain.o\
 	kernel/core-c.o\
   kernel/isr.o\
-  kernel/pcb.o
+  kernel/pcb.o\
+  kernel/r4.o
