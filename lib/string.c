@@ -89,10 +89,27 @@ char *strtok(char *restrict s1, const char *restrict s2)
 }
 
 // Method for printing to console
+#define ANSI_COLOR_RED     "\x1B[31m"
+#define ANSI_COLOR_GREEN   "\x1B[32m"
+#define ANSI_COLOR_YELLOW  "\x1B[33m"
+#define ANSI_COLOR_RESET   "\x1B[0m"
+#define ANSI_COLOR_BLUE   "\x1B[34m"
 
+// Function to write a string with specified color to the COM port
+void puts_color(char *string, const char *color) {
+    // Set the text color using ANSI escape codes
+    sys_req(WRITE, COM1, color, strlen(color));
+    sys_req(WRITE, COM1, string, strlen(string));
+    // Reset the text color using ANSI escape codes
+    sys_req(WRITE, COM1, ANSI_COLOR_RESET, strlen(ANSI_COLOR_RESET));
+}
 void puts(char *string)
 {
-	sys_req(WRITE, COM1, string, strlen(string));
+	puts_color(string, ANSI_COLOR_GREEN);
+}
+void puts_cursor(char *string)
+{
+	puts_color(string, ANSI_COLOR_RESET );
 }
 
 // Method for concatenating two strings

@@ -43,7 +43,7 @@ void comhand(void)
                 puts("\nMain Menu:\n");
                 puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6) Alarms\n7) Quit\n");
                 puts("Enter a number to select:\n");
-                puts(">");
+                puts_cursor(">");
 
                 // Input buffer
                 char buffer[4] = {0};
@@ -90,7 +90,7 @@ void comhand(void)
                 {
                         puts("\nDate & Time Menu:");
                         puts("\n1) Get Date\n2) Set Date\n3) Get Time\n4) Set Time\n5) Back\n");
-                        puts(">");
+                        puts_cursor(">");
                         // Choice buffer
                         char choice[5] = {0};
                         // Read from the buffer
@@ -107,7 +107,7 @@ void comhand(void)
                         {
                                 // Allow user to enter the year
                                 puts("\nEnter The Year:\n");
-                                puts(">");
+                                puts_cursor(">");
                                 // Year buffer
                                 char year[3] = {0};
                                 // Read year from user
@@ -127,7 +127,7 @@ void comhand(void)
                                 {
                                         // Allow user to enter month
                                         puts("\nEnter The Month:\n");
-                                        puts(">");
+                                        puts_cursor(">");
                                         // Month buffer
                                         char month[3] = {0};
                                         // Read in month from the user
@@ -147,7 +147,7 @@ void comhand(void)
                                         {
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
-                                                puts(">");
+                                                puts_cursor(">");
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in the day
@@ -182,7 +182,7 @@ void comhand(void)
                                         {
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
-                                                puts(">");
+                                                puts_cursor(">");
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
@@ -211,7 +211,7 @@ void comhand(void)
                                                 // If here, the month must contain only 30 days
                                                 // Allow user to enter day
                                                 puts("\nEnter The Day:\n");
-                                                puts(">");
+                                                puts_cursor(">");
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
@@ -241,7 +241,7 @@ void comhand(void)
                                         // If here, the year is not a Leap Year
                                         // Allow user to enter the month
                                         puts("\nEnter The Month:\n");
-                                        puts(">");
+                                        puts_cursor(">");
                                         // Month buffer
                                         char month[3] = {0};
                                         // Read in month
@@ -261,7 +261,7 @@ void comhand(void)
                                         {
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
-                                                puts(">");
+                                                puts_cursor(">");
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
@@ -296,7 +296,7 @@ void comhand(void)
                                         {
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
-                                                puts(">");
+                                                puts_cursor(">");
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
@@ -325,7 +325,7 @@ void comhand(void)
                                                 // If here, month must have 30 days
                                                 // Allow user to enter day
                                                 puts("\nEnter The Day:\n");
-                                                puts(">");
+                                                puts_cursor(">");
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
@@ -365,7 +365,7 @@ void comhand(void)
                                 puts("\nUse 24 hr formating for the following entries:\n");
                                 // Allow user to enter the hour
                                 puts("\nEnter The Hours:\n");
-                                puts(">");
+                                puts_cursor(">");
                                 // Hour buffer
                                 char hour[3] = {0};
                                 // Read in the hour
@@ -388,7 +388,7 @@ void comhand(void)
                                 }
                                 // Allow user to enter the minutes
                                 puts("\nEnter The Minutes:\n");
-                                puts(">");
+                                puts_cursor(">");
                                 // Minute buffer
                                 char minute[3] = {0};
                                 // Read in the minute
@@ -410,7 +410,7 @@ void comhand(void)
                                 }
                                 // Allow user to enter the seconds
                                 puts("\nEnter The Seconds:\n");
-                                puts(">");
+                                puts_cursor(">");
                                 // Second buffer
                                 char second[3] = {0};
                                 // Read in the second
@@ -449,7 +449,7 @@ void comhand(void)
                 {
                         puts("\nPCB Menu");
                         puts("\n1) Manage\n2) View\n3) Back\n");
-                        puts(">");
+                        puts_cursor(">");
                         char choice[5] = {0};
                         // Read from the buffer
                         yield();
@@ -460,7 +460,7 @@ void comhand(void)
                                 puts("\nManage PCB Menu:");
                                 puts("\n1) Delete PCB\n2) Block PCB\n3) Unblock PCB\n4) Suspend PCB\n5) Resume PCB\n6) Set PCB Priority\n7) Back\n");
 
-                                puts(">");
+                                puts_cursor(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
                                 yield();
@@ -579,7 +579,7 @@ void comhand(void)
                         {
                                 puts("\nView PCB Menu:");
                                 puts("\n1) Show PCB\n2) Show Ready\n3) Show Blocked\n4) Show All\n5) Back\n");
-                                puts(">");
+                                puts_cursor(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
                                 yield();
@@ -633,7 +633,7 @@ void comhand(void)
                 {
                         puts("\nTest R3 Menu\n");
                         puts("1) Load R3\n2) Back\n");
-                        puts(">");
+                        puts_cursor(">");
                         // Confirm buffer
                         char confirm[5] = {0};
                         // Read in confirm
@@ -657,7 +657,7 @@ void comhand(void)
                         //Alarm
                         puts("Alarm Menu\n");
                         puts("1)Create an Alarm\n2)Back\n");
-                        puts(">");
+                        puts_cursor(">");
                         // Confirm buffer
                         char confirm[5] = {0};
                         // Read in confirm
@@ -683,7 +683,7 @@ void comhand(void)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
-                        puts(">");
+                        puts_cursor(">");
                         // Confirm buffer
                         char confirm[5] = {0};
                         // Read in confirm

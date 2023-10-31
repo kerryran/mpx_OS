@@ -51,7 +51,9 @@ char *strtok(char *restrict s1, const char *restrict s2);
  * Calls the sys_req() command for WRITE
  * @param string The string to be printed
  */
+void puts_color(char *string, const char *color);
 void puts(char *string);
+void puts_cursor(char *string);
 
 /**
  * Combines two strings together into a new string
