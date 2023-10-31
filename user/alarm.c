@@ -14,6 +14,7 @@
 #include <pcbuser.h>
 #include <memory.h>
 #include <alarm.h>
+#include <ISRuser.h>
 
 alarm *alarm_head = NULL;
 
@@ -34,6 +35,7 @@ void create_alarm(){
     // Hour buffer
     char hour[3] = {0};
     // Read in the hour
+    yield();
     sys_req(READ, COM1, hour, 3);
     // Validate hour
     int hour_valid = isNum(hour);
@@ -56,6 +58,7 @@ void create_alarm(){
     // Minute buffer
     char minute[3] = {0};
     // Read in the minute
+    yield();
     sys_req(READ, COM1, minute, 3);
     // Validate minute
     int minute_valid = isNum(minute);
@@ -77,6 +80,7 @@ void create_alarm(){
     // Second buffer
     char second[3] = {0};
     // Read in the second
+    yield();
     sys_req(READ, COM1, second, 3);
     // Validate second
     int second_valid = isNum(second);
@@ -102,6 +106,7 @@ void create_alarm(){
     puts("\n Please input a name for your alarm\n");
     puts(">");
     char name[10]= {0};
+    yield();
     sys_req(READ, COM1, name, 10);
 
     
@@ -114,6 +119,7 @@ void create_alarm(){
     puts("\n Please input the message you would like to display with your alarm\n");
     puts(">");
     char message[100] = {0};
+    yield();
     sys_req(READ, COM1, message, 100);
 
     
@@ -263,5 +269,5 @@ void check_alarm(struct alarm *alarm){
 }
 
 void remove_alarm_queue(){
-    
+    //idk what to do here
 }

@@ -48,6 +48,7 @@ void comhand(void)
                 // Input buffer
                 char buffer[4] = {0};
                 // Read from the buffer
+                yield();
                 sys_req(READ, COM1, buffer, 4);
 
                 // Print out help menu
@@ -93,6 +94,7 @@ void comhand(void)
                         // Choice buffer
                         char choice[5] = {0};
                         // Read from the buffer
+                        yield();
                         sys_req(READ, COM1, choice, 5);
                         // Print out: Get Date
                         if (strcmp(choice, "1") == 0)
@@ -109,6 +111,7 @@ void comhand(void)
                                 // Year buffer
                                 char year[3] = {0};
                                 // Read year from user
+                                yield();
                                 sys_req(READ, COM1, year, 3);
                                 // Validate year from user
                                 int year_valid = isNum(year);
@@ -128,6 +131,7 @@ void comhand(void)
                                         // Month buffer
                                         char month[3] = {0};
                                         // Read in month from the user
+                                        yield();
                                         sys_req(READ, COM1, month, 3);
                                         // Validate month
                                         int month_valid = isNum(month);
@@ -147,6 +151,7 @@ void comhand(void)
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in the day
+                                                yield();
                                                 sys_req(READ, COM1, day, 3);
                                                 // Validate day
                                                 int day_valid = isNum(day);
@@ -181,6 +186,7 @@ void comhand(void)
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
+                                                yield();
                                                 sys_req(READ, COM1, day, 3);
                                                 // Validate day
                                                 int day_valid = isNum(day);
@@ -209,6 +215,7 @@ void comhand(void)
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
+                                                yield();
                                                 sys_req(READ, COM1, day, 3);
                                                 // Validate day
                                                 int day_valid = isNum(day);
@@ -238,6 +245,7 @@ void comhand(void)
                                         // Month buffer
                                         char month[3] = {0};
                                         // Read in month
+                                        yield();
                                         sys_req(READ, COM1, month, 3);
                                         // Validate month
                                         int month_valid = isNum(month);
@@ -257,6 +265,7 @@ void comhand(void)
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
+                                                yield();
                                                 sys_req(READ, COM1, day, 3);
                                                 // Validate day
                                                 int day_valid = isNum(day);
@@ -291,6 +300,7 @@ void comhand(void)
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
+                                                yield();
                                                 sys_req(READ, COM1, day, 3);
                                                 // Validate day
                                                 int day_valid = isNum(day);
@@ -319,6 +329,7 @@ void comhand(void)
                                                 // Day buffer
                                                 char day[3] = {0};
                                                 // Read in day
+                                                yield();
                                                 sys_req(READ, COM1, day, 3);
                                                 // Validate day
                                                 int day_valid = isNum(day);
@@ -358,6 +369,7 @@ void comhand(void)
                                 // Hour buffer
                                 char hour[3] = {0};
                                 // Read in the hour
+                                yield();
                                 sys_req(READ, COM1, hour, 3);
                                 // Validate hour
                                 int hour_valid = isNum(hour);
@@ -380,6 +392,7 @@ void comhand(void)
                                 // Minute buffer
                                 char minute[3] = {0};
                                 // Read in the minute
+                                yield();
                                 sys_req(READ, COM1, minute, 3);
                                 // Validate minute
                                 int minute_valid = isNum(minute);
@@ -401,6 +414,7 @@ void comhand(void)
                                 // Second buffer
                                 char second[3] = {0};
                                 // Read in the second
+                                yield();
                                 sys_req(READ, COM1, second, 3);
                                 // Validate second
                                 int second_valid = isNum(second);
@@ -438,6 +452,7 @@ void comhand(void)
                         puts(">");
                         char choice[5] = {0};
                         // Read from the buffer
+                        yield();
                         sys_req(READ, COM1, choice, 5);
 
                         if (strcmp(choice, "1") == 0)
@@ -448,6 +463,7 @@ void comhand(void)
                                 puts(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
+                                yield();
                                 sys_req(READ, COM1, choice, 5);
                                 if (strcmp(choice, "1") == 0)
                                 {
@@ -458,6 +474,7 @@ void comhand(void)
                                         // init choice buffer
                                         char choice[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_delete(choice);
@@ -472,6 +489,7 @@ void comhand(void)
                                         // init choice buffer
                                         char choice[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, choice, 9);
                                         pcb_block(choice);
 // idk why this is here but it was giving me errors so i commented it out >>>>>>> main
@@ -485,6 +503,7 @@ void comhand(void)
                                         // init choice buffer
                                         char choice[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_unblock(choice);
@@ -499,6 +518,7 @@ void comhand(void)
                                         // init choice buffer
                                         char choice[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_suspend(choice);
@@ -513,6 +533,7 @@ void comhand(void)
                                         // init choice buffer
                                         char choice[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, choice, 9);
                                         // PCB 1
                                         pcb_resume(choice);
@@ -529,6 +550,7 @@ void comhand(void)
                                         // init choice buffer
                                         char choice[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, choice, 9);
 
                                         puts("\nType PCB Priority:");
@@ -537,6 +559,7 @@ void comhand(void)
                                         // Read from the buffer
 
                                         char priority[5] = {0};
+                                        yield();
                                         sys_req(READ, COM1, priority, 5);
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
@@ -559,6 +582,7 @@ void comhand(void)
                                 puts(">");
                                 char choice[5] = {0};
                                 // Read from the buffer
+                                yield();
                                 sys_req(READ, COM1, choice, 5);
 
                                 if (strcmp(choice, "1") == 0)
@@ -570,6 +594,7 @@ void comhand(void)
                                         // init choice buffer
                                         char name[9] = {0};
                                         // Read from the buffer
+                                        yield();
                                         sys_req(READ, COM1, name, 9);
                                         // PCB 1
                                         show_pcb(name);
@@ -612,6 +637,7 @@ void comhand(void)
                         // Confirm buffer
                         char confirm[5] = {0};
                         // Read in confirm
+                        yield();
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
@@ -635,6 +661,7 @@ void comhand(void)
                         // Confirm buffer
                         char confirm[5] = {0};
                         // Read in confirm
+                        yield();
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
@@ -660,6 +687,7 @@ void comhand(void)
                         // Confirm buffer
                         char confirm[5] = {0};
                         // Read in confirm
+                        yield();
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
