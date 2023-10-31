@@ -12,7 +12,10 @@
                 "dateandtime.h": "c",
                 "processes.h": "c",
                 "pcbuser.h": "c",
-                "isruser.h": "c"
+                "isruser.h": "c",
+                "r4.h": "c",
+                "alarm.h": "c",
+                "memory.h": "c"
         },
         "C_Cpp.errorSquiggles": "disabled"
 }

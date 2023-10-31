@@ -3,7 +3,7 @@
 #include <../include/sys_req.h>
 #include <../include/string.h>
 #include <stddef.h>
-
+#include <../include/mpx/r4.h>
 // Global PCB pointer representing the currently executing process
 pcb *current = NULL;
 
@@ -14,6 +14,7 @@ context *first_context = NULL;
 
 struct context *sys_call(struct context *cont)
 {
+    
     // Get the head of the ready queue
     pcb * ready = ready_head;
     //Need to get the first object in the ready_head linked list, not the whole list?
@@ -42,6 +43,7 @@ struct context *sys_call(struct context *cont)
                 current->dispatch = 3;
                 current->stack_ptr = (char*) cont;
                 pcb_insert(current);
+                cont->EAX = 0;
             }
 
             current = ready_head;
@@ -53,20 +55,16 @@ struct context *sys_call(struct context *cont)
         }
         //EXIT
         else {
-            
-            pcb_free(current);
 
-            if( ready == NULL){
+            if( ready_head == NULL){
                 first_context->EAX = 0;
                 return first_context;
             }
 
             pcb_remove(ready);
-
+            
+            pcb_free(current);
             current = ready;
-            current->execute = 0;
-            current->dispatch = 3;
-
             ((context *)current->stack_ptr)->EAX = 0;
             return (context *) current->stack_ptr;
         }

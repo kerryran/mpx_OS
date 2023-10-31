@@ -15,12 +15,12 @@
 #include <memory.h>
 #include <alarm.h>
 #include <../include/mpx/ISRuser.h>
-
+#include <../include/mpx/r4.h>
 alarm *alarm_head = NULL;
 //pcb *ready_head = NULL;
 
 struct alarm *create_alarm(){
-
+    
     alarm *new_alarm = sys_alloc_mem(sizeof(*new_alarm));
 
     //set alarm to non-suspended and ready
@@ -36,13 +36,13 @@ struct alarm *create_alarm(){
     // Hour buffer
     char hour[3] = {0};
     // Read in the hour
-    yield();
+    
     sys_req(READ, COM1, hour, 3);
     // Validate hour
     int hour_valid = isNum(hour);
     if (hour_valid == 0)
     {
-            puts("\nInvalid time, Please select a new option");
+            puts("\nInvalid time");
             return NULL;
     }
     // Convert the hour to int
@@ -50,7 +50,7 @@ struct alarm *create_alarm(){
     // Check if hour is greater than 24
     if (hr > 24)
     {
-            puts("\nInvalid time, Please select a new option");
+            puts("\nInvalid time");
             return NULL;
     }
     // Allow user to enter the minutes
@@ -59,20 +59,20 @@ struct alarm *create_alarm(){
     // Minute buffer
     char minute[3] = {0};
     // Read in the minute
-    yield();
+    
     sys_req(READ, COM1, minute, 3);
     // Validate minute
     int minute_valid = isNum(minute);
     if (minute_valid == 0)
     {
-            puts("\nInvalid time, Please select a new option");
+            puts("\nInvalid time");
             return NULL;
     }
     // Convert minute to int
     int min = atoi(minute);
     if (min > 59)
     {
-            puts("\nInvalid time, Please select a new option");
+            puts("\nInvalid time");
             return NULL;
     }
     // Allow user to enter the seconds
@@ -81,20 +81,20 @@ struct alarm *create_alarm(){
     // Second buffer
     char second[3] = {0};
     // Read in the second
-    yield();
+    
     sys_req(READ, COM1, second, 3);
     // Validate second
     int second_valid = isNum(second);
     if (second_valid == 0)
     {
-            puts("\nInvalid time, Please select a new option");
+            puts("\nInvalid time");
             return NULL;
     }
     // Convert second to int
     int sec = atoi(second);
     if (sec > 59)
     {
-            puts("\n Invalid time, Please select a new option");
+            puts("\n Invalid time");
             return NULL;
     }
 
@@ -106,9 +106,9 @@ struct alarm *create_alarm(){
     //Need alarm name
     puts("\n Please input a name for your alarm\n");
     puts(">");
-    char name[10]= {0};
-    yield();
-    sys_req(READ, COM1, name, 10);
+    char name[9]= {0};
+    
+    sys_req(READ, COM1, name, 9);
 
     
     for (int i = 0; i < 8 && name[i] != '\0'; i++)
@@ -120,7 +120,7 @@ struct alarm *create_alarm(){
     puts("\n Please input the message you would like to display with your alarm\n");
     puts(">");
     char message[100] = {0};
-    yield();
+    
     sys_req(READ, COM1, message, 100);
 
     
@@ -138,7 +138,7 @@ struct alarm *create_alarm(){
     }else{
         puts("pcb was created");
     }
-
+    command_handler();
     return new_alarm;
 }
 void insert_alarm(alarm *alarm){
@@ -268,6 +268,7 @@ void check_alarm(alarm *alarm){
         remove_alarm(alarm);
         //Exit process
         sys_req(EXIT, COM1, NULL, NULL);
+        
         }
 
         //Move to next alarm
@@ -277,38 +278,34 @@ void check_alarm(alarm *alarm){
     //Remains idle
       sys_req(IDLE,COM1,NULL,NULL);
 }
+// alarm process
+void alarm_process()
+{
+	pcb * pcb = pcb_setup("alarmProcess", 0, 1);
+	context *contexto = (context *) pcb->stack_ptr;
+	memset(contexto, 0, sizeof(context));
 
-void alarm_process(){
+	//Segments
+    contexto->CS = (unsigned int)0x08;
+    contexto->DS = (unsigned int)0x10;   
+    contexto->ES = (unsigned int)0x10;   
+    contexto->FS = (unsigned int)0x10;   
+    contexto->GS = (unsigned int)0x10;   
+    contexto->SS = (unsigned int)0x10;  
+    //Registers
+    contexto->EBP = (unsigned int) pcb->stack;
+    contexto->EAX = (unsigned int) 0x00; 
+    contexto->EBX = (unsigned int) 0x00; 
+    contexto->ECX = (unsigned int) 0x00; 
+    contexto->EDX = (unsigned int) 0x00; 
+    contexto->EBP = (unsigned int) 0x00; 
+    contexto->ESI = (unsigned int) 0x00; 
+    contexto->EDI = (unsigned int) 0x00; 
+    //Flags
+    contexto->EIP = (unsigned int) check_alarm;  
+    contexto->EFLAGS =(unsigned int)0x0202;
 
-        //Create alarm process
-        alarm *new_alarm = create_alarm();
-    
-        context *context1 = (context *) new_alarm->stack_ptr;
-        memset(context1, 0, sizeof(context));
-
-        //Segments
-        context1->CS = (unsigned int)0x08;
-        context1->DS = (unsigned int)0x10;   
-        context1->ES = (unsigned int)0x10;   
-        context1->FS = (unsigned int)0x10;   
-        context1->GS = (unsigned int)0x10;   
-        context1->SS = (unsigned int)0x10;  
-        //Registers
-        context1->EBP = (unsigned int) new_alarm->stack;
-        context1->EAX = (unsigned int) 0x00; 
-        context1->EBX = (unsigned int) 0x00; 
-        context1->ECX = (unsigned int) 0x00; 
-        context1->EDX = (unsigned int) 0x00; 
-        context1->EBP = (unsigned int) 0x00; 
-        context1->ESI = (unsigned int) 0x00; 
-        context1->EDI = (unsigned int) 0x00; 
-        //Flags
-        context1->EIP = (unsigned int) proc1;  
-        context1->EFLAGS =(unsigned int)0x0202;
-
-        //insert alarm into alarm queue
-        insert_alarm(new_alarm);
-        check_alarm(new_alarm);
+	pcb_insert(pcb);
 }
 void show_alarms(void)
 {

@@ -8,8 +8,8 @@
 #include <../include/mpx/ISRuser.h>
 #include <../include/pcbuser.h>
 #include <../include/mpx/pcb.h>
-#include <alarm.h>
-#include <memory.h>
+#include <../include/alarm.h>
+#include <../include/memory.h>
 
 void comhand(void)
 {
@@ -665,12 +665,14 @@ void comhand(void)
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
+                                alarm_process();
                                 alarm *new_alarm = create_alarm();
                                 check_alarm(new_alarm);
                                 continue;
                         }
                             if (strcmp(confirm, "2") == 0)
                         {
+                                alarm_process();
                                 show_alarms();
                                 continue;
                         }

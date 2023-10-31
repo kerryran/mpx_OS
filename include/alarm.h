@@ -18,5 +18,5 @@ void insert_alarm(alarm *alarm);
 void remove_alarm(alarm *old_alarm);
 void check_alarm(alarm *alarm);
 void show_alarms(void);
-
+void alarm_process();
 extern struct alarm *alarm_head;
