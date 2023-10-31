@@ -42,7 +42,6 @@ struct context *sys_call(struct context *cont)
                 current->dispatch = 3;
                 current->stack_ptr = (char*) cont;
                 pcb_insert(current);
-                cont->EAX = 0;
             }
 
             current = ready_head;
@@ -54,16 +53,20 @@ struct context *sys_call(struct context *cont)
         }
         //EXIT
         else {
+            
+            pcb_free(current);
 
-            if( ready_head == NULL){
+            if( ready == NULL){
                 first_context->EAX = 0;
                 return first_context;
             }
 
             pcb_remove(ready);
-            
-            pcb_free(current);
+
             current = ready;
+            current->execute = 0;
+            current->dispatch = 3;
+
             ((context *)current->stack_ptr)->EAX = 0;
             return (context *) current->stack_ptr;
         }
