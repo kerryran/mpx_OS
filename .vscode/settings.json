@@ -11,7 +11,8 @@
                 "isr.h": "c",
                 "dateandtime.h": "c",
                 "processes.h": "c",
-                "pcbuser.h": "c"
+                "pcbuser.h": "c",
+                "isruser.h": "c"
         },
         "C_Cpp.errorSquiggles": "disabled"
 }
