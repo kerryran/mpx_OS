@@ -215,7 +215,7 @@ void remove_alarm(alarm *old_alarm){
         }
     }
 }
-void check_alarm(struct alarm *alarm){
+void check_alarm(alarm *alarm){
     //get actual time from registers
 
      // read from register
@@ -281,20 +281,20 @@ void check_alarm(struct alarm *alarm){
 void alarm_process(){
 
         //Create alarm process
-        alarm new_alarm = create_alarm();
+        alarm *new_alarm = create_alarm();
     
-        context * context1 = (context *) alarm->stack_ptr;
+        context *context1 = (context *) new_alarm->stack_ptr;
         memset(context1, 0, sizeof(context));
 
-        Segments
+        //Segments
         context1->CS = (unsigned int)0x08;
         context1->DS = (unsigned int)0x10;   
         context1->ES = (unsigned int)0x10;   
         context1->FS = (unsigned int)0x10;   
         context1->GS = (unsigned int)0x10;   
         context1->SS = (unsigned int)0x10;  
-        Registers
-        context1->EBP = (unsigned int) pcb1->stack;
+        //Registers
+        context1->EBP = (unsigned int) new_alarm->stack;
         context1->EAX = (unsigned int) 0x00; 
         context1->EBX = (unsigned int) 0x00; 
         context1->ECX = (unsigned int) 0x00; 
@@ -302,7 +302,7 @@ void alarm_process(){
         context1->EBP = (unsigned int) 0x00; 
         context1->ESI = (unsigned int) 0x00; 
         context1->EDI = (unsigned int) 0x00; 
-        Flags
+        //Flags
         context1->EIP = (unsigned int) proc1;  
         context1->EFLAGS =(unsigned int)0x0202;
 
