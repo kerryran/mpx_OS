@@ -33,6 +33,22 @@ void add_alarm(alarm *alarm_to_add){
 
     if(temp->tail != NULL){
         temp->tail->next = alarm_to_add;
-        
+        alarm_to_add->prev = temp->tail;
+        temp->tail = alarm_to_add;
+    }else{
+        temp->head = alarm_to_add;
+        temp->tail = alarm_to_add;
+    }
+}
+void remove_alarm(alarm *alarm_to_remove){
+    alarm_val *temp = alarms;
+
+    if(temp->head == NULL || alarm_to_remove == NULL){
+        puts("Error, nothing to remove");
+        return;
+    }
+
+    if(temp->head == alarm_to_remove){
+        temp->head = alarm_to_remove
     }
 }
