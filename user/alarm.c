@@ -25,8 +25,7 @@ typedef struct alarm{
     struct alarm *next;
 }alarm;
 
-
-
+void insert_alarm(alarm *alarm);
 struct alarm *alarm_head;
 
 void create_alarm(){
@@ -135,9 +134,10 @@ void create_alarm(){
     }
 
     //Add alarm to queue
+    insert_alarm(new_alarm);
 
 }
-void insert_alarm(struct alarm *alarm){
+void insert_alarm(alarm *alarm){
     if (alarm->dispatch == 3 && alarm->execute == 0)
     {
         // Case 1: Head is NULL 
@@ -162,5 +162,113 @@ void insert_alarm(struct alarm *alarm){
             current->next = alarm;
         }
     }
+    else{
+        puts("Could not insert alarm.");
+        return;
+    }
 }
 
+void remove_alarm(alarm *old_alarm){
+
+     if (old_alarm->dispatch == 3 && old_alarm->execute == 0)
+    {
+        // Case 1: Head is NULL
+        if (alarm_head == NULL)
+        {
+            // There is nothing in the list, how did we get here?
+            puts("There are no alarms currently in the queue");
+        }
+        // Case 2: Head is not NULL
+        else
+        {
+            // Traverse the list to find the alarm and it's previous node
+            struct alarm *current = alarm_head;
+            struct alarm *prev = NULL;
+
+            while (current != NULL && strcmp(current->name_arr, alarm_head->name_arr))
+            {
+                prev = current;
+                current = current->next;
+            }
+
+            // If we found the alarm to remove
+            if (current != NULL)
+            {
+                if (prev != NULL)
+                {
+                    // The alarm is not the head
+                    prev->next = current->next;
+                    return;
+                }
+                else
+                {
+                    // The alarm is the head
+                    alarm_head = current->next;
+                    return;
+                }
+            }
+        }
+    }
+}
+void check_alarm(struct alarm *alarm){
+    //get actual time from registers
+
+     // read from register
+    outb(0x70, 0x00);
+    unsigned char seconds = inb(0x71);
+    // get ones place of seconds
+    int ones_sec = (seconds & 0x0F);
+    // get tens place of seconds
+    int tens_sec = seconds / 16;
+    // combine
+    int seconds_fr = (tens_sec * 10) + ones_sec;
+    // convert to string
+    char secs[3];
+    itoa(seconds_fr, secs, 10);
+
+    // read from register
+    outb(0x70, 0x02);
+    unsigned char minutes = inb(0x71);
+    // get ones place of minutes
+    int ones_min = (minutes & 0x0F);
+    // get tens place of minutes
+    int tens_min = minutes / 16;
+    // combine
+    int minutes_fr = (tens_min * 10) + ones_min;
+    // convert to string
+    char mins[3];
+    itoa(minutes_fr, mins, 10);
+
+    // read from register
+    outb(0x70, 0x04);
+    unsigned char hours = inb(0x71);
+    // get ones place of hours
+    int ones_hr = (hours & 0x0F);
+    // get tens place of hours
+    int tens_hr = hours / 16;
+    // combine
+    int hours_fr = (tens_hr * 10) + ones_hr;
+    // convert to string
+    char hrs[3];
+    itoa(hours_fr, hrs, 10);
+
+    while(alarm != NULL){
+    //Check is actual time is the time of the alarm
+    if(alarm->hour < hours_fr || (alarm->hour == hours_fr && alarm->min < minutes_fr) || (alarm->hour == hours_fr && alarm->min == minutes_fr && alarm->sec <= seconds_fr)){
+        //Need to display the message 
+        puts("\n");
+        puts(alarm->message);
+        puts("\n");
+        //remove alarm from the queue
+        remove_alarm(alarm);
+        //Exit process
+        sys_req(EXIT, COM1, NULL, NULL);
+        }
+
+        //Move to next alarm
+        alarm = alarm->next;
+    }
+    
+    //Remains idle
+      sys_req(IDLE,COM1,NULL,NULL);
+}
