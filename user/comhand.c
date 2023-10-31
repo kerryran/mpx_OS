@@ -9,6 +9,7 @@
 #include <../include/pcbuser.h>
 #include <../include/mpx/pcb.h>
 #include <alarm.h>
+#include <memory.h>
 
 void comhand(void)
 {
