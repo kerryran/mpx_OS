@@ -13,6 +13,17 @@
 #include <pcb.h>
 #include <pcbuser.h>
 
+char* alarm(char* time, char* message){
+        pcb* pcb = pcb_setup("alarm", 1, 1);
+        (context*) pcb->stack_ptr = sys_call(IDLE);
+        char* current_time = get_time();
+        if(strcmp(current_time, time)==0){
+                puts(message);
+                return message;
+                (context*) pcb->stack_ptr = sys_call(EXIT);
+        }
+        return "no alarm";
+}
 
 alarm_val *alarms;
 int exit;
