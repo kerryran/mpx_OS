@@ -13,20 +13,9 @@
 #include <../include/mpx/pcb.h>
 #include <pcbuser.h>
 #include <memory.h>
+#include <alarm.h>
 
-typedef struct alarm{
-    int hour;
-    int min;
-    int sec;
-    char name_arr[10];
-    char message[100];
-    state dispatch;
-    state execute;
-    struct alarm *next;
-}alarm;
-
-void insert_alarm(alarm *alarm);
-struct alarm *alarm_head;
+alarm *alarm_head = NULL;
 
 void create_alarm(){
 
@@ -271,4 +260,8 @@ void check_alarm(struct alarm *alarm){
     
     //Remains idle
       sys_req(IDLE,COM1,NULL,NULL);
+}
+
+void remove_alarm_queue(){
+    
 }

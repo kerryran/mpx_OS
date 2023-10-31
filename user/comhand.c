@@ -8,6 +8,7 @@
 #include <../include/mpx/ISRuser.h>
 #include <../include/pcbuser.h>
 #include <../include/mpx/pcb.h>
+#include <alarm.h>
 
 void comhand(void)
 {
@@ -39,7 +40,7 @@ void comhand(void)
         {
                 // Main Menu Prompt
                 puts("\nMain Menu:\n");
-                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6)  Quit\n");
+                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6) Alarms\n7)  Quit\n");
                 puts("Enter a number to select:\n");
                 puts(">");
 
@@ -72,14 +73,15 @@ void comhand(void)
                         puts("iii. Show Blocked - Displays blocked PCBs.\n");
                         puts("iii. Show All - Displays information about all PCBs.\n");
                         puts("ii. Test R3 - Opens the menu to manage the R3 test processes.\n");
-                        puts("iii. Yield - executes queued processes.\n");
+                        puts("ii. Alarms - Runs and sets appropriate alarms\n");
+                        //puts("iii. Yield - executes queued processes.\n");
                         puts("iii. Call R3 - Loads the test processes for R3.\n");
                         puts("i. Quit - Logs the user out.\n");
                 }
                 // Print out version number
                 else if (strcmp(buffer, "2") == 0)
                 {
-                        puts("\nVersion: 3.0 (now with frogs!)\n");
+                        puts("\nVersion: 4.0 (now with more frogs!)\n");
                 }
                 // Print out Date and Time Menu
                 else if (strcmp(buffer, "3") == 0)
@@ -612,15 +614,10 @@ void comhand(void)
                         sys_req(READ, COM1, confirm, 5);
                         if (strcmp(confirm, "1") == 0)
                         {
-                               // yield();
-                                continue;
-                        }
-                        if (strcmp(confirm, "2") == 0)
-                        {
                                 load_r3();
                                 continue;
                         }
-                            if (strcmp(confirm, "3") == 0)
+                            if (strcmp(confirm, "2") == 0)
                         {
                                 continue;
                         }
@@ -629,8 +626,32 @@ void comhand(void)
                                 puts("\nUnrecognized command.\n");
                         }
                 }
+                else if(strcmp(buffer, "6") == 0){
+                        //Alarm
+                        puts("Alarm Menu\n");
+                        puts("1)Create an Alarm\n2)Back\n");
+                        puts(">");
+                        // Confirm buffer
+                        char confirm[5] = {0};
+                        // Read in confirm
+                        sys_req(READ, COM1, confirm, 5);
+                        if (strcmp(confirm, "1") == 0)
+                        {
+                                create_alarm();
+                                continue;
+                        }
+                            if (strcmp(confirm, "2") == 0)
+                        {
+                                continue;
+                        }
+                        else
+                        {
+                                puts("\nUnrecognized command.\n");
+                        }
+
+                }
                 // Shutdown
-                else if (strcmp(buffer, "6") == 0)
+                else if (strcmp(buffer, "7") == 0)
                 {
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
