@@ -8,5 +8,6 @@ USER_OBJECTS=\
 	user/comhand.o\
 	user/dateAndTime.o\
 	user/ISRuser.o\
-	user/pcbuser.o
+	user/pcbuser.o\
+	user/alarm.o
 	
