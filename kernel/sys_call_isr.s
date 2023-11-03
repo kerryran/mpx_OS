@@ -10,6 +10,7 @@ sys_call_isr:
     push ECX
     push EBX
     push EAX
+    push ESP
 
 ; Push segment registers (DS, ES, FS, GS) in the reverse order
     push SS
@@ -31,6 +32,7 @@ sys_call_isr:
     pop SS
 
 ; Pop registers
+    add ESP, 4
     pop EAX
     pop EBX
     pop ECX
