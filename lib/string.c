@@ -90,11 +90,11 @@ char *strtok(char *restrict s1, const char *restrict s2)
 
 // Method for printing to console
 #define ANSI_COLOR_RED     "\x1B[31m"
-#define ANSI_COLOR_GREEN   "\x1B[32m"
+#define ANSI_COLOR_GREEN   "\x1B[38;5;112m "
 #define ANSI_COLOR_YELLOW  "\x1B[33m"
 #define ANSI_COLOR_RESET   "\x1B[0m"
 #define ANSI_COLOR_BLUE   "\x1B[34m"
-
+#define ANSI_CLEAR "\33c"
 // Function to write a string with specified color to the COM port
 void puts_color(char *string, const char *color) {
     // Set the text color using ANSI escape codes
@@ -110,6 +110,25 @@ void puts(char *string)
 void puts_cursor(char *string)
 {
 	puts_color(string, ANSI_COLOR_RESET );
+}
+void puts_clear(void){
+	sys_req(WRITE, COM1, ANSI_CLEAR, strlen(ANSI_CLEAR));
+	puts("   _____                               ___  ____   \n");
+	puts("  |  ___| __ ___   __ _  __ _ _   _   / _ \\/ ___|  \n");
+    puts("  | |_ | '__/ _ \\ / _` |/ _` | | | | | | | \\___ \\  \n");
+    puts("  |  _|| | | (_) | (_| | (_| | |_| | | |_| |___) | \n");
+    puts("  |_|  |_|  \\___/ \\__, |\\__, |\\__, |  \\___/|____/  \n");
+    puts("                  |___/ |___/ |___/                \n");
+    puts("      _    _          _    _          _    _\n");
+    puts("     (o)--(o)        (o)--(o)        (o)--(o)\n");
+    puts("    /.______.\\      /.______.\\      /.______.\\\n");
+    puts("    \\________/      \\________/      \\________/\n");
+    puts("   ./        \\.    ./        \\.    ./        \\.\n");
+    puts("  ( .        , )  ( .        , )  ( .        , )\n");
+    puts("   \\ \\_\\\\//_/ /    \\ \\_\\\\//_/ /    \\ \\_\\\\//_/ /\n");
+
+
+
 }
 
 // Method for concatenating two strings

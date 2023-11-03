@@ -39,10 +39,10 @@ void comhand(void)
 
         while (true)
         {
+                
                 // Main Menu Prompt
-                puts("\nMain Menu:\n");
-                puts("1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6) Alarms\n7) Quit\n");
-                puts("Enter a number to select:\n");
+                puts("\nMain Menu:");
+                puts("\n1) Help\n2) Version\n3) Date & Time\n4) Process\n5) Test R3\n6) Alarms\n7) Quit\n");
                 puts_cursor(">");
 
                 // Input buffer
@@ -54,6 +54,7 @@ void comhand(void)
                 // Print out help menu
                 if (strcmp(buffer, "1") == 0)
                 {
+                        puts_clear();
                         puts("\nCommands:\ni. Help - describes all the available commands.\n");
                         puts("i. Version - describes the operating system version.\n");
                         puts("i. Date & Time - Opens the date & time menu.\n");
@@ -83,11 +84,14 @@ void comhand(void)
                 // Print out version number
                 else if (strcmp(buffer, "2") == 0)
                 {
+                        puts_clear();
                         puts("\nVersion: 4.0 (now with more frogs!)\n");
+                        
                 }
                 // Print out Date and Time Menu
                 else if (strcmp(buffer, "3") == 0)
                 {
+                        puts_clear();
                         puts("\nDate & Time Menu:");
                         puts("\n1) Get Date\n2) Set Date\n3) Get Time\n4) Set Time\n5) Back\n");
                         puts_cursor(">");
@@ -99,6 +103,7 @@ void comhand(void)
                         // Print out: Get Date
                         if (strcmp(choice, "1") == 0)
                         {
+                                puts_clear();
                                 puts("The date is: ");
                                 get_date();
                         }
@@ -106,6 +111,7 @@ void comhand(void)
                         else if (strcmp(choice, "2") == 0)
                         {
                                 // Allow user to enter the year
+                                puts_clear();
                                 puts("\nEnter The Year:\n");
                                 puts_cursor(">");
                                 // Year buffer
@@ -117,6 +123,7 @@ void comhand(void)
                                 int year_valid = isNum(year);
                                 if (year_valid == 0)
                                 {
+                                        puts_clear();
                                         puts("\nInvalid date, Please select a new option");
                                         continue;
                                 }
@@ -126,6 +133,7 @@ void comhand(void)
                                 if ((y % 4) == 0 && (y % 100) != 0)
                                 {
                                         // Allow user to enter month
+                                        puts_clear();
                                         puts("\nEnter The Month:\n");
                                         puts_cursor(">");
                                         // Month buffer
@@ -137,6 +145,7 @@ void comhand(void)
                                         int month_valid = isNum(month);
                                         if (month_valid == 0)
                                         {
+                                                puts_clear();
                                                 puts("\nInvalid date, Please select a new option");
                                                 continue;
                                         }
@@ -145,6 +154,7 @@ void comhand(void)
                                         // Check if month is February
                                         if (m == 2)
                                         {
+                                                puts_clear();
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
                                                 puts_cursor(">");
@@ -157,6 +167,7 @@ void comhand(void)
                                                 int day_valid = isNum(day);
                                                 if (day_valid == 0)
                                                 {
+                                                        
                                                         puts("\nInvalid date, Please select a new option");
                                                         continue;
                                                 }
@@ -180,6 +191,7 @@ void comhand(void)
                                         // Check if month entered has 31 days
                                         else if ((m == 1) || (m == 3) || (m == 5) || (m == 7) || (m == 8) || (m == 10) || (m == 12))
                                         {
+                                                puts_clear();
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
                                                 puts_cursor(">");
@@ -208,6 +220,7 @@ void comhand(void)
                                         }
                                         else
                                         {
+                                                puts_clear();
                                                 // If here, the month must contain only 30 days
                                                 // Allow user to enter day
                                                 puts("\nEnter The Day:\n");
@@ -238,6 +251,7 @@ void comhand(void)
                                 }
                                 else
                                 {
+                                        puts_clear();
                                         // If here, the year is not a Leap Year
                                         // Allow user to enter the month
                                         puts("\nEnter The Month:\n");
@@ -259,6 +273,7 @@ void comhand(void)
                                         // Check if month is February
                                         if (m == 2)
                                         {
+                                                puts_clear();
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
                                                 puts_cursor(">");
@@ -294,6 +309,7 @@ void comhand(void)
                                         // Check if month has 31 days
                                         else if ((m == 1) || (m == 3) || (m == 5) || (m == 7) || (m == 8) || (m == 10) || (m == 12))
                                         {
+                                                puts_clear();
                                                 // Allow user to enter the day
                                                 puts("\nEnter The Day:\n");
                                                 puts_cursor(">");
@@ -322,6 +338,7 @@ void comhand(void)
                                         }
                                         else
                                         {
+                                                puts_clear();
                                                 // If here, month must have 30 days
                                                 // Allow user to enter day
                                                 puts("\nEnter The Day:\n");
@@ -354,6 +371,7 @@ void comhand(void)
                         // Print out: Get Time
                         else if (strcmp(choice, "3") == 0)
                         {
+                                puts_clear();
                                 // Display time in UTC time zone
                                 puts("The time in UTC is: ");
                                 get_time();
@@ -361,6 +379,7 @@ void comhand(void)
                         // Allow user to set the time
                         else if (strcmp(choice, "4") == 0)
                         {
+                                puts_clear();
                                 // 24-hour time
                                 puts("\nUse 24 hr formating for the following entries:\n");
                                 // Allow user to enter the hour
@@ -387,6 +406,7 @@ void comhand(void)
                                         continue;
                                 }
                                 // Allow user to enter the minutes
+                                puts_clear();
                                 puts("\nEnter The Minutes:\n");
                                 puts_cursor(">");
                                 // Minute buffer
@@ -409,6 +429,7 @@ void comhand(void)
                                         continue;
                                 }
                                 // Allow user to enter the seconds
+                                puts_clear();
                                 puts("\nEnter The Seconds:\n");
                                 puts_cursor(">");
                                 // Second buffer
@@ -435,11 +456,14 @@ void comhand(void)
                         }
                         // Go Back
                         else if (strcmp(choice, "5") == 0)
-                        {
+                        {       
+                                puts_clear();
                                 continue;
                         }
                         else
                         {
+
+                                puts_clear();
                                 puts("\nUnrecognized command.\n");
                         }
                 }
@@ -447,6 +471,7 @@ void comhand(void)
 
                 else if (strcmp(buffer, "4") == 0)
                 {
+                        puts_clear();
                         puts("\nPCB Menu");
                         puts("\n1) Manage\n2) View\n3) Back\n");
                         puts_cursor(">");
@@ -457,6 +482,7 @@ void comhand(void)
 
                         if (strcmp(choice, "1") == 0)
                         {
+                                puts_clear();
                                 puts("\nManage PCB Menu:");
                                 puts("\n1) Delete PCB\n2) Block PCB\n3) Unblock PCB\n4) Suspend PCB\n5) Resume PCB\n6) Set PCB Priority\n7) Back\n");
 
@@ -468,6 +494,7 @@ void comhand(void)
                                 if (strcmp(choice, "1") == 0)
                                 {
                                         // Delete Pcb Menu
+                                        puts_clear();
                                         puts("\nEnter PCB Name:");
                                         // required for UI
                                         puts("\n>");
@@ -483,6 +510,7 @@ void comhand(void)
                                 else if (strcmp(choice, "2") == 0)
                                 {
                                         // Block Pcb Menu
+                                        puts_clear();
                                         puts("\nEnter PCB to Block:");
                                         // required for UI
                                         puts("\n>");
@@ -497,6 +525,7 @@ void comhand(void)
                                 else if (strcmp(choice, "3") == 0)
                                 {
                                         // Block Pcb Menu
+                                        puts_clear();
                                         puts("\nEnter PCB to Unblock:");
                                         // required for UI
                                         puts("\n>");
@@ -512,6 +541,7 @@ void comhand(void)
                                 else if (strcmp(choice, "4") == 0)
                                 {
                                         // Suspend Pcb Menu
+                                        puts_clear();
                                         puts("\nType PCB to Suspend:");
                                         // required for UI
                                         puts("\n>");
@@ -527,6 +557,7 @@ void comhand(void)
                                 else if (strcmp(choice, "5") == 0)
                                 {
                                         // Resume Pcb Menu
+                                        puts_clear();
                                         puts("\nType PCB to Resume:");
                                         // required for UI
                                         puts("\n>");
@@ -542,8 +573,10 @@ void comhand(void)
                                 else if (strcmp(choice, "6") == 0)
                                 {
                                         // Change Pcb Priority Menu
+                                        puts_clear();
                                         puts("\nChoose PCB to Change Priority:");
                                         // Choices Go Here
+                                        puts_clear();
                                         puts("\nType PCB Name:");
                                         // required for UI
                                         puts("\n>");
@@ -552,6 +585,7 @@ void comhand(void)
                                         // Read from the buffer
                                         yield();
                                         sys_req(READ, COM1, choice, 9);
+                                        puts_clear();
 
                                         puts("\nType PCB Priority:");
                                         // init choice buffer
@@ -564,6 +598,7 @@ void comhand(void)
                                         int priority_valid = isNum(priority);
                                         if (priority_valid == 0)
                                         {
+                                                
                                                 puts("\nInvalid");
                                                 continue;
                                         }
@@ -574,9 +609,15 @@ void comhand(void)
                                         // uncomment when made
                                         set_priority(choice, priorityInt);
                                 }
+                                        else if (strcmp(choice, "7") == 0)
+                                {
+                                        puts_clear();
+                                        continue;
+                                }
                         }
                         else if (strcmp(choice, "2") == 0)
                         {
+                                puts_clear();
                                 puts("\nView PCB Menu:");
                                 puts("\n1) Show PCB\n2) Show Ready\n3) Show Blocked\n4) Show All\n5) Back\n");
                                 puts_cursor(">");
@@ -587,6 +628,7 @@ void comhand(void)
 
                                 if (strcmp(choice, "1") == 0)
                                 {
+                                        puts_clear();
                                         // Show Pcb Menu
                                         puts("\nEnter PCB to Show:");
                                         // required for UI
@@ -601,36 +643,44 @@ void comhand(void)
                                 }
                                 else if (strcmp(choice, "2") == 0)
                                 {
+                                        puts_clear();
                                         show_ready();
                                 }
                                 else if (strcmp(choice, "3") == 0)
                                 {
+                                        puts_clear();
                                         show_blocked();
                                 }
                                 else if (strcmp(choice, "4") == 0)
                                 {
+                                        puts_clear();
                                         show_all();
                                 }
                                 else if (strcmp(choice, "5") == 0)
                                 {
+                                        puts_clear();
                                         continue;
                                 }
                                 else
                                 {
-                                        puts("\nUnrecognized command.\n");
+                                        puts_clear();
+                                puts("\nUnrecognized command.\n");
                                 }
                         }
                         else if (strcmp(choice, "3") == 0)
                         {
+                                puts_clear();
                                 continue;
                         }
                         else
                         {
+                                puts_clear();
                                 puts("\nUnrecognized command.\n");
                         }
                 }
                 else if (strcmp(buffer, "5") == 0)
                 {
+                        puts_clear();
                         puts("\nTest R3 Menu\n");
                         puts("1) Load R3\n2) Back\n");
                         puts_cursor(">");
@@ -646,15 +696,18 @@ void comhand(void)
                         }
                             if (strcmp(confirm, "3") == 0)
                         {
+                                puts_clear();
                                 continue;
                         }
                         else
                         {
+                                puts_clear();
                                 puts("\nUnrecognized command.\n");
                         }
                 }
                 else if(strcmp(buffer, "6") == 0){
                         //Alarm
+                        puts_clear();
                         puts("Alarm Menu\n");
                         puts("1)Create an Alarm\n2)Show Alarms\n3)Back\n");
                         puts_cursor(">");
@@ -668,21 +721,25 @@ void comhand(void)
                                 alarm_process();
                                 alarm *new_alarm = create_alarm();
                                 check_alarm(new_alarm);
+                                puts_clear();
                                 continue;
                         }
                             if (strcmp(confirm, "2") == 0)
                         {
                                 alarm_process();
                                 show_alarms();
+                                puts_clear();
                                 continue;
                         }
                          if (strcmp(confirm, "3") == 0)
                         {
-                                
+                                puts_clear();
                                 continue;
                         }
                         else
                         {
+                                
+                                puts_clear();
                                 puts("\nUnrecognized command.\n");
                         }
 
@@ -690,6 +747,7 @@ void comhand(void)
                 // Shutdown
                 else if (strcmp(buffer, "7") == 0)
                 {
+                        puts_clear();
                         puts("\nAre you sure you want to shutdown?\n");
                         puts("1) Confirm\nAny-Key) Cancel\n");
                         puts_cursor(">");
@@ -706,6 +764,7 @@ void comhand(void)
                         }
                         else
                         {
+                                puts_clear();
                                 puts("\nCanceled Shutdown...\n");
                                 continue;
                         }
@@ -713,7 +772,8 @@ void comhand(void)
                 
                 else
                 {
-                        puts("\nUnrecognized command.\n");
+                        puts_clear();
+                                puts("\nUnrecognized command.\n");
                 }
         }
 }
