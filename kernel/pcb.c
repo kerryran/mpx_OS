@@ -59,6 +59,7 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     new_pcb->class = class;
     new_pcb->priority = priority;
+    new_pcb->next = NULL;
 
     // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
@@ -256,7 +257,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = ready_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr)!= 0)
             {
                 prev = current;
                 current = current->next;
@@ -397,6 +398,7 @@ int pcb_remove(struct pcb *pcb)
                     suspended_blocked_head = current->next;
                     return 0;
                 }
+                pcb->next = NULL;
             }
         }
     }
