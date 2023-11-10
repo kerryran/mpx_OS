@@ -42,12 +42,12 @@ void load_r3(){
         context1->GS = (unsigned int)0x10;   
         context1->SS = (unsigned int)0x10;  
         //Registers
+        context1->ESP = (unsigned int) pcb1->stack_ptr;
         context1->EBP = (unsigned int) pcb1->stack;
         context1->EAX = (unsigned int) 0x00; 
         context1->EBX = (unsigned int) 0x00; 
         context1->ECX = (unsigned int) 0x00; 
         context1->EDX = (unsigned int) 0x00; 
-        context1->EBP = (unsigned int) 0x00; 
         context1->ESI = (unsigned int) 0x00; 
         context1->EDI = (unsigned int) 0x00; 
         //Flags
@@ -80,12 +80,12 @@ void load_r3(){
         context2->GS = (unsigned int)0x10;   
         context2->SS = (unsigned int)0x10;  
         //Registers
+        context2->ESP = (unsigned int) pcb->stack_ptr;
         context2->EBP = (unsigned int) pcb->stack;
         context2->EAX = (unsigned int) 0x00; 
         context2->EBX = (unsigned int) 0x00; 
         context2->ECX = (unsigned int) 0x00; 
-        context2->EDX = (unsigned int) 0x00; 
-        context2->EBP = (unsigned int) 0x00; 
+        context2->EDX = (unsigned int) 0x00;  
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
@@ -117,12 +117,12 @@ void load_r3(){
         context2->GS = (unsigned int)0x10;   
         context2->SS = (unsigned int)0x10;  
         //Registers
+        context2->ESP = (unsigned int) pcb->stack_ptr;
         context2->EBP = (unsigned int) pcb->stack;
         context2->EAX = (unsigned int) 0x00; 
         context2->EBX = (unsigned int) 0x00; 
         context2->ECX = (unsigned int) 0x00; 
         context2->EDX = (unsigned int) 0x00; 
-        context2->EBP = (unsigned int) 0x00; 
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
@@ -154,12 +154,12 @@ void load_r3(){
         context2->GS = (unsigned int)0x10;   
         context2->SS = (unsigned int)0x10;  
         //Registers
+        context2->ESP = (unsigned int) pcb->stack_ptr;
         context2->EBP = (unsigned int) pcb->stack;
         context2->EAX = (unsigned int) 0x00; 
         context2->EBX = (unsigned int) 0x00; 
         context2->ECX = (unsigned int) 0x00; 
-        context2->EDX = (unsigned int) 0x00; 
-        context2->EBP = (unsigned int) 0x00; 
+        context2->EDX = (unsigned int) 0x00;  
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags
@@ -191,12 +191,12 @@ void load_r3(){
         context2->GS = (unsigned int)0x10;   
         context2->SS = (unsigned int)0x10;  
         //Registers
+        context2->ESP = (unsigned int) pcb->stack_ptr;
         context2->EBP = (unsigned int) pcb->stack;
         context2->EAX = (unsigned int) 0x00; 
         context2->EBX = (unsigned int) 0x00; 
         context2->ECX = (unsigned int) 0x00; 
         context2->EDX = (unsigned int) 0x00; 
-        context2->EBP = (unsigned int) 0x00; 
         context2->ESI = (unsigned int) 0x00; 
         context2->EDI = (unsigned int) 0x00; 
         //Flags

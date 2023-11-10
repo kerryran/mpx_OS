@@ -16,9 +16,7 @@ struct pcb *pcb_allocate(void)
     // need to check if this acctually allocates, if not return NULL
     pcb *some_pcb = sys_alloc_mem(sizeof(*some_pcb));
 
-    some_pcb->name_ptr = sys_alloc_mem(sizeof(some_pcb->name_ptr));
-
-    if (some_pcb == NULL || some_pcb->name_ptr == NULL)
+    if (some_pcb == NULL)
     {
         puts("Unable to allocate memory");
         return NULL;
@@ -30,11 +28,10 @@ struct pcb *pcb_allocate(void)
 // Free all memory associated with a PCB, including the stack
 int pcb_free(struct pcb *pcb)
 {
-    int free = sys_free_mem((char *)(pcb->name_ptr));
 
     int free_pcb = sys_free_mem(pcb);
 
-    if (free == 0 && free_pcb == 0)
+    if (free_pcb == 0)
     {
         // successful free
         return 0;
@@ -137,7 +134,7 @@ void pcb_insert(struct pcb *pcb)
     if (pcb->dispatch == 3 && pcb->execute == 0)
     {
         // Case 1: Head is NULL and Case 2: pcb priority is lower than head
-        if (ready_head == NULL || pcb->priority > ready_head->priority)
+        if (ready_head == NULL || pcb->priority < ready_head->priority)
         {
             // Insert at beginning
             pcb->next = ready_head;
@@ -149,7 +146,7 @@ void pcb_insert(struct pcb *pcb)
             // Traverse the list to find the proper position
             struct pcb *current = ready_head;
 
-            while (current->next != NULL && current->next->priority >= pcb->priority)
+            while (current->next != NULL && current->next->priority <= pcb->priority)
             {
                 current = current->next;
             }
@@ -162,7 +159,7 @@ void pcb_insert(struct pcb *pcb)
     else if (pcb->dispatch == 4 && pcb->execute == 0)
     {
         // Case 1: Head is NULL and Case 2: pcb priority is lower than head
-        if (suspended_ready_head == NULL || pcb->priority > suspended_ready_head->priority)
+        if (suspended_ready_head == NULL || pcb->priority < suspended_ready_head->priority)
         {
             // Insert at beginning
             pcb->next = suspended_ready_head;
@@ -174,7 +171,7 @@ void pcb_insert(struct pcb *pcb)
             // Traverse the list to find the proper position
             struct pcb *current = suspended_ready_head;
 
-            while (current->next != NULL && current->next->priority >= pcb->priority)
+            while (current->next != NULL && current->next->priority <= pcb->priority)
             {
                 current = current->next;
             }
@@ -187,10 +184,10 @@ void pcb_insert(struct pcb *pcb)
     else if (pcb->dispatch == 3 && pcb->execute == 1)
     {
         // Case 1: Head is NULL and Case 2: pcb priority is lower than head
-        if (blocked_head == NULL || pcb->priority > blocked_head->priority)
+        if (blocked_head == NULL || pcb->priority < blocked_head->priority)
         {
             // Case 1: Head is NULL
-            if (blocked_head == NULL || pcb->priority > blocked_head->priority)
+            if (blocked_head == NULL || pcb->priority < blocked_head->priority)
             {
                 // The list is empty and this pcb is the head
                 blocked_head = pcb;
@@ -200,7 +197,7 @@ void pcb_insert(struct pcb *pcb)
             {
                 // Traverse to the end of the list
                 struct pcb *current = blocked_head;
-                while (current->next != NULL && current->next->priority >= pcb->priority && current->next->priority >= pcb->priority)
+                while (current->next != NULL && current->next->priority <= pcb->priority && current->next->priority <= pcb->priority)
                 {
                     current = current->next;
                 }
@@ -213,7 +210,7 @@ void pcb_insert(struct pcb *pcb)
     else if (pcb->dispatch == 4 && pcb->execute == 1)
     {
         // Case 1: Head is NULL
-        if (suspended_blocked_head == NULL || pcb->priority > suspended_blocked_head->priority || pcb->priority > suspended_blocked_head->priority)
+        if (suspended_blocked_head == NULL || pcb->priority < suspended_blocked_head->priority || pcb->priority < suspended_blocked_head->priority)
         {
             // The list is empty and this pcb is the head
             suspended_blocked_head = pcb;
@@ -223,7 +220,7 @@ void pcb_insert(struct pcb *pcb)
         {
             // Traverse to the end of the list
             struct pcb *current = suspended_blocked_head;
-            while (current->next != NULL && current->next->priority >= pcb->priority && current->next->priority >= pcb->priority)
+            while (current->next != NULL && current->next->priority <= pcb->priority && current->next->priority <= pcb->priority)
             {
                 current = current->next;
             }
