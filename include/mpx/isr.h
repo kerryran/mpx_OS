@@ -10,6 +10,7 @@ typedef struct context
     int GS;
     int SS;
     //registers
+    int ESP;
     int EAX;
     int EBX;
     int ECX;

@@ -16,9 +16,7 @@ struct pcb *pcb_allocate(void)
     // need to check if this acctually allocates, if not return NULL
     pcb *some_pcb = sys_alloc_mem(sizeof(*some_pcb));
 
-    some_pcb->name_ptr = sys_alloc_mem(sizeof(some_pcb->name_ptr));
-
-    if (some_pcb == NULL || some_pcb->name_ptr == NULL)
+    if (some_pcb == NULL)
     {
         puts("Unable to allocate memory");
         return NULL;
@@ -30,11 +28,10 @@ struct pcb *pcb_allocate(void)
 // Free all memory associated with a PCB, including the stack
 int pcb_free(struct pcb *pcb)
 {
-    int free = sys_free_mem((char *)(pcb->name_ptr));
 
     int free_pcb = sys_free_mem(pcb);
 
-    if (free == 0 && free_pcb == 0)
+    if (free_pcb == 0)
     {
         // successful free
         return 0;
@@ -59,6 +56,7 @@ struct pcb *pcb_setup(const char *name, int class, int priority)
 
     new_pcb->class = class;
     new_pcb->priority = priority;
+    new_pcb->next = NULL;
 
     // Set states to READY and NOT_SUSPENDED
     new_pcb->execute = READY;
@@ -256,7 +254,7 @@ int pcb_remove(struct pcb *pcb)
             struct pcb *current = ready_head;
             struct pcb *prev = NULL;
 
-            while (current != NULL && strcmp(current->name_arr, pcb->name_arr))
+            while (current != NULL && strcmp(current->name_arr, pcb->name_arr)!= 0)
             {
                 prev = current;
                 current = current->next;
@@ -397,6 +395,7 @@ int pcb_remove(struct pcb *pcb)
                     suspended_blocked_head = current->next;
                     return 0;
                 }
+                pcb->next = NULL;
             }
         }
     }
