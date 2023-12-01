@@ -53,6 +53,30 @@ struct context *sys_call(struct context *cont)
 
         }
     }
+    //uncomment as implemented
+    //READ or WRITE
+    // else if( cont->EAX == READ || cont->EAX == WRITE){
+    //     //if device is not in use, call serial_read() or serial_write()
+    //     //if it is, schedule the request using the I/O scheduler
+
+    //     //Save the first context< leftover from above
+    //     if( first_context == NULL){
+    //         first_context = cont;
+    //     }
+
+    //     //READ
+    //     if (cont->EAX == READ) {
+    //        //handle read
+    //         return cont;
+    //     }
+    //     //WRITE
+    //     else {
+    //         //handle write
+    //         return cont;
+    // }
+
+
+    // }
     //Unrecognized op code
     else {
         cont->EAX = -1;
