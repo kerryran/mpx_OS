@@ -16,19 +16,19 @@ void serial_output_interrupt(struct dcb *dcb);
 
 typedef struct dcb
 {
-    int flag;
-    int *event_flag;
-	int status;//IDLE or READING orWRITING
-    int *address_in;
-    int *count_in;
+    int flag; // A flag indicating whether the port is open;
+    int *event_flag; //The event flag – Set to 0 at the beginning of an operation, and set to 1 to indicate when the operation is complete
+	int status;//IDLE or READING or WRITING
+    int *address_in;//Addresses and counters associated with the current input buffer
+    int *count_in;//Addresses and counters associated with the current input buffer
     int placed_in;
-    char *address_out;
-    int count_out;
-    int placed_out;
-    char ring_buffer[RING_BUFFER_SIZE];
-    int ring_buffer_in;
-    int ring_buffer_count;
-    int ring_buffer_out;
+    char *address_out;//Addresses and counters associated with the current output buffe
+    int count_out;//Addresses and counters associated with the current output buffe
+    int placed_out;//Addresses and counters associated with the current output buffe
+    char ring_buffer[RING_BUFFER_SIZE];//An array to be used as the input ring buffer, with associated input index, output index, and counte
+    int ring_buffer_in;//An array to be used as the input ring buffer, with associated input index, output index, and counte
+    int ring_buffer_count;//An array to be used as the input ring buffer, with associated input index, output index, and counte
+    int ring_buffer_out;//An array to be used as the input ring buffer, with associated input index, output index, and counte
 } dcb;
 
 #define calcBaudRate(x) (115200 / (long) x)
